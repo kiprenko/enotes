@@ -1,2 +1,3 @@
-# github-demo
-My demo repository to learn the basic Git workflow.
+# e-notes-repository
+My education project.
+
