@@ -1,11 +1,10 @@
 package enotes;
 
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 @Component
-@Profile("default, english")
+@Profile({"default", "english"})
 public class LetterImpl implements Letter {
 
     private String text = "Super secret text of a letter";
