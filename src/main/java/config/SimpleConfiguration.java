@@ -1,8 +1,10 @@
 package config;
 
-import enotes.Letter;
-import enotes.LetterImpl;
-import enotes.SpanishLetter;
+import enotes.letter.Letter;
+import enotes.letter.LetterImpl;
+import enotes.letter.SpanishLetter;
+import enotes.postman.Postman;
+import enotes.postman.PostmanImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -20,5 +22,10 @@ public class SimpleConfiguration {
     @Profile("spanish")
     public Letter spanishLetter() {
         return new SpanishLetter();
+    }
+
+    @Bean
+    public Postman postman(Letter letter) {
+        return new PostmanImpl(letter);
     }
 }

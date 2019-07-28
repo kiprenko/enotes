@@ -1,4 +1,4 @@
-package enotes;
+package enotes.letter;
 
 public interface Letter {
 

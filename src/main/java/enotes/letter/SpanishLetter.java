@@ -1,4 +1,4 @@
-package enotes;
+package enotes.letter;
 
 public class SpanishLetter implements Letter {
 
