@@ -15,7 +15,7 @@ import org.springframework.context.annotation.PropertySource;
 public class SimpleConfiguration {
 
     @Bean
-    @Profile({"default", "english"})
+    @Profile("english")
     public Letter letterImpl() {
         return new LetterImpl();
     }
@@ -28,6 +28,8 @@ public class SimpleConfiguration {
 
     @Bean
     public Postman postman(Letter letter) {
-        return new PostmanImpl(letter);
+        PostmanImpl postman = new PostmanImpl();
+        postman.setLetter(letter);
+        return postman;
     }
 }

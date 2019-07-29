@@ -6,7 +6,7 @@ public class PostmanImpl implements Postman {
 
     private Letter letter;
 
-    public PostmanImpl(Letter letter) {
+    public void setLetter(Letter letter) {
         this.letter = letter;
     }
 
