@@ -3,8 +3,6 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <beans profile="english">
-        <bean id="letterDefault" class="enotes.letter.EnglishLetter"/>
-    </beans>
+    <bean id="letterDefault" class="enotes.letter.EnglishLetter" primary="true"/>
 
 </beans>
