@@ -4,14 +4,30 @@ import enotes.letter.Letter;
 
 public class PostmanImpl implements Postman {
 
-    private Letter letter;
+    private Letter defaultLetter;
+    private Letter ukrainianLetter;
+    private Letter frenchLetter;
 
-    public void setLetter(Letter letter) {
-        this.letter = letter;
+    public void setUkrainianLetter(Letter ukrainianLetter)
+    {
+        this.ukrainianLetter = ukrainianLetter;
+    }
+
+    public void setFrenchLetter(Letter frenchLetter)
+    {
+        this.frenchLetter = frenchLetter;
+    }
+
+    public void setDefaultLetter(Letter defaultLetter) {
+        this.defaultLetter = defaultLetter;
     }
 
     @Override
-    public void readLetter() {
-        System.out.println(letter.getText());
+    public void readLetters() {
+        System.out.println(defaultLetter.getText());
+        System.out.println("=================");
+        System.out.println(ukrainianLetter.getText());
+        System.out.println("=================");
+        System.out.println(frenchLetter.getText());
     }
 }

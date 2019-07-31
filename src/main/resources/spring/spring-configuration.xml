@@ -4,15 +4,11 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
 
+    <import resource="letter-spring-configuration.xml"/>
+
     <bean id="postman" class="enotes.postman.PostmanImpl">
-        <property name="letter" ref="letterDefault"/>
+        <property name="defaultLetter" ref="letterDefault"/>
+        <property name="frenchLetter" ref="frenchLetter"/>
+        <property name="ukrainianLetter" ref="ukrainianLetter"/>
     </bean>
-
-    <beans profile="spanish">
-        <bean id="letterDefault" class="enotes.letter.SpanishLetter"/>
-    </beans>
-
-    <beans profile="english">
-        <bean id="letterDefault" class="enotes.letter.LetterImpl"/>
-    </beans>
 </beans>
