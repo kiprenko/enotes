@@ -4,20 +4,19 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("classpath*:spring/spanish-spring-configuration.xml")
-public class SpanishLetterProfileTest
+@ContextConfiguration("classpath:/spring/english-spring-configuration.xml")
+public class EnglishLetterProfileTest
 {
-    @Autowired
-    private Letter spanishLetter;
+    private Letter englishLetter;
+    private final String ENGLISH_LETTER_TEXT = "Super secret text of a letter";
 
     @Test
-    public void shouldReturnSpanishLetterText() {
+    public void shouldReturnEnglishLetterText() {
         String SPANISH_LETTER_TEXT = "Texto super secreto de una carta";
-        assertEquals(SPANISH_LETTER_TEXT, spanishLetter.getText());
+        assertEquals(SPANISH_LETTER_TEXT, englishLetter.getText());
     }
 }

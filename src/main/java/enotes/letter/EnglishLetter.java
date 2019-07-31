@@ -1,6 +1,6 @@
 package enotes.letter;
 
-public class LetterImpl implements Letter {
+public class EnglishLetter implements Letter {
 
     private String text = "Super secret text of a letter";
 

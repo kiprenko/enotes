@@ -4,7 +4,7 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <beans profile="english">
-        <bean id="letterDefault" class="enotes.letter.LetterImpl"/>
+        <bean id="letterDefault" class="enotes.letter.EnglishLetter"/>
     </beans>
 
 </beans>
