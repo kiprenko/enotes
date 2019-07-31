@@ -9,8 +9,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:/spring/english-spring-configuration.xml")
-public class EnglishLetterProfileTest
-{
+public class EnglishLetterProfileTest {
     private Letter englishLetter;
     private final String ENGLISH_LETTER_TEXT = "Super secret text of a letter";
 

@@ -8,13 +8,11 @@ public class PostmanImpl implements Postman {
     private Letter ukrainianLetter;
     private Letter frenchLetter;
 
-    public void setUkrainianLetter(Letter ukrainianLetter)
-    {
+    public void setUkrainianLetter(Letter ukrainianLetter) {
         this.ukrainianLetter = ukrainianLetter;
     }
 
-    public void setFrenchLetter(Letter frenchLetter)
-    {
+    public void setFrenchLetter(Letter frenchLetter) {
         this.frenchLetter = frenchLetter;
     }
 
