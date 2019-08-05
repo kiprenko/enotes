@@ -5,6 +5,6 @@ import enotes.entity.user.User;
 import java.io.Serializable;
 
 public class Comment implements Serializable {
-    String text;
-    User author;
+    private String text;
+    private User user;
 }

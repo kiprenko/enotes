@@ -1,5 +1,7 @@
 package enotes.entity.note;
 
+import enotes.entity.comment.Comment;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -7,7 +9,7 @@ import java.util.List;
 public class Note implements Serializable {
     private String header;
     private String Text;
-    private List<String> comments; //TODO replace Strings by Comment Beans
+    private List<Comment> comments; //TODO replace Strings by Comment Beans
     private NoteState state;
     private String author;
 }
