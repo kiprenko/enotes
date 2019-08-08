@@ -1,14 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Index</title>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+
+    <title>Spring Core Online Tutorial</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.4/css/bootstrap.min.css"
+          th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}"
+          rel="stylesheet" media="screen"/>
+
+    <script src="http://cdn.jsdelivr.net/webjars/jquery/2.1.4/jquery.min.js"
+            th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+
+    <link href="../static/css/main.css"
+          th:href="@{css/main.css}" rel="stylesheet" media="screen"/>
 </head>
 <body>
 <div class="container">
-    <h3>Good afternoon!</h3>
-    <p>Its rainy today, keep your feet dry and warm!</p>
-    <button type="button" class="btn btn-primary btn-lg">Large</button>
+    <div th:if="${note != null}">
+        <div class="d-block p-2 bg-primary text-white" th:text="${note.header}"></div>
+        <div class="d-block p-2 bg-dark text-white" th:text="${note.text}"></div>
+    </div>
 </div>
 </body>
 </html>

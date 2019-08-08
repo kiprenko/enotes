@@ -1,4 +1,4 @@
-package enotes.service;
+package com.enotes.service;
 
 public interface CommentService {
 }
