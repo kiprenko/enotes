@@ -5,13 +5,13 @@ public enum NoteState {
     MIDDLE("Middle"),
     LOW("Low");
 
-    private String state;
+    private String stateAsString;
 
     NoteState(String state) {
-        this.state = state;
+        this.stateAsString = state;
     }
 
-    public String getState() {
-        return state;
+    public String getStateAsString() {
+        return stateAsString;
     }
 }
