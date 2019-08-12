@@ -1,4 +1,4 @@
-package com.enotes.entity.user;
+package com.enotes.user;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

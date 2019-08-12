@@ -18,8 +18,23 @@
 <body>
 <div class="container">
     <div th:if="${note != null}">
-        <div class="d-block p-2 bg-primary text-white" th:text="${note.header}"></div>
-        <div class="d-block p-2 bg-dark text-white" th:text="${note.text}"></div>
+        <div class="panel panel-default">
+            <div class="panel-heading d-inline" th:text="${note.header}"></div>
+            <th:block th:switch="${note.state.state}">
+
+                <div th:case="'High'">
+                    <div class="panel-heading d-inline text-danger " th:text="${note.state.state}"></div>
+                </div>
+                <div th:case="'Middle'">
+                    <div class="panel-heading d-inline text-warning" th:text="${note.state.state}"></div>
+                </div>
+                <div th:case="'Low'">
+                    <div class="panel-heading d-inline text-success" th:text="${note.state.state}"></div>
+                </div>
+
+            </th:block>
+            <div class="panel-body bg-light" th:text="${note.text}"></div>
+        </div>
     </div>
 </div>
 </body>

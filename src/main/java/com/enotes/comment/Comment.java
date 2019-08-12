@@ -1,6 +1,6 @@
-package com.enotes.entity.comment;
+package com.enotes.comment;
 
-import com.enotes.entity.user.User;
+import com.enotes.user.User;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

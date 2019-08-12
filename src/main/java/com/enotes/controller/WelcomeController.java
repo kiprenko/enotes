@@ -1,13 +1,13 @@
 package com.enotes.controller;
 
-import com.enotes.entity.note.Note;
-import com.enotes.entity.note.NoteState;
+import com.enotes.note.Note;
+import com.enotes.note.NoteState;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class MainController {
+public class WelcomeController {
 
     @RequestMapping("/")
     public String index(Model model) {
