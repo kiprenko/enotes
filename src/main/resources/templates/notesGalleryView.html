@@ -21,7 +21,6 @@
     <h1 class="font-weight-light text-center text-lg-left mt-4 mb-0">Your notes</h1>
 
     <hr class="mt-2 mb-5">
-
     <div class="row text-center text-lg-left" id="gallery">
         <th:block th:each="note : ${notes}">
             <div class="border-left  col-lg-3 col-md-4 col-6 m-3">
@@ -35,6 +34,11 @@
             </div>
         </th:block>
     </div>
+    <div class="float-sm-right">
+        <p>Back to welcome page:</p>
+        <a href="/welcome">
+            <button type="button" class="btn btn-secondary float-sm-right">Back</button>
+        </a></div>
 </div>
 </body>
 </html>
