@@ -18,7 +18,7 @@ public class WelcomeController {
 
     @RequestMapping("/")
     public String index(Model model) {
-        log.info("Gotcha!");
+        LOGGER.info("Gotcha!");
         Note note = new Note();
         note.setState(NoteState.HIGH);
         note.setText("Very important text, VERY!");
@@ -57,7 +57,7 @@ public class WelcomeController {
         notes.add(note4);
         notes.add(note5);
         model.addAttribute("notes", notes);
-        log.info("Response was sent!");
+        LOGGER.info("request was sent");
         return "index.html";
     }
 }
