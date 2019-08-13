@@ -1,12 +1,13 @@
 package com.enotes.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import com.enotes.note.Note;
+import com.enotes.note.service.NoteService;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -15,16 +16,25 @@ import lombok.extern.log4j.Log4j2;
 @Controller
 public class NotesCrudController {
 
+    private NoteService noteService;
+
+    @Autowired
+    public void setNoteService(NoteService noteService)
+    {
+        this.noteService = noteService;
+    }
+
     @RequestMapping(value = "/new", method = RequestMethod.GET)
     public String createNewNote(Model model) {
         LOGGER.info("Create page joined");
         model.addAttribute(model);
-        return "notecrud/createNewNote.html";
+        return "noteCrud/createNewNote.html";
     }
 
     @RequestMapping("/{id}")
-    public String viewNote(@RequestParam Integer id){
-        //get Note from DB using id;
-        return "viewNote.html";
+    public String viewNote(@PathVariable
+                               Long id, Model model){
+        model.addAttribute(noteService.get(id));
+        return "noteCrud/viewNote.html";
     }
 }

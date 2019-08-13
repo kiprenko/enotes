@@ -31,7 +31,9 @@
                     <div th:case="'Low'" class="panel-heading d-inline text-success" th:text="${note.state.stateAsString}"></div>
                 </th:block>
                 <div class="panel-body bg-light" th:text="${note.text}"></div>
-<!--                add here link to view the specific note (in the page you can change your note-->
+                <div class="panel-body bg-light" >
+                    <a th:href="${'/note/' + note.id}">View</a>
+                </div>
             </div>
         </th:block>
     </div>
@@ -39,7 +41,8 @@
         <p>Back to welcome page:</p>
         <a href="/welcome">
             <button type="button" class="btn btn-secondary float-sm-right">Back</button>
-        </a></div>
+        </a>
+    </div>
 </div>
 </body>
 </html>

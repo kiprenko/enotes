@@ -17,12 +17,10 @@ import lombok.extern.log4j.Log4j2;
 
 @Log4j2
 @Controller
-public class NotesGalleryViewController
-{
-
-    @Autowired
+public class NotesGalleryViewController {
     private NoteService noteService;
 
+    @Autowired
     public void setNoteService(NoteService noteService)
     {
         this.noteService = noteService;

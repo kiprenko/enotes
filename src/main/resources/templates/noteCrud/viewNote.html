@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+
+    <title>View note</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.4/css/bootstrap.min.css"
+          th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}"
+          rel="stylesheet" media="screen"/>
+
+    <script src="http://cdn.jsdelivr.net/webjars/jquery/2.1.4/jquery.min.js"
+            th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+
+    <link href="../static/css/main.css"
+          th:href="@{css/main.css}" rel="stylesheet" media="screen"/>
+</head>
+<body>
+    <div class="container">
+        <div class="border-left  col-lg-3 col-md-4 col-6 m-3">
+            <div class="panel-heading d-inline" th:text="${note.header}"></div>
+            <th:block th:switch="${note.state.stateAsString}">
+                <div th:case="'High'" class="panel-heading d-inline text-danger " th:text="${note.state.stateAsString}"></div>
+                <div th:case="'Middle'" class="panel-heading d-inline text-warning" th:text="${note.state.stateAsString}"></div>
+                <div th:case="'Low'" class="panel-heading d-inline text-success" th:text="${note.state.stateAsString}"></div>
+            </th:block>
+            <div class="panel-body bg-light" th:text="${note.text}"></div>
+        </div>
+        <div class="panel panel-default">
+            <p>Back to welcome page:</p>
+            <a href="/welcome">
+                <button type="button" class="btn btn-secondary float-sm-right">Back</button>
+            </a>
+        </div>
+        <div class="panel panel-default">
+            <p>Back to gallery view page:</p>
+            <a href="/notesGalleryView">
+                <button type="button" class="btn btn-secondary float-sm-right">Back</button>
+            </a>
+        </div>
+    </div>
+</body>
+</html>

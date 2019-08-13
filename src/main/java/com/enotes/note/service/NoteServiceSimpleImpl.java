@@ -58,6 +58,11 @@ public class NoteServiceSimpleImpl implements NoteService {
         notes.add(note3);
         notes.add(note4);
         notes.add(note5);
+
+        int id = 1;
+        for (Note not : notes) {
+            not.setId(id++);
+        }
     }
 
     @Override
