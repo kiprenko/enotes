@@ -24,13 +24,14 @@
     <div class="row text-center text-lg-left" id="gallery">
         <th:block th:each="note : ${notes}">
             <div class="border-left  col-lg-3 col-md-4 col-6 m-3">
-                    <div class="panel-heading d-inline" th:text="${note.header}"></div>
-                    <th:block th:switch="${note.state.stateAsString}">
-                        <div th:case="'High'" class="panel-heading d-inline text-danger " th:text="${note.state.stateAsString}"></div>
-                        <div th:case="'Middle'" class="panel-heading d-inline text-warning" th:text="${note.state.stateAsString}"></div>
-                        <div th:case="'Low'" class="panel-heading d-inline text-success" th:text="${note.state.stateAsString}"></div>
-                    </th:block>
-                    <div class="panel-body bg-light" th:text="${note.text}"></div>
+                <div class="panel-heading d-inline" th:text="${note.header}"></div>
+                <th:block th:switch="${note.state.stateAsString}">
+                    <div th:case="'High'" class="panel-heading d-inline text-danger " th:text="${note.state.stateAsString}"></div>
+                    <div th:case="'Middle'" class="panel-heading d-inline text-warning" th:text="${note.state.stateAsString}"></div>
+                    <div th:case="'Low'" class="panel-heading d-inline text-success" th:text="${note.state.stateAsString}"></div>
+                </th:block>
+                <div class="panel-body bg-light" th:text="${note.text}"></div>
+<!--                add here link to view the specific note (in the page you can change your note-->
             </div>
         </th:block>
     </div>
