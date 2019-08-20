@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class NotesGalleryViewController {
     private NoteService noteService;
 
-    @Autowired
+//    @Autowired
     public void setNoteService(NoteService noteService)
     {
         this.noteService = noteService;
