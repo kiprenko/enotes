@@ -6,6 +6,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import lombok.extern.log4j.Log4j2;
+
+@Log4j2
 public class ConnectionPoolImpl implements ConnectionPool {
 
     private String url;
@@ -13,11 +16,12 @@ public class ConnectionPoolImpl implements ConnectionPool {
     private String password;
     private List<Connection> connectionPool;
     private List<Connection> usedConnections = new ArrayList<>();
-    private static int INITIAL_POOL_SIZE = 15;
+    private static int INITIAL_POOL_SIZE = 10;
 
     public static ConnectionPool create(String url,
                                         String user,
                                         String password) throws SQLException {
+        LOGGER.info("Created Connection Pool for user {} and url {}", user, url);
         List<Connection> pool = new ArrayList<>(INITIAL_POOL_SIZE);
         for (int i = 0; i < INITIAL_POOL_SIZE; i++) {
             pool.add(createConnection(url, user, password));
@@ -38,6 +42,7 @@ public class ConnectionPoolImpl implements ConnectionPool {
         return DriverManager.getConnection(url, user, password);
     }
 
+    @Override
     public int getSize() {
         return connectionPool.size() + usedConnections.size();
     }

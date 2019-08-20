@@ -11,7 +11,7 @@ public class NoteDaoImpl implements NoteDao {
     }
 
     @Override
-    public Note getById(long id) {
+    public Note getById(Long id) {
         return null;
     }
 

@@ -24,6 +24,8 @@ dependencies {
     testCompile 'org.springframework:spring-test:5.1.8.RELEASE'
     compileOnly 'org.projectlombok:lombok:1.18.8'
     annotationProcessor 'org.projectlombok:lombok:1.18.8'
+    testCompile 'com.h2database:h2:1.4.199'
+
 }
 
 group = 'com.kiprenko'
