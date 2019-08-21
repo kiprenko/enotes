@@ -8,4 +8,5 @@ public interface ConnectionPool {
     String getUrl();
     String getUser();
     String getPassword();
+    int getSize();
 }
