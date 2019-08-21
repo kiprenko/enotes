@@ -5,13 +5,14 @@ import com.enotes.note.Note;
 import java.util.stream.Stream;
 
 public class NoteDaoImpl implements NoteDao {
+
     @Override
     public Stream<Note> getAll() {
         return null;
     }
 
     @Override
-    public Note getById(long id) {
+    public Note getById(Long id) {
         return null;
     }
 
