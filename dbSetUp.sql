@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS users
     last_name       VARCHAR(25) NOT NULL,
     email            VARCHAR(50) NOT NULL,
     age              TINYINT     NOT NULL,
-    registration_date DATE        NOT NULL,
+    registration DATE        NOT NULL,
     country          VARCHAR(25) NOT NULL
 );
 
