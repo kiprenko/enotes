@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS notes
     body       VARCHAR(5000),
     state      VARCHAR(10)  NOT NULL,
     user_id    INT          NOT NULL,
-    is_deleted BOOLEAN DEFAULT false,
+    is_deleted BOOLEAN DEFAULT FALSE,
     PRIMARY KEY (id),
     FOREIGN KEY (user_id) REFERENCES users (id)
 );
