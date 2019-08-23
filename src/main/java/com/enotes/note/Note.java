@@ -28,4 +28,5 @@ public class Note implements Serializable {
     private NoteState state;
     @NonNull
     private User user;
+    boolean isDeleted;
 }

@@ -1,5 +1,6 @@
 package com.enotes.comment;
 
+import com.enotes.note.Note;
 import com.enotes.user.User;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -9,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Getter @Setter
@@ -22,4 +24,6 @@ public class Comment implements Serializable {
     private String text;
     @NonNull
     private User user;
+    @NotNull
+    private Note note;
 }
