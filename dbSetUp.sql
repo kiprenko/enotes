@@ -1,13 +1,21 @@
-CREATE DATABASE enotesDB;
-USE enotesDB;
+CREATE DATABASE enotes;
+USE enotes;
+CREATE TABLE IF NOT EXISTS users
+(
+    id               SMALLINT PRIMARY KEY,
+    first_name        VARCHAR(25) NOT NULL,
+    last_name       VARCHAR(25) NOT NULL,
+    email            VARCHAR(50) NOT NULL,
+    age              TINYINT     NOT NULL,
+    registration_date DATE        NOT NULL,
+    country          VARCHAR(25) NOT NULL
+);
+
 CREATE TABLE IF NOT EXISTS Notes
 (
-    id        SMALLINT PRIMARY KEY ,
-    FirstName VARCHAR(25)       NOT NULL,
-    LastName  VARCHAR(25)       NOT NULL,
-    Email     VARCHAR(50)       NOT NULL,
-    Age       TINYINT           NOT NULL,
-    RegistrationDate DATE       NOT NULL,
-    Country   VARCHAR(25)       NOT NULL
+    id SMALLINT PRIMARY KEY,
+    header VARCHAR(500) NOT NULL,
+    body VARCHAR(5000),
+    user_id SMALLINT FOREIGN KEY
 )
 
