@@ -9,6 +9,7 @@ CREATE TABLE IF NOT EXISTS users
     age          TINYINT     NOT NULL CHECK (age > 3 AND age < 100),
     registration DATE        NOT NULL,
     country      VARCHAR(25) NOT NULL,
+    role VARCHAR(15) NOT NULL DEFAULT 'User',
     PRIMARY KEY (id)
 );
 
