@@ -12,7 +12,7 @@ public class ConnectionPoolImplTest {
     @Test
     public void shouldCreateConnectionPoolWithConnectionsList() throws SQLException
     {
-        ConnectionPool pool = ConnectionPoolImpl.create(URL, "", "");
+        ConnectionPool pool = JdbcConnectionPool.create(URL, "", "");
         Assert.assertEquals(10, pool.getSize());
     }
 }

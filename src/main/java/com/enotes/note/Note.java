@@ -18,10 +18,10 @@ import java.util.List;
 @NoArgsConstructor
 @ToString
 public class Note implements Serializable {
-    private long id;
+    private Long id;
     @NonNull
     private String header;
-    private String text;
+    private String body;
     @Singular
     private List<Comment> comments;
     @NonNull

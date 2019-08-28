@@ -2,9 +2,10 @@ CREATE DATABASE enotes;
 USE enotes;
 CREATE TABLE IF NOT EXISTS users
 (
-    id           INT         NOT NULL,
+    id           INT AUTO_INCREMENT,
     first_name   VARCHAR(25) NOT NULL,
     last_name    VARCHAR(25) NOT NULL,
+    password    VARCHAR(40) NOT NULL,
     email        VARCHAR(50) NOT NULL,
     age          TINYINT     NOT NULL CHECK (age > 3 AND age < 100),
     registration DATE        NOT NULL,
@@ -15,7 +16,7 @@ CREATE TABLE IF NOT EXISTS users
 
 CREATE TABLE IF NOT EXISTS notes
 (
-    id         INT          NOT NULL,
+    id         INT AUTO_INCREMENT,
     header     VARCHAR(500) NOT NULL,
     body       VARCHAR(5000),
     state      VARCHAR(10)  NOT NULL,
@@ -27,7 +28,7 @@ CREATE TABLE IF NOT EXISTS notes
 
 CREATE TABLE IF NOT EXISTS comments
 (
-    id      SMALLINT NOT NULL,
+    id      INT AUTO_INCREMENT,
     text    VARCHAR(2000),
     user_id INT      NOT NULL,
     note_id INT      NOT NULL,
@@ -35,4 +36,7 @@ CREATE TABLE IF NOT EXISTS comments
     FOREIGN KEY (user_id) REFERENCES users (id),
     FOREIGN KEY (note_id) REFERENCES notes (id)
 );
+
+INSERT INTO users (first_name, last_name, password, email, age, registration, country, role)
+VALUES ('admin', 'admin', 'A12345','admin@mail.com', 21, '2019-01-01', 'Ukraine', 'Admin');
 

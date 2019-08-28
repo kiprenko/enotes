@@ -19,7 +19,7 @@ import java.io.Serializable;
 @RequiredArgsConstructor
 @ToString
 public class Comment implements Serializable {
-    private long id;
+    private Long id;
     @NonNull
     private String text;
     @NonNull

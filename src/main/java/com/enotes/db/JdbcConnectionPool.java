@@ -6,12 +6,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.stereotype.Component;
-
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
-public class ConnectionPoolImpl implements ConnectionPool {
+public class JdbcConnectionPool implements ConnectionPool {
 
     private String url;
     private String user;
@@ -28,10 +26,10 @@ public class ConnectionPoolImpl implements ConnectionPool {
         for (int i = 0; i < INITIAL_POOL_SIZE; i++) {
             pool.add(createConnection(url, user, password));
         }
-        return new ConnectionPoolImpl(url, user, password, pool);
+        return new JdbcConnectionPool(url, user, password, pool);
     }
 
-    private ConnectionPoolImpl(String url, String user, String password, List<Connection> connectionPool) {
+    private JdbcConnectionPool(String url, String user, String password, List<Connection> connectionPool) {
         this.url = url;
         this.user = user;
         this.password = password;

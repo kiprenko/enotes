@@ -18,7 +18,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class User implements Serializable {
-    long id;
+    Long id;
     @NonNull
     String firstName;
     @NonNull

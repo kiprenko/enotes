@@ -1,4 +1,8 @@
 package com.enotes.note.dao;
 
-public interface NoteDao {
+import com.enotes.db.Dao;
+import com.enotes.note.Note;
+
+public interface NoteDao extends Dao<Note, Long> {
+
 }
