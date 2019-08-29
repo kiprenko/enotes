@@ -15,13 +15,6 @@ import java.util.stream.Stream;
 @Component
 public class JdbcNoteDao implements NoteDao {
 
-    private JdbcConnectionHandler handler;
-
-    @Autowired
-    public void setHandler(JdbcConnectionHandler handler) {
-        this.handler = handler;
-    }
-
     @Override
     public Stream<Note> getAll() {
         return null;
@@ -34,7 +27,7 @@ public class JdbcNoteDao implements NoteDao {
 
     @Override
     public boolean add(Note note) {
-        Connection connection = handler.getConnection();
+        Connection connection = JdbcConnectionHandler.getConnection();
         try (Statement statement = connection.createStatement()) {
 
         } catch (SQLException e) {

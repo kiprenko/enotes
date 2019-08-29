@@ -16,8 +16,7 @@ public class SpringContextConfiguration {
     private final static String PASSWORD = "root";
 
     @Bean
-    public ConnectionPool getJdbcConnectionPool() throws SQLException
-    {
+    public ConnectionPool getJdbcConnectionPool() throws SQLException {
         return JdbcConnectionPool.create(URL, USER, PASSWORD);
     }
 }

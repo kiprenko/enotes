@@ -11,18 +11,18 @@ import org.springframework.stereotype.Component;
 @Component
 public abstract class JdbcConnectionHandler {
 
-    private ConnectionPool connectionPool;
+    private static ConnectionPool connectionPool;
 
     @Autowired
-    public void setPool(ConnectionPool connectionPool) {
-        this.connectionPool = connectionPool;
+    public void setPool(ConnectionPool pool) {
+        connectionPool = pool;
     }
 
-    public Connection getConnection() {
+    public static Connection getConnection() {
         return connectionPool.getConnection();
     }
 
-    public void closeConnection(Connection connection) {
+    public static void closeConnection(Connection connection) {
         connectionPool.releaseConnection(connection);
     }
 }
