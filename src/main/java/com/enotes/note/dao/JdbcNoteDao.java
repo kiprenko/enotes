@@ -29,10 +29,16 @@ public class JdbcNoteDao implements NoteDao {
     public boolean add(Note note) {
         Connection connection = JdbcConnectionHandler.getConnection();
         try (Statement statement = connection.createStatement()) {
-
+            String sql = String.format(
+                    "INSERT INTO notes (header, body, state, user_id) VALUES (%s, %s, %s, %s)",
+                    note.getHeader(), note.getBody(), note.getState(), note.getUser().getId()
+            );
+            statement.execute(sql);
         } catch (SQLException e) {
             LOGGER.error(e);
             return false;
+        } finally {
+            JdbcConnectionHandler.closeConnection(connection);
         }
         return true;
     }

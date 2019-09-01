@@ -14,7 +14,7 @@ import java.io.Serializable;
 import java.util.List;
 
 @Getter @Setter
-@EqualsAndHashCode(of = {"header", "text", "comments", "state", "user"})
+@EqualsAndHashCode(of = {"header", "body", "comments", "state", "user"})
 @NoArgsConstructor
 @ToString
 public class Note implements Serializable {

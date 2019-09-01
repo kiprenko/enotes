@@ -14,7 +14,7 @@ public abstract class JdbcConnectionHandler {
     private static ConnectionPool connectionPool;
 
     @Autowired
-    public void setPool(ConnectionPool pool) {
+    public void setConnectionPool(ConnectionPool pool) {
         connectionPool = pool;
     }
 

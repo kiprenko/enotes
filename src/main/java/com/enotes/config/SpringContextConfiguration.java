@@ -3,12 +3,14 @@ package com.enotes.config;
 import java.sql.SQLException;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 import com.enotes.db.ConnectionPool;
 import com.enotes.db.JdbcConnectionPool;
 
 @Configuration
+@ComponentScan({"com.enotes.comment", "com.enotes.note", "com.enotes.user", "com.enotes.db"})
 public class SpringContextConfiguration {
 
     private final static String URL = "jdbc:mysql://localhost:3306/enotes";
@@ -16,7 +18,7 @@ public class SpringContextConfiguration {
     private final static String PASSWORD = "root";
 
     @Bean
-    public ConnectionPool getJdbcConnectionPool() throws SQLException {
+    public ConnectionPool getConnectionPool() throws SQLException {
         return JdbcConnectionPool.create(URL, USER, PASSWORD);
     }
 }
