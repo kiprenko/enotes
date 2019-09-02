@@ -3,6 +3,7 @@ package com.enotes.controller;
 import com.enotes.note.Note;
 import com.enotes.note.NoteState;
 import com.enotes.note.dao.JdbcNoteDao;
+import com.enotes.note.dao.NoteDao;
 import com.enotes.note.service.NoteService;
 import com.enotes.user.User;
 import lombok.extern.log4j.Log4j2;
@@ -18,6 +19,8 @@ import java.util.List;
 @Controller
 public class NotesGalleryViewController {
 
+    private NoteDao noteDao;
+
     @RequestMapping("/notesGalleryView")
     public String index(Model model) {
         User user = new User();
@@ -26,13 +29,19 @@ public class NotesGalleryViewController {
         note.setHeader("Header for this note");
         note.setBody("Body of this note");
         note.setState(NoteState.MIDDLE);
+        note.setUser(user);
 
-        JdbcNoteDao dao = new JdbcNoteDao();
-        dao.add(note);
+        noteDao.add(note);
+        LOGGER.info("Added note to the DB");
 
         List<Note> notes = new ArrayList<>();
         notes.add(note);
         model.addAttribute("notes", notes);
         return "notesGalleryView.html";
+    }
+
+    @Autowired
+    public void setNoteDao(NoteDao noteDao) {
+        this.noteDao = noteDao;
     }
 }

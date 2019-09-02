@@ -61,7 +61,7 @@
                         <div th:case="'Low'" class="panel-heading d-inline text-success"
                              th:text="${note.state.stateAsString}"></div>
                     </th:block>
-                    <div class="panel-body bg-light" th:text="${note.text}"></div>
+                    <div class="panel-body bg-light" th:text="${note.body}"></div>
                     <div class="panel-body bg-light">
                         <a th:href="${'/note/' + note.id}">View</a>
                     </div>
