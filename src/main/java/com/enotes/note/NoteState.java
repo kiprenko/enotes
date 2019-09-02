@@ -14,4 +14,14 @@ public enum NoteState {
     public String getStateAsString() {
         return stateAsString;
     }
+
+    public static NoteState getByStringName(String state) {
+        if (state.equals("High")) {
+            return HIGH;
+        } else if (state.equals("Middle")) {
+            return MIDDLE;
+        } else {
+            return LOW;
+        }
+    }
 }

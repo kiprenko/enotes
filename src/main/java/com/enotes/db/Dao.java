@@ -1,6 +1,6 @@
 package com.enotes.db;
 
-import java.util.stream.Stream;
+import java.util.List;
 
 /**
  * Base interface for all dao interfaces. Declare necessary methods for DAOs
@@ -9,7 +9,7 @@ import java.util.stream.Stream;
  * @param <L> id class of the entity
  */
 public interface Dao<T, L> {
-    Stream<T> getAll();
+    List<T> getAll();
 
     T find(L id);
 

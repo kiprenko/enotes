@@ -1,15 +1,20 @@
 package com.enotes.note.dao;
 
 import com.enotes.db.ConnectionPool;
+import com.enotes.db.JdbcHelper;
 import com.enotes.note.Note;
+import com.enotes.note.NoteState;
+import com.enotes.user.User;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.stream.Stream;
+import java.util.ArrayList;
+import java.util.List;
 
 @Log4j2
 @Component
@@ -23,8 +28,32 @@ public class JdbcNoteDao implements NoteDao {
     }
 
     @Override
-    public Stream<Note> getAll() {
-        return null;
+    public List<Note> getAll() {
+        Connection connection = connectionPool.getConnection();
+        ResultSet resultSet = null;
+        List<Note> list = null;
+        try (Statement statement = connection.createStatement()) {
+            String sql = "SELECT * FROM notes";
+            resultSet = statement.executeQuery(sql);
+            list = new ArrayList<>();
+            while (resultSet.next()) {
+                Note note = new Note();
+                User user = new User();
+                user.setId(resultSet.getLong("user_id"));
+                note.setUser(user);
+                note.setState(NoteState.getByStringName(resultSet.getString("state")));
+                note.setHeader(resultSet.getString("header"));
+                note.setBody(resultSet.getString("body"));
+                list.add(note);
+            }
+        } catch (SQLException e) {
+            LOGGER.error(e);
+            return null;
+        } finally {
+            connectionPool.releaseConnection(connection);
+            JdbcHelper.closeResultSet(resultSet);
+        }
+        return list;
     }
 
     @Override

@@ -23,20 +23,9 @@ public class NotesGalleryViewController {
 
     @RequestMapping("/notesGalleryView")
     public String index(Model model) {
-        User user = new User();
-        user.setId(1L);
-        Note note = new Note();
-        note.setHeader("Header for this note");
-        note.setBody("Body of this note");
-        note.setState(NoteState.MIDDLE);
-        note.setUser(user);
-
-        noteDao.add(note);
-        LOGGER.info("Added note to the DB");
-
-        List<Note> notes = new ArrayList<>();
-        notes.add(note);
+        List<Note> notes = noteDao.getAll();
         model.addAttribute("notes", notes);
+        LOGGER.info("Showing all list of notes. List size is " + notes.size());
         return "notesGalleryView.html";
     }
 
