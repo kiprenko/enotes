@@ -18,7 +18,6 @@ public class NotesCrudController {
 
     private NoteService noteService;
 
-//    @Autowired
     public void setNoteService(NoteService noteService)
     {
         this.noteService = noteService;

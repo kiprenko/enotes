@@ -9,7 +9,7 @@ import java.util.List;
  * @param <L> id class of the entity
  */
 public interface Dao<T, L> {
-    List<T> getAll();
+    List<T> findAll();
 
     T find(L id);
 

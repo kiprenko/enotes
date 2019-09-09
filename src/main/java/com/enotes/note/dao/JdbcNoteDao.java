@@ -28,7 +28,7 @@ public class JdbcNoteDao implements NoteDao {
     }
 
     @Override
-    public List<Note> getAll() {
+    public List<Note> findAll() {
         Connection connection = connectionPool.getConnection();
         ResultSet resultSet = null;
         List<Note> list = null;
