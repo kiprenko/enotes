@@ -1,5 +1,7 @@
 package com.enotes.controller;
 
+import com.enotes.note.dao.NoteDao;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -7,20 +9,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.enotes.note.service.NoteService;
-
-import lombok.extern.log4j.Log4j2;
-
 @Log4j2
 @RequestMapping("/note")
 @Controller
 public class NotesCrudController {
 
-    private NoteService noteService;
+    private NoteDao noteDao;
 
-    public void setNoteService(NoteService noteService)
-    {
-        this.noteService = noteService;
+    @Autowired
+    public void setNoteDao(NoteDao noteDao) {
+        this.noteDao = noteDao;
     }
 
     @RequestMapping(value = "/new", method = RequestMethod.GET)
@@ -33,7 +31,7 @@ public class NotesCrudController {
     @RequestMapping("/{id}")
     public String viewNote(@PathVariable
                                Long id, Model model){
-        model.addAttribute(noteService.get(id));
+        model.addAttribute("note", noteDao.find(id));
         return "noteCrud/viewNote.html";
     }
 }

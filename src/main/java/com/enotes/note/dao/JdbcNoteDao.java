@@ -41,6 +41,7 @@ public class JdbcNoteDao implements NoteDao {
                 User user = new User();
                 user.setId(resultSet.getLong("user_id"));
                 note.setUser(user);
+                note.setId(resultSet.getLong("id"));
                 note.setState(NoteState.getByStringName(resultSet.getString("state")));
                 note.setHeader(resultSet.getString("header"));
                 note.setBody(resultSet.getString("body"));
@@ -58,7 +59,29 @@ public class JdbcNoteDao implements NoteDao {
 
     @Override
     public Note find(Long id) {
-        return null;
+        Connection connection = connectionPool.getConnection();
+        ResultSet resultSet = null;
+        Note note = null;
+        try (Statement statement = connection.createStatement()) {
+            String sql = String.format("SELECT * FROM notes WHERE id = %s", id);
+            resultSet = statement.executeQuery(sql);
+            if (resultSet.next()) {
+                note = new Note();
+                User user = new User();
+                user.setId(resultSet.getLong("user_id"));
+                note.setUser(user);
+                note.setId(resultSet.getLong("id"));
+                note.setState(NoteState.getByStringName(resultSet.getString("state")));
+                note.setHeader(resultSet.getString("header"));
+                note.setBody(resultSet.getString("body"));
+            }
+        } catch (SQLException e) {
+            LOGGER.error(e);
+            return null;
+        } finally {
+            connectionPool.releaseConnection(connection);
+        }
+        return note;
     }
 
     @Override
