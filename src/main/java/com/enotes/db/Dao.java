@@ -17,5 +17,5 @@ public interface Dao<T, L> {
 
     boolean update(T note);
 
-    boolean delete(T note);
+    boolean delete(L id);
 }

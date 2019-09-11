@@ -29,8 +29,7 @@ public class NotesCrudController {
     }
 
     @RequestMapping("/{id}")
-    public String viewNote(@PathVariable
-                               Long id, Model model){
+    public String viewNote(@PathVariable Long id, Model model) {
         model.addAttribute("note", noteDao.find(id));
         return "noteCrud/viewNote.html";
     }

@@ -32,19 +32,16 @@ public class JdbcNoteDao implements NoteDao {
         Connection connection = connectionPool.getConnection();
         ResultSet resultSet = null;
         List<Note> list = null;
+        Note note = null;
+        User user = null;
         try (Statement statement = connection.createStatement()) {
             String sql = "SELECT * FROM notes";
             resultSet = statement.executeQuery(sql);
             list = new ArrayList<>();
             while (resultSet.next()) {
-                Note note = new Note();
-                User user = new User();
-                user.setId(resultSet.getLong("user_id"));
-                note.setUser(user);
-                note.setId(resultSet.getLong("id"));
-                note.setState(NoteState.getByStringName(resultSet.getString("state")));
-                note.setHeader(resultSet.getString("header"));
-                note.setBody(resultSet.getString("body"));
+                note = new Note();
+                user = new User();
+                setupUser(resultSet, note, user);
                 list.add(note);
             }
         } catch (SQLException e) {
@@ -55,6 +52,15 @@ public class JdbcNoteDao implements NoteDao {
             JdbcHelper.closeResultSet(resultSet);
         }
         return list;
+    }
+
+    private void setupUser(ResultSet resultSet, Note note, User user) throws SQLException {
+        user.setId(resultSet.getLong("user_id"));
+        note.setUser(user);
+        note.setId(resultSet.getLong("id"));
+        note.setState(NoteState.getByStringName(resultSet.getString("state")));
+        note.setHeader(resultSet.getString("header"));
+        note.setBody(resultSet.getString("body"));
     }
 
     @Override
@@ -68,12 +74,7 @@ public class JdbcNoteDao implements NoteDao {
             if (resultSet.next()) {
                 note = new Note();
                 User user = new User();
-                user.setId(resultSet.getLong("user_id"));
-                note.setUser(user);
-                note.setId(resultSet.getLong("id"));
-                note.setState(NoteState.getByStringName(resultSet.getString("state")));
-                note.setHeader(resultSet.getString("header"));
-                note.setBody(resultSet.getString("body"));
+                setupUser(resultSet, note, user);
             }
         } catch (SQLException e) {
             LOGGER.error(e);
@@ -104,11 +105,34 @@ public class JdbcNoteDao implements NoteDao {
 
     @Override
     public boolean update(Note note) {
-        return false;
+        Connection connection = connectionPool.getConnection();
+        try (Statement statement = connection.createStatement()) {
+            String sql = String.format(
+                    "UPDATE notes SET header = '%s', body = '%s', state = '%s' WHERE id = %s;",
+                    note.getHeader(), note.getBody(), note.getState().getStateAsString(), note.getId()
+            );
+            statement.execute(sql);
+        } catch (SQLException e) {
+            LOGGER.error(e);
+            return false;
+        } finally {
+            connectionPool.releaseConnection(connection);
+        }
+        return true;
     }
 
     @Override
-    public boolean delete(Note note) {
-        return false;
+    public boolean delete(Long id) {
+        Connection connection = connectionPool.getConnection();
+        try (Statement statement = connection.createStatement()) {
+            String sql = String.format("DELETE FROM notes WHERE id = %s;", id);
+            statement.execute(sql);
+        } catch (SQLException e) {
+            LOGGER.error(e);
+            return false;
+        } finally {
+            connectionPool.releaseConnection(connection);
+        }
+        return true;
     }
 }
