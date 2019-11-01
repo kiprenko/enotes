@@ -43,7 +43,7 @@ public class NotesCrudController {
         } else {
             LOGGER.error("Note wasn't saved.");
         }
-        return "notesGalleryView.html";
+        return "redirect:/notesGalleryView";
     }
 
     @RequestMapping("/{id}")
