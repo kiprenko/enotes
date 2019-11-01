@@ -89,11 +89,13 @@ public class JdbcNoteDao implements NoteDao {
     public boolean add(Note note) {
         Connection connection = connectionPool.getConnection();
         try (Statement statement = connection.createStatement()) {
+            LOGGER.info("Starting note adding.");
             String sql = String.format(
                     "INSERT INTO notes (header, body, state, user_id) VALUES ('%s', '%s', '%s', %s);",
                     note.getHeader(), note.getBody(), note.getState().getStateAsString(), note.getUser().getId()
             );
             statement.execute(sql);
+            LOGGER.info("Note adding query executed successfully.");
         } catch (SQLException e) {
             LOGGER.error(e);
             return false;

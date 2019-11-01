@@ -1,6 +1,8 @@
 package com.enotes.controller;
 
+import com.enotes.note.Note;
 import com.enotes.note.dao.NoteDao;
+import com.enotes.user.User;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,8 +26,24 @@ public class NotesCrudController {
     @RequestMapping(value = "/new", method = RequestMethod.GET)
     public String createNewNote(Model model) {
         LOGGER.info("Create page joined");
-        model.addAttribute(model);
+        model.addAttribute("note", new Note());
         return "noteCrud/createNewNote.html";
+    }
+
+    @RequestMapping(value = "/saveNote", method = RequestMethod.POST)
+    public String saveNote(Note note) {
+        //the temporary solution while i don't have a authorization mechanism
+        User user = new User();
+        user.setId(1L);
+        note.setUser(user);
+
+        LOGGER.info("Saving a new note");
+        if (noteDao.add(note)) {
+            LOGGER.info("Note was successfully saved.");
+        } else {
+            LOGGER.error("Note wasn't saved.");
+        }
+        return "notesGalleryView.html";
     }
 
     @RequestMapping("/{id}")
