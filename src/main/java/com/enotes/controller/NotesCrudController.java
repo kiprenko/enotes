@@ -1,7 +1,7 @@
 package com.enotes.controller;
 
 import com.enotes.note.Note;
-import com.enotes.note.dao.NoteDao;
+import com.enotes.note.service.NoteService;
 import com.enotes.user.User;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,11 +16,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class NotesCrudController {
 
-    private NoteDao noteDao;
+    private NoteService noteService;
 
     @Autowired
-    public void setNoteDao(NoteDao noteDao) {
-        this.noteDao = noteDao;
+    public void setNoteService(NoteService noteService) {
+        this.noteService = noteService;
     }
 
     @RequestMapping(value = "/new", method = RequestMethod.GET)
@@ -38,7 +38,7 @@ public class NotesCrudController {
         note.setUser(user);
 
         LOGGER.info("Saving a new note");
-        if (noteDao.add(note)) {
+        if (noteService.create(note) != null) {
             LOGGER.info("Note was successfully saved.");
         } else {
             LOGGER.error("Note wasn't saved.");
@@ -48,7 +48,7 @@ public class NotesCrudController {
 
     @RequestMapping("/{id}")
     public String viewNote(@PathVariable Long id, Model model) {
-        model.addAttribute("note", noteDao.find(id));
+        model.addAttribute("note", noteService.get(id));
         return "noteCrud/viewNote.html";
     }
 }

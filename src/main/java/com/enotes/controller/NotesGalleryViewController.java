@@ -2,6 +2,7 @@ package com.enotes.controller;
 
 import com.enotes.note.Note;
 import com.enotes.note.dao.NoteDao;
+import com.enotes.note.service.NoteService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,18 +15,18 @@ import java.util.List;
 @Controller
 public class NotesGalleryViewController {
 
-    private NoteDao noteDao;
+    private NoteService noteService;
+
+    @Autowired
+    public void setNoteService(NoteService noteService) {
+        this.noteService = noteService;
+    }
 
     @RequestMapping("/notesGalleryView")
     public String index(Model model) {
-        List<Note> notes = noteDao.findAll();
+        List<Note> notes = noteService.getAllNotes();
         model.addAttribute("notes", notes);
         LOGGER.info("Showing all list of notes. List size is " + notes.size());
         return "notesGalleryView.html";
-    }
-
-    @Autowired
-    public void setNoteDao(NoteDao noteDao) {
-        this.noteDao = noteDao;
     }
 }

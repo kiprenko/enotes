@@ -47,16 +47,16 @@
     <h3>Create a new note:</h3>
     <form th:object="${note}" method="post" th:action="@{/note/saveNote}">
         <div class="form-group">
+            <label for="exampleFormControlTextarea1">Header</label>
+            <textarea class="form-control rounded-0" id="exampleFormControlTextarea1" rows="1"
+                      th:field="*{header}"></textarea>
+        </div>
+        <div class="form-group">
             <label for="noteStateSelect">State</label>
             <select name="state" id="noteStateSelect">
                 <option th:each="state : ${T(com.enotes.note.NoteState).values()}"
                         th:value="${state}" th:text="${state.stateAsString}"></option>
             </select>
-        </div>
-        <div class="form-group">
-            <label for="exampleFormControlTextarea1">Header</label>
-            <textarea class="form-control rounded-0" id="exampleFormControlTextarea1" rows="1"
-                      th:field="*{header}"></textarea>
         </div>
         <div class="form-group">
             <label for="exampleFormControlTextarea2">Body</label>
