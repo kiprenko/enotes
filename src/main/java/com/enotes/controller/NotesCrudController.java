@@ -46,6 +46,12 @@ public class NotesCrudController {
         return "redirect:/notesGalleryView";
     }
 
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    public String updateNote(Note note) {
+        noteService.update(note);
+        return "redirect:/note/" + note.getId();
+    }
+
     @RequestMapping("/{id}")
     public String viewNote(@PathVariable Long id, Model model) {
         model.addAttribute("note", noteService.get(id));

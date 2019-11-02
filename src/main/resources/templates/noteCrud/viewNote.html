@@ -47,18 +47,26 @@
 </nav>
 
 <div class="container" th:if="${note != null}">
-    <h2 th:text="${note.header}"></h2>
-    <th:block th:switch="${note.state.stateAsString}">
-        <div th:case="'High'" class="panel-heading d-inline text-danger"
-             th:text="${note.state.stateAsString}"></div>
-        <div th:case="'Middle'" class="panel-heading d-inline text-warning"
-             th:text="${note.state.stateAsString}"></div>
-        <div th:case="'Low'" class="panel-heading d-inline text-success"
-             th:text="${note.state.stateAsString}"></div>
-    </th:block>
-    <div class="panel panel-default">
-        <div class="panel-body" th:text="${note.body}"></div>
-    </div>
+    <form th:object="${note}" method="post" th:action="@{/note/update}">
+        <div style="display: none">
+            <input type="text" th:field="*{id}" th:value="*{id}">
+        </div>
+        <div class="form-group">
+            <textarea class="form-control rounded-0" id="exampleFormControlTextarea1" rows="1"
+                      th:field="*{header}" th:text="*{header}"></textarea>
+        </div>
+        <div class="form-group">
+            <select name="state" id="noteStateSelect">
+                <option th:each="state : ${T(com.enotes.note.NoteState).values()}"
+                        th:value="${state}" th:text="${state.stateAsString}"></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <textarea class="form-control rounded-0" id="exampleFormControlTextarea2" rows="10"
+                      th:field="*{body}" th:text="*{body}"></textarea>
+        </div>
+        <button type="submit" class="btn btn-default">Save editing</button>
+    </form>
 </div>
 <div class="container" th:if="${note == null}">
     <h3>Oops, it seems we have a problem with your note:(</h3>
