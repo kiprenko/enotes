@@ -65,7 +65,10 @@
             <textarea class="form-control rounded-0" id="exampleFormControlTextarea2" rows="10"
                       th:field="*{body}" th:text="*{body}"></textarea>
         </div>
-        <button type="submit" class="btn btn-default">Save editing</button>
+        <button type="submit" class="btn btn-success">Save editing</button>
+        <a th:href="*{'/note/delete/' + id}">
+            <button type="button" class="btn btn-danger">Delete</button>
+        </a>
     </form>
 </div>
 <div class="container" th:if="${note == null}">

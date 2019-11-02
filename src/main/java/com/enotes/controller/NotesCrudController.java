@@ -48,9 +48,20 @@ public class NotesCrudController {
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public String updateNote(Note note) {
+        LOGGER.info("Updating a note with id = {}", note.getId());
         noteService.update(note);
         return "redirect:/note/" + note.getId();
     }
+
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+    public String deleteNote(@PathVariable Long id) {
+        LOGGER.info("Deleting note with id = {}", id);
+        if (noteService.delete(id) == -1) {
+            LOGGER.error("Note with id = {} wasn't deleted", id);
+        }
+        return "redirect:/notesGalleryView";
+    }
+
 
     @RequestMapping("/{id}")
     public String viewNote(@PathVariable Long id, Model model) {
