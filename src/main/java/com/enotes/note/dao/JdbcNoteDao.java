@@ -32,8 +32,8 @@ public class JdbcNoteDao implements NoteDao {
         Connection connection = connectionPool.getConnection();
         ResultSet resultSet = null;
         List<Note> list = null;
-        Note note = null;
-        User user = null;
+        Note note;
+        User user;
         try (Statement statement = connection.createStatement()) {
             String sql = "SELECT * FROM notes";
             resultSet = statement.executeQuery(sql);
