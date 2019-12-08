@@ -1,4 +1,4 @@
-package com.enotes.user.service;
+package enotes.user.service;
 
 public interface UserService {
 }

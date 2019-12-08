@@ -1,8 +1,8 @@
-package com.enotes.note.service;
+package enotes.note.service;
 
 import java.util.List;
 
-import com.enotes.note.Note;
+import enotes.note.Note;
 
 public interface NoteService {
 

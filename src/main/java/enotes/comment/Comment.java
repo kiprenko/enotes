@@ -1,11 +1,11 @@
-package com.enotes.comment;
+package enotes.comment;
 
 import java.io.Serializable;
 
 import javax.validation.constraints.NotNull;
 
-import com.enotes.note.Note;
-import com.enotes.user.User;
+import enotes.note.Note;
+import enotes.user.User;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

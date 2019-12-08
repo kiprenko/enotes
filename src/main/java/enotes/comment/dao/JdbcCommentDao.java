@@ -1,4 +1,4 @@
-package com.enotes.comment.dao;
+package enotes.comment.dao;
 
 public class JdbcCommentDao implements CommentDao {
 }

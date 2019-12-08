@@ -1,4 +1,4 @@
-package com.enotes.db;
+package enotes.db;
 
 import lombok.extern.log4j.Log4j2;
 

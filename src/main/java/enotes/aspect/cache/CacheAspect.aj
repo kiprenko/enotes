@@ -1,4 +1,4 @@
-package com.enotes.aspect.cache;
+package enotes.aspect.cache;
 
 public aspect CacheAspect {
     pointcut CachingSqlRequest() : call(@annotation(Cache));

@@ -1,4 +1,4 @@
-package com.enotes.db;
+package enotes.db;
 
 import java.util.List;
 

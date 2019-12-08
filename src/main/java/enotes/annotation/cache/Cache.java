@@ -1,4 +1,4 @@
-package com.enotes.annotation.cache;
+package enotes.annotation.cache;
 
 public @interface Cache {
 

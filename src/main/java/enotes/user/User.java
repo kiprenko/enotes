@@ -1,9 +1,9 @@
-package com.enotes.user;
+package enotes.user;
 
 import java.io.Serializable;
 import java.util.List;
 
-import com.enotes.note.Note;
+import enotes.note.Note;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

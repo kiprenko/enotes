@@ -1,6 +1,6 @@
-package com.enotes.user.dao;
+package enotes.user.dao;
 
-import com.enotes.user.User;
+import enotes.user.User;
 
 public interface UserDao {
 

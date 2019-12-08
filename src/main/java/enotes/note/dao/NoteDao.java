@@ -1,7 +1,7 @@
-package com.enotes.note.dao;
+package enotes.note.dao;
 
-import com.enotes.db.Dao;
-import com.enotes.note.Note;
+import enotes.db.Dao;
+import enotes.note.Note;
 
 public interface NoteDao extends Dao<Note, Long> {
 
