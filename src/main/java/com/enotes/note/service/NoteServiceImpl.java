@@ -1,5 +1,6 @@
 package com.enotes.note.service;
 
+import com.enotes.annotation.cache.Cache;
 import com.enotes.note.Note;
 import com.enotes.note.dao.NoteDao;
 import lombok.extern.log4j.Log4j2;
@@ -19,6 +20,7 @@ public class NoteServiceImpl implements NoteService {
         this.noteDao = noteDao;
     }
 
+    @Cache
     @Override
     public Note create(Note note) {
         if (note == null) {
@@ -31,6 +33,7 @@ public class NoteServiceImpl implements NoteService {
         return null;
     }
 
+    @Cache
     @Override
     public long delete(Note note) {
         if (note == null) {
@@ -44,6 +47,7 @@ public class NoteServiceImpl implements NoteService {
         return note.getId();
     }
 
+    @Cache
     @Override
     public long delete(long id) {
         if (id < 1) {
@@ -55,6 +59,7 @@ public class NoteServiceImpl implements NoteService {
         return id;
     }
 
+    @Cache
     @Override
     public Note get(Note note) {
         if (note == null) {
@@ -67,6 +72,7 @@ public class NoteServiceImpl implements NoteService {
         return noteDao.find(note.getId());
     }
 
+    @Cache
     @Override
     public Note get(long id) {
         if (id < 1) {
@@ -76,6 +82,7 @@ public class NoteServiceImpl implements NoteService {
         return noteDao.find(id);
     }
 
+    @Cache
     @Override
     public Note update(Note note) {
         if (note == null) {
@@ -89,6 +96,7 @@ public class NoteServiceImpl implements NoteService {
         return note;
     }
 
+    @Cache
     @Override
     public List<Note> getAllNotes() {
         return noteDao.findAll();
