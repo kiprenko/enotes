@@ -120,5 +120,12 @@
             <artifactId>aspectjweaver</artifactId>
             <version>${aspectjrt.version}</version>
         </dependency>
+
+        <!-- AspectJ dependencies -->
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjtools</artifactId>
+            <version>${aspectj.version}</version>
+        </dependency>
     </dependencies>
 </project>
