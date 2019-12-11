@@ -1,5 +1,10 @@
 package enotes.aspect.cache;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.annotation.PostConstruct;
+
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -15,6 +20,13 @@ import org.springframework.stereotype.Component;
 @Component
 public class SqlRequestCachingAspect
 {
+
+    private static Map<String, CachedSqlRequest> cachedSqlRequests;
+
+    @PostConstruct
+    private void init() {
+        cachedSqlRequests = new HashMap<>();
+    }
 
     /**
      * тут мы указываем точку "среза", то есть на вызов каких методов привязываться.
@@ -43,12 +55,23 @@ public class SqlRequestCachingAspect
     @Around("selectSqlRequests()")
     public Object beforeServiceMethodInvocation(ProceedingJoinPoint jp) throws Throwable
     {
-        System.out.println("Do you need some aspects?..");
-        System.out.println(jp.getSignature());
+        String methodName = jp.getSignature().toLongString();
+        if (cachedSqlRequests.containsKey(methodName)) {
+            CachedSqlRequest sqlRequest = cachedSqlRequests.get(methodName);
 
-        /*так как метод, который я обернул аспектом, должен возвращать что-то, то я запускаю его и возвращаю это значение,
-        и мой код ничего и не понял, он вызвал метод, Спринг обернул в прокси его, выполнил код из метода beforeServiceMethodInvocation
-        и вернул результат тому, кто вызвал.*/
-        return jp.proceed();
+            if (sqlRequest.getLastTimeExecuted() - System.currentTimeMillis() > 180000) {
+                Object cachedValue = jp.proceed();
+                sqlRequest.setCachedValue(cachedValue);
+                cachedSqlRequests.put(methodName, sqlRequest);
+                return cachedValue;
+            } else {
+                return sqlRequest.getCachedValue();
+            }
+        } else {
+            Object cachedValue = jp.proceed();
+            CachedSqlRequest cachedSqlRequest = new CachedSqlRequest(System.currentTimeMillis(), cachedValue);
+            cachedSqlRequests.put(methodName, cachedSqlRequest);
+            return cachedValue;
+        }
     }
 }
