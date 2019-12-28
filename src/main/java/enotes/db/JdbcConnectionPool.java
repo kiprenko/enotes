@@ -12,12 +12,9 @@ import org.springframework.stereotype.Component;
 @Log4j2
 public class JdbcConnectionPool implements ConnectionPool {
 
-    private String url;
-    private String user;
-    private String password;
     private List<Connection> connectionPool;
     private List<Connection> usedConnections = new ArrayList<>();
-    private static int INITIAL_POOL_SIZE = 10;
+    private static final int INITIAL_POOL_SIZE = 10;
 
     public static ConnectionPool create(String url,
                                         String user,
@@ -27,13 +24,10 @@ public class JdbcConnectionPool implements ConnectionPool {
         for (int i = 0; i < INITIAL_POOL_SIZE; i++) {
             pool.add(createConnection(url, user, password));
         }
-        return new JdbcConnectionPool(url, user, password, pool);
+        return new JdbcConnectionPool(pool);
     }
 
-    private JdbcConnectionPool(String url, String user, String password, List<Connection> connectionPool) {
-        this.url = url;
-        this.user = user;
-        this.password = password;
+    private JdbcConnectionPool(List<Connection> connectionPool) {
         this.connectionPool = connectionPool;
     }
 
@@ -59,20 +53,5 @@ public class JdbcConnectionPool implements ConnectionPool {
     public boolean releaseConnection(Connection connection) {
         connectionPool.add(connection);
         return usedConnections.remove(connection);
-    }
-
-    @Override
-    public String getUrl() {
-        return this.url;
-    }
-
-    @Override
-    public String getUser() {
-        return this.user;
-    }
-
-    @Override
-    public String getPassword() {
-        return this.password;
     }
 }

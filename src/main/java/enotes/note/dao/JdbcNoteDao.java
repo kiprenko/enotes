@@ -22,6 +22,12 @@ public class JdbcNoteDao implements NoteDao {
 
     private ConnectionPool connectionPool;
 
+    private static final String ADD_NEW_NOTE_SQL = "INSERT INTO notes (header, body, state, user_id) VALUES ('%s', '%s', '%s', %s);";
+    public static final String SELECT_ALL_NOTES_SQL = "SELECT * FROM notes;";
+    public static final String SELECT_NOTE_BY_ID_SQL = "SELECT * FROM notes WHERE id = %s";
+    public static final String UPDATE_NOTE_SQL = "UPDATE notes SET header = '%s', body = '%s', state = '%s' WHERE id = %s;";
+    public static final String DELETE_NOTE_BY_ID_SQL = "DELETE FROM notes WHERE id = %s;";
+
     @Autowired
     public void setConnectionPool(ConnectionPool pool) {
         this.connectionPool = pool;
@@ -35,8 +41,7 @@ public class JdbcNoteDao implements NoteDao {
         Note note;
         User user;
         try (Statement statement = connection.createStatement()) {
-            String sql = "SELECT * FROM notes";
-            resultSet = statement.executeQuery(sql);
+            resultSet = statement.executeQuery(SELECT_ALL_NOTES_SQL);
             list = new ArrayList<>();
             while (resultSet.next()) {
                 note = new Note();
@@ -69,8 +74,7 @@ public class JdbcNoteDao implements NoteDao {
         ResultSet resultSet = null;
         Note note = null;
         try (Statement statement = connection.createStatement()) {
-            String sql = String.format("SELECT * FROM notes WHERE id = %s", id);
-            resultSet = statement.executeQuery(sql);
+            resultSet = statement.executeQuery(String.format(SELECT_NOTE_BY_ID_SQL, id));
             if (resultSet.next()) {
                 note = new Note();
                 User user = new User();
@@ -81,6 +85,7 @@ public class JdbcNoteDao implements NoteDao {
             return null;
         } finally {
             connectionPool.releaseConnection(connection);
+            JdbcHelper.closeResultSet(resultSet);
         }
         return note;
     }
@@ -89,12 +94,11 @@ public class JdbcNoteDao implements NoteDao {
     public boolean add(Note note) {
         Connection connection = connectionPool.getConnection();
         try (Statement statement = connection.createStatement()) {
-            LOGGER.info("Starting note adding.");
-            String sql = String.format(
-                    "INSERT INTO notes (header, body, state, user_id) VALUES ('%s', '%s', '%s', %s);",
+            LOGGER.info("Adding new note.");
+            statement.execute(String.format(
+                    ADD_NEW_NOTE_SQL,
                     note.getHeader(), note.getBody(), note.getState().getStateAsString(), note.getUser().getId()
-            );
-            statement.execute(sql);
+            ));
             LOGGER.info("Note adding query executed successfully.");
         } catch (SQLException e) {
             LOGGER.error(e);
@@ -109,11 +113,10 @@ public class JdbcNoteDao implements NoteDao {
     public boolean update(Note note) {
         Connection connection = connectionPool.getConnection();
         try (Statement statement = connection.createStatement()) {
-            String sql = String.format(
-                    "UPDATE notes SET header = '%s', body = '%s', state = '%s' WHERE id = %s;",
+            statement.execute(String.format(
+                    UPDATE_NOTE_SQL,
                     note.getHeader(), note.getBody(), note.getState().getStateAsString(), note.getId()
-            );
-            statement.execute(sql);
+            ));
         } catch (SQLException e) {
             LOGGER.error(e);
             return false;
@@ -127,8 +130,7 @@ public class JdbcNoteDao implements NoteDao {
     public boolean delete(Long id) {
         Connection connection = connectionPool.getConnection();
         try (Statement statement = connection.createStatement()) {
-            String sql = String.format("DELETE FROM notes WHERE id = %s;", id);
-            statement.execute(sql);
+            statement.execute(String.format(DELETE_NOTE_BY_ID_SQL, id));
         } catch (SQLException e) {
             LOGGER.error(e);
             return false;

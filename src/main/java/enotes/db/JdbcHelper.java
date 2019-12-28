@@ -18,6 +18,5 @@ public class JdbcHelper {
         } catch (SQLException e) {
             LOGGER.error(e);
         }
-
     }
 }

@@ -18,7 +18,7 @@ public class SqlRequestCachingAspect {
 
     private static Map<String, CachedSqlRequest> cachedSqlRequests;
 
-    private static final int TIMEOUT = 180000;
+    private static final int TIMEOUT = 3000;
 
     @PostConstruct
     private void init() {
