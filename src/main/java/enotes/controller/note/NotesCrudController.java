@@ -1,4 +1,4 @@
-package enotes.controller;
+package enotes.controller.note;
 
 import enotes.note.Note;
 import enotes.note.service.NoteService;

@@ -41,7 +41,7 @@ public class JdbcNoteDao implements NoteDao {
             while (resultSet.next()) {
                 note = new Note();
                 user = new User();
-                setupUser(resultSet, note, user);
+                handleNoteFromResultSet(resultSet, note, user);
                 list.add(note);
             }
         } catch (SQLException e) {
@@ -54,7 +54,7 @@ public class JdbcNoteDao implements NoteDao {
         return list;
     }
 
-    private void setupUser(ResultSet resultSet, Note note, User user) throws SQLException {
+    private void handleNoteFromResultSet(ResultSet resultSet, Note note, User user) throws SQLException {
         user.setId(resultSet.getLong("user_id"));
         note.setUser(user);
         note.setId(resultSet.getLong("id"));
@@ -74,7 +74,7 @@ public class JdbcNoteDao implements NoteDao {
             if (resultSet.next()) {
                 note = new Note();
                 User user = new User();
-                setupUser(resultSet, note, user);
+                handleNoteFromResultSet(resultSet, note, user);
             }
         } catch (SQLException e) {
             LOGGER.error(e);
