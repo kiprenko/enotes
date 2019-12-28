@@ -16,7 +16,7 @@ import lombok.Singular;
 import lombok.ToString;
 
 @Getter @Setter
-@EqualsAndHashCode(of = {"firstName", "lastName", "email"})
+@EqualsAndHashCode(of = {"firstName", "lastName", "email", "age", "country", "registration", "role"})
 @NoArgsConstructor
 @ToString
 public class User implements Serializable {

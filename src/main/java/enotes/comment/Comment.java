@@ -16,7 +16,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Getter @Setter
-@EqualsAndHashCode(of = {"text", "user"})
+@EqualsAndHashCode(of = {"text", "user", "note"})
 @NoArgsConstructor
 @RequiredArgsConstructor
 @ToString
