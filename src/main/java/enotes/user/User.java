@@ -1,10 +1,12 @@
 package enotes.user;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import enotes.note.Note;
 
+import enotes.user.role.UserRole;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,14 +20,24 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class User implements Serializable {
-    Long id;
+    private Long id;
     @NonNull
-    String firstName;
+    private String firstName;
     @NonNull
-    String lastName;
+    private String lastName;
     @NonNull
-    String email;
-    String password;
+    private String email;
+
+    private String password;
+    @NonNull
+    private int age;
+    @NonNull
+    private String country;
+    @NonNull
+    private Date registration;
+    @NonNull
+    private UserRole role;
+
     @Singular
     private List<Note> notes;
 }

@@ -91,13 +91,13 @@ public class JdbcNoteDao implements NoteDao {
     }
 
     @Override
-    public boolean add(Note note) {
+    public boolean add(Note entity) {
         Connection connection = connectionPool.getConnection();
         try (Statement statement = connection.createStatement()) {
             LOGGER.info("Adding new note.");
             statement.execute(String.format(
                     ADD_NEW_NOTE_SQL,
-                    note.getHeader(), note.getBody(), note.getState().getStateAsString(), note.getUser().getId()
+                    entity.getHeader(), entity.getBody(), entity.getState().getStateAsString(), entity.getUser().getId()
             ));
             LOGGER.info("Note adding query executed successfully.");
         } catch (SQLException e) {
@@ -110,12 +110,12 @@ public class JdbcNoteDao implements NoteDao {
     }
 
     @Override
-    public boolean update(Note note) {
+    public boolean update(Note entity) {
         Connection connection = connectionPool.getConnection();
         try (Statement statement = connection.createStatement()) {
             statement.execute(String.format(
                     UPDATE_NOTE_SQL,
-                    note.getHeader(), note.getBody(), note.getState().getStateAsString(), note.getId()
+                    entity.getHeader(), entity.getBody(), entity.getState().getStateAsString(), entity.getId()
             ));
         } catch (SQLException e) {
             LOGGER.error(e);

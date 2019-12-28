@@ -13,9 +13,9 @@ public interface Dao<T, L> {
 
     T find(L id);
 
-    boolean add(T note);
+    boolean add(T entity);
 
-    boolean update(T note);
+    boolean update(T entity);
 
     boolean delete(L id);
 }
