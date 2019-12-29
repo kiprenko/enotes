@@ -46,7 +46,7 @@
     </div>
 </nav>
 
-<div class="container" th:if="${note != null}">
+<div class="container mt-5" th:if="${note != null}">
     <form th:object="${note}" method="post" th:action="@{/note/update}">
         <div style="display: none">
             <input type="text" th:field="*{id}" th:value="*{id}">
@@ -58,7 +58,8 @@
         <div class="form-group">
             <select name="state" id="noteStateSelect">
                 <option th:each="state : ${T(enotes.note.NoteState).values()}"
-                        th:value="${state}" th:text="${state.stateAsString}"></option>
+                        th:value="${state}" th:text="${state.stateAsString}"
+                        th:selected="${state == note.state}"></option>
             </select>
         </div>
         <div class="form-group">

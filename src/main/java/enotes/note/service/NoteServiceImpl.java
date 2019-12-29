@@ -20,7 +20,6 @@ public class NoteServiceImpl implements NoteService {
         this.noteDao = noteDao;
     }
 
-    @Cache
     @Override
     public Note create(Note note) {
         if (note == null) {
@@ -47,7 +46,6 @@ public class NoteServiceImpl implements NoteService {
         return note.getId();
     }
 
-    @Cache
     @Override
     public long delete(long id) {
         if (id < 1) {
@@ -82,7 +80,6 @@ public class NoteServiceImpl implements NoteService {
         return noteDao.find(id);
     }
 
-    @Cache
     @Override
     public Note update(Note note) {
         if (note == null) {

@@ -22,7 +22,7 @@ public class JdbcNoteDao implements NoteDao {
 
     private ConnectionPool connectionPool;
 
-    private static final String ADD_NEW_NOTE_SQL = "INSERT INTO notes (header, body, state, user_id) VALUES ('%s', '%s', '%s', %s);";
+    private static final String ADD_NEW_NOTE_SQL = "INSERT INTO notes (header, body, state, user_id) VALUES ('%s', '%s', '%s', %d);";
     private static final String SELECT_ALL_NOTES_SQL = "SELECT * FROM notes WHERE is_deleted=0;";
     private static final String SELECT_NOTE_BY_ID_SQL = "SELECT * FROM notes WHERE id = %s AND is_deleted=0;";
     private static final String UPDATE_NOTE_SQL = "UPDATE notes SET header = '%s', body = '%s', state = '%s' WHERE id = %s;";
