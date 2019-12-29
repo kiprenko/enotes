@@ -101,7 +101,7 @@ public class JdbcNoteDao implements NoteDao {
             ));
             LOGGER.info("Note adding query executed successfully.");
         } catch (SQLException e) {
-            LOGGER.error(e);
+            LOGGER.error("Error during new note creation for user with id={}: ", entity.getUser().getId(), e);
             return false;
         } finally {
             connectionPool.releaseConnection(connection);

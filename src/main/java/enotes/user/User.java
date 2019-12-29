@@ -7,6 +7,8 @@ import java.util.List;
 import enotes.note.Note;
 
 import enotes.user.role.UserRole;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,7 +20,9 @@ import lombok.ToString;
 @Getter @Setter
 @EqualsAndHashCode(of = {"firstName", "lastName", "email", "age", "country", "registration", "role"})
 @NoArgsConstructor
+@AllArgsConstructor
 @ToString
+@Builder
 public class User implements Serializable {
     private Long id;
     @NonNull
