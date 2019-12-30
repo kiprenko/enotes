@@ -44,7 +44,7 @@ public class JdbcUserDao implements UserDao {
     public boolean add(User entity) {
         Connection connection = connectionPool.getConnection();
         try (Statement statement = connection.createStatement()) {
-            LOGGER.info("Adding new note.");
+            LOGGER.info("Adding new user.");
             statement.execute(String.format(
                     ADD_NEW_USER_SQL,
                     entity.getFirstName(), entity.getLastName(),
@@ -54,7 +54,7 @@ public class JdbcUserDao implements UserDao {
             ));
             LOGGER.info("User adding query executed successfully.");
         } catch (SQLException e) {
-            LOGGER.error("Error during creation of new user: ", e);
+            LOGGER.error("Error during creation of a new user: ", e);
             return false;
         } finally {
             connectionPool.releaseConnection(connection);

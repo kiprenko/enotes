@@ -12,3 +12,5 @@ target/
 *.ear
 build
 .*
+logs
+/logs
