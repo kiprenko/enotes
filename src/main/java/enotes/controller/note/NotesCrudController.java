@@ -49,6 +49,9 @@ public class NotesCrudController {
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public String updateNote(Note note) {
         LOGGER.info("Updating a note with id = {}", note.getId());
+        User user = new User();
+        user.setId(1L);
+        note.setUser(user);
         noteService.update(note);
         return "redirect:/note/" + note.getId();
     }
