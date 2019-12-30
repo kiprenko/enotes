@@ -1,7 +1,6 @@
 package enotes.note.dao;
 
-import enotes.db.ConnectionPool;
-import enotes.db.JdbcHelper;
+import enotes.db.ConnectionManager;
 import enotes.note.Note;
 import enotes.note.NoteState;
 import enotes.user.User;
@@ -20,7 +19,7 @@ import java.util.List;
 @Component
 public class JdbcNoteDao implements NoteDao {
 
-    private ConnectionPool connectionPool;
+    private ConnectionManager connectionManager;
 
     private static final String ADD_NEW_NOTE_SQL = "INSERT INTO notes (header, body, state, user_id) VALUES ('%s', '%s', '%s', %d);";
     private static final String SELECT_ALL_NOTES_SQL = "SELECT * FROM notes WHERE is_deleted=0;";
@@ -29,19 +28,19 @@ public class JdbcNoteDao implements NoteDao {
     private static final String DELETE_NOTE_BY_ID_SQL = "UPDATE notes SET is_deleted=1 WHERE id = %s;";
 
     @Autowired
-    public void setConnectionPool(ConnectionPool pool) {
-        this.connectionPool = pool;
+    public JdbcNoteDao(ConnectionManager connectionManager) {
+        this.connectionManager = connectionManager;
     }
 
     @Override
     public List<Note> findAll() {
-        Connection connection = connectionPool.getConnection();
-        ResultSet resultSet = null;
         List<Note> list;
         Note note;
         User user;
-        try (Statement statement = connection.createStatement()) {
-            resultSet = statement.executeQuery(SELECT_ALL_NOTES_SQL);
+        try (Connection connection = connectionManager.getConnection();
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(SELECT_ALL_NOTES_SQL)) {
+
             list = new ArrayList<>();
             while (resultSet.next()) {
                 note = new Note();
@@ -49,13 +48,12 @@ public class JdbcNoteDao implements NoteDao {
                 handleNoteFromResultSet(resultSet, note, user);
                 list.add(note);
             }
+
         } catch (SQLException e) {
             LOGGER.error(e);
             return null;
-        } finally {
-            connectionPool.releaseConnection(connection);
-            JdbcHelper.closeResultSet(resultSet);
         }
+
         return list;
     }
 
@@ -70,73 +68,75 @@ public class JdbcNoteDao implements NoteDao {
 
     @Override
     public Note find(Long id) {
-        Connection connection = connectionPool.getConnection();
-        ResultSet resultSet = null;
         Note note = null;
-        try (Statement statement = connection.createStatement()) {
-            resultSet = statement.executeQuery(String.format(SELECT_NOTE_BY_ID_SQL, id));
+        try (Connection connection = connectionManager.getConnection();
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(String.format(SELECT_NOTE_BY_ID_SQL, id))) {
+
             if (resultSet.next()) {
                 note = new Note();
                 User user = new User();
                 handleNoteFromResultSet(resultSet, note, user);
             }
+
         } catch (SQLException e) {
             LOGGER.error(e);
             return null;
-        } finally {
-            connectionPool.releaseConnection(connection);
-            JdbcHelper.closeResultSet(resultSet);
         }
+
         return note;
     }
 
     @Override
     public boolean add(Note entity) {
-        Connection connection = connectionPool.getConnection();
-        try (Statement statement = connection.createStatement()) {
+        try (Connection connection = connectionManager.getConnection();
+             Statement statement = connection.createStatement()) {
+
             LOGGER.info("Adding new note.");
             statement.execute(String.format(
                     ADD_NEW_NOTE_SQL,
                     entity.getHeader(), entity.getBody(), entity.getState().getStateAsString(), entity.getUser().getId()
             ));
+
             LOGGER.info("Note adding query executed successfully.");
         } catch (SQLException e) {
             LOGGER.error("Error during new note creation for user with id={}: ", entity.getUser().getId(), e);
             return false;
-        } finally {
-            connectionPool.releaseConnection(connection);
         }
         return true;
     }
 
     @Override
     public boolean update(Note entity) {
-        Connection connection = connectionPool.getConnection();
-        try (Statement statement = connection.createStatement()) {
+        try (Connection connection = connectionManager.getConnection();
+             Statement statement = connection.createStatement()) {
+
+            LOGGER.info("Updating a note with id={} for a user with id={}", entity.getId(), entity.getUser().getId());
             statement.execute(String.format(
                     UPDATE_NOTE_SQL,
                     entity.getHeader(), entity.getBody(), entity.getState().getStateAsString(), entity.getId()
             ));
+
         } catch (SQLException e) {
             LOGGER.error(e);
             return false;
-        } finally {
-            connectionPool.releaseConnection(connection);
         }
+
         return true;
     }
 
     @Override
     public boolean delete(Long id) {
-        Connection connection = connectionPool.getConnection();
-        try (Statement statement = connection.createStatement()) {
+        try (Connection connection = connectionManager.getConnection();
+             Statement statement = connection.createStatement()) {
+
             statement.execute(String.format(DELETE_NOTE_BY_ID_SQL, id));
+
         } catch (SQLException e) {
             LOGGER.error(e);
             return false;
-        } finally {
-            connectionPool.releaseConnection(connection);
         }
+
         return true;
     }
 }

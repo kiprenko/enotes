@@ -1,6 +1,6 @@
 package enotes.user.dao;
 
-import enotes.db.ConnectionPool;
+import enotes.db.ConnectionManager;
 import enotes.user.User;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,32 +18,41 @@ import java.util.Optional;
 @Component
 public class JdbcUserDao implements UserDao {
 
-    private ConnectionPool connectionPool;
+    private ConnectionManager connectionManager;
 
     private static final String ADD_NEW_USER_SQL = "INSERT INTO users (first_name, last_name, email, password, age, registration, country, role)" +
             " VALUES ('%s', '%s', '%s', '%s', %d, '%s', '%s', %d);";
+    private static final String SELECT_USER_BY_ID_SQL = "SELECT * FROM users WHERE id = %d;";
+
 
     @Autowired
-    public JdbcUserDao(ConnectionPool connectionPool) {
-        this.connectionPool = connectionPool;
+    public JdbcUserDao(ConnectionManager connectionManager) {
+        this.connectionManager = connectionManager;
     }
 
     @Override
     public List<User> findAll() {
-        Connection connection = connectionPool.getConnection();
+        try (Connection connection = connectionManager.getConnection();
+             Statement statement = connection.createStatement()) {
 
+        } catch (SQLException e) {
+            LOGGER.error("An error during getting of all users list: ", e);
+        }
         return null;
     }
 
     @Override
     public User find(Long id) {
+//        Connection connection = connectionManager.getConnection();
+
         return null;
     }
 
     @Override
     public boolean add(User entity) {
-        Connection connection = connectionPool.getConnection();
-        try (Statement statement = connection.createStatement()) {
+        try (Connection connection = connectionManager.getConnection();
+             Statement statement = connection.createStatement()) {
+
             LOGGER.info("Adding new user.");
             statement.execute(String.format(
                     ADD_NEW_USER_SQL,
@@ -53,12 +62,12 @@ public class JdbcUserDao implements UserDao {
                     entity.getCountry(), entity.getRole().getRoleId()
             ));
             LOGGER.info("User adding query executed successfully.");
+
         } catch (SQLException e) {
             LOGGER.error("Error during creation of a new user: ", e);
             return false;
-        } finally {
-            connectionPool.releaseConnection(connection);
         }
+
         return true;
     }
 
