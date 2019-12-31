@@ -41,7 +41,6 @@ public class JdbcNoteDao implements NoteDao {
     public List<Note> findAll() {
         List<Note> list;
         Note note;
-        User user;
         try (Connection connection = connectionManager.getConnection();
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(SELECT_ALL_NOTES_SQL)) {
@@ -49,8 +48,7 @@ public class JdbcNoteDao implements NoteDao {
             list = new ArrayList<>();
             while (resultSet.next()) {
                 note = new Note();
-                user = new User();
-                fillNoteFromResultSet(resultSet, note, user);
+                fillNoteFromResultSet(resultSet, note);
                 list.add(note);
             }
 
@@ -62,8 +60,8 @@ public class JdbcNoteDao implements NoteDao {
         return list;
     }
 
-    private void fillNoteFromResultSet(ResultSet resultSet, Note note, User user) throws SQLException {
-        user.setId(resultSet.getLong("user_id"));
+    private void fillNoteFromResultSet(ResultSet resultSet, Note note) throws SQLException {
+        User user = User.builder().id(resultSet.getLong("user_id")).build();
         note.setUser(user);
         note.setId(resultSet.getLong("id"));
         note.setState(NoteState.getByStringName(resultSet.getString("state")));
@@ -80,8 +78,7 @@ public class JdbcNoteDao implements NoteDao {
 
             if (resultSet.next()) {
                 note = new Note();
-                User user = new User();
-                fillNoteFromResultSet(resultSet, note, user);
+                fillNoteFromResultSet(resultSet, note);
             }
 
         } catch (SQLException e) {

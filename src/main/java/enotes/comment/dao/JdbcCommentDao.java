@@ -2,13 +2,17 @@ package enotes.comment.dao;
 
 import enotes.comment.Comment;
 import enotes.db.ConnectionManager;
+import enotes.note.Note;
+import enotes.user.User;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 import static java.lang.String.format;
@@ -25,6 +29,10 @@ public class JdbcCommentDao implements CommentDao {
             "UPDATE comments SET text='%s', user_id=%d, note_id=%d WHERE id=%d;";
     private static final String DELETE_COMMENT_BY_ID_SQL =
             "DELETE FROM comments WHERE id=%d;";
+    private static final String SELECT_COMMENT_BY_ID_SQL =
+            "SELECT * FROM comments WHERE id=%d;";
+    private static final String SELECT_ALL_COMMENTS_SQL =
+            "SELECT * FROM comments;";
 
     @Autowired
     public JdbcCommentDao(ConnectionManager connectionManager) {
@@ -33,12 +41,54 @@ public class JdbcCommentDao implements CommentDao {
 
     @Override
     public List<Comment> findAll() {
-        return null;
+        Comment comment;
+        List<Comment> comments;
+        try (Connection connection = connectionManager.getConnection();
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(SELECT_ALL_COMMENTS_SQL)) {
+
+            comments = new ArrayList<>();
+            while (resultSet.next()) {
+                comment = new Comment();
+                fillCommentFromResultSet(comment, resultSet);
+                comments.add(comment);
+            }
+
+        } catch (SQLException e) {
+            LOGGER.error(e);
+            return null;
+        }
+
+        return comments;
     }
 
     @Override
     public Comment find(Long id) {
-        return null;
+        Comment comment = null;
+        try (Connection connection = connectionManager.getConnection();
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(format(SELECT_COMMENT_BY_ID_SQL, id))) {
+
+            if (resultSet.next()) {
+                comment = new Comment();
+                fillCommentFromResultSet(comment, resultSet);
+            }
+
+        } catch (SQLException e) {
+            LOGGER.error(e);
+            return null;
+        }
+
+        return comment;
+    }
+
+    private void fillCommentFromResultSet(Comment comment, ResultSet resultSet) throws SQLException {
+        User user = User.builder().id(resultSet.getLong("user_id")).build();
+        Note note = Note.builder().id(resultSet.getLong("note_id")).build();
+        comment.setId(resultSet.getLong("id"));
+        comment.setText(resultSet.getString("text"));
+        comment.setUser(user);
+        comment.setNote(note);
     }
 
     @Override

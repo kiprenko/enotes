@@ -51,6 +51,6 @@ VALUES (1, 'User'),
        (2, 'Admin'),
        (3, 'God');
 
-INSERT INTO users (first_name, last_name, password, email, age, registration, country, role)
+INSERT INTO users (first_name, last_name, password, email, age, registration, country, role_id)
 VALUES ('admin', 'admin', 'A12345', 'admin@mail.com', 21, '2019-01-01', 'Ukraine', 3);
 
