@@ -21,7 +21,7 @@ public class NoteServiceImpl implements NoteService {
     }
 
     @Override
-    public Note create(Note note) {
+    public Note save(Note note) {
         if (note == null) {
             LOGGER.error("Note can't be null!");
             return null;

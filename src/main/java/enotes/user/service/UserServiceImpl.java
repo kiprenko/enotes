@@ -20,7 +20,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User create(User user) {
+    public User save(User user) {
         if (user == null) {
             LOGGER.error("Passed user is null, user creation denied.");
             return null;
@@ -48,7 +48,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public long delete(long id) {
         if (id < 1) {
-            LOGGER.error("Passed user is null, user deletion denied.");
+            LOGGER.error("Passed user id is less than 1, user deletion denied.");
             return -1;
         }
 

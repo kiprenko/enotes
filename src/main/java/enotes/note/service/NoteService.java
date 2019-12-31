@@ -6,7 +6,7 @@ import enotes.note.Note;
 
 public interface NoteService {
 
-    Note create(Note note);
+    Note save(Note note);
 
     long delete(Note note);
 
