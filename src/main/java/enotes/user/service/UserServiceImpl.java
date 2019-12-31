@@ -8,8 +8,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static enotes.utils.validation.UserValidationUtils.isValidUser;
-
 @Log4j2
 @Service
 public class UserServiceImpl implements UserService {
@@ -26,46 +24,82 @@ public class UserServiceImpl implements UserService {
         if (user == null) {
             LOGGER.error("Passed user is null, user creation denied.");
             return null;
-        } else if(!isValidUser(user)) {
-            LOGGER.error("Passed user is invalid, user creation denied.");
-            return null;
         }
 
-        if (userDao.add(user)) {
-            return user;
-        }
-
-        LOGGER.error("User creation was unsuccessful.");
-        return null;
+        return userDao.add(user) ? user : null;
     }
 
     @Override
     public long delete(User user) {
-        return 0;
+        if (user == null) {
+            LOGGER.error("Passed user is null, user deletion denied.");
+            return -1;
+        }
+
+        Long userId = user.getId();
+        if (userId == null || userId < 1) {
+            LOGGER.error("Can't delete user with id equals null or less than 1. Id = {}", userId);
+            return -1;
+        }
+
+        return userDao.delete(userId) ? userId : -1;
     }
 
     @Override
     public long delete(long id) {
-        return 0;
+        if (id < 1) {
+            LOGGER.error("Passed user is null, user deletion denied.");
+            return -1;
+        }
+
+        User user = User.builder().id(id).build();
+        return userDao.delete(user.getId()) ? id : -1;
     }
 
     @Override
     public User get(User user) {
-        return null;
+        if (user == null) {
+            LOGGER.error("Passed user is null, user getting denied.");
+            return null;
+        }
+
+        Long userId = user.getId();
+        if (userId == null || userId < 1) {
+            LOGGER.error("Can't find user with id equals null or less than 1. Id = {}", userId);
+            return null;
+        }
+
+        return userDao.find(userId);
     }
 
     @Override
     public User get(long id) {
-        return null;
+        if (id < 1) {
+            LOGGER.error("Can't find user with id less than 1. Id = {}", id);
+            return null;
+        }
+
+        return userDao.find(id);
     }
 
     @Override
     public User update(User user) {
-        return null;
+        if (user == null) {
+            LOGGER.error("Passed user is null, user updating denied.");
+            return null;
+        }
+
+        Long userId = user.getId();
+        if (userId == null || userId < 1) {
+            LOGGER.error("Can't find user with id equals null or less than 1, updating denied. Id = {}", userId);
+            return null;
+        }
+
+        return userDao.update(user) ? user : null;
     }
 
     @Override
     public List<User> getAllUsers() {
-        return null;
+        return userDao.findAll();
     }
 }
