@@ -16,7 +16,7 @@ application will provide high notes management system. Notes have headers and bo
 - To represent front part I use Bootstrap 4 and jQuery (Bootstrap need it for some features);
 - The project builds on the MVC pattern. But it also contains other patterns, such as Strategy, DAO, etc.
 - To build the project I use Maven (at the first versions of the applications there was Gradle, but I decided to switch to Maven);
-- The project uses MySQL Database as main, and H2 for testing. The main DB script [dbSetUp.sql](dbSetUp.sql);
+- The project uses MySQL Database as main, and H2 for testing. The main DB script [main.sql](main.sql);
 - The project uses Apache Tomcat;
 
 ## Author :person_with_blond_hair:
