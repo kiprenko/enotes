@@ -18,9 +18,9 @@ CREATE TABLE IF NOT EXISTS users
     age          TINYINT     NOT NULL CHECK (age > 3 AND age < 100),
     registration DATE        NOT NULL,
     country      VARCHAR(25) NOT NULL,
-    role         INT         NOT NULL DEFAULT 1,
+    role_id         INT         NOT NULL DEFAULT 1,
     PRIMARY KEY (id),
-    FOREIGN KEY (role) REFERENCES user_roles (id)
+    FOREIGN KEY (role_id) REFERENCES user_roles (id)
 );
 
 CREATE TABLE IF NOT EXISTS notes

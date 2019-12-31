@@ -23,10 +23,13 @@ public class JdbcNoteDao implements NoteDao {
 
     private ConnectionManager connectionManager;
 
-    private static final String ADD_NEW_NOTE_SQL = "INSERT INTO notes (header, body, state, user_id) VALUES ('%s', '%s', '%s', %d);";
+    private static final String ADD_NEW_NOTE_SQL =
+            "INSERT INTO notes (header, body, state, user_id) VALUES ('%s', '%s', '%s', %d);";
     private static final String SELECT_ALL_NOTES_SQL = "SELECT * FROM notes WHERE is_deleted=0;";
-    private static final String SELECT_NOTE_BY_ID_SQL = "SELECT * FROM notes WHERE id = %d AND is_deleted=0;";
-    private static final String UPDATE_NOTE_SQL = "UPDATE notes SET header = '%s', body = '%s', state = '%s' WHERE id = %s;";
+    private static final String SELECT_NOTE_BY_ID_SQL =
+            "SELECT * FROM notes WHERE id = %d AND is_deleted=0;";
+    private static final String UPDATE_NOTE_SQL =
+            "UPDATE notes SET header = '%s', body = '%s', state = '%s' WHERE id = %s;";
     private static final String DELETE_NOTE_BY_ID_SQL = "UPDATE notes SET is_deleted=1 WHERE id = %s;";
 
     @Autowired
@@ -95,17 +98,21 @@ public class JdbcNoteDao implements NoteDao {
              Statement statement = connection.createStatement()) {
 
             LOGGER.info("Adding new note.");
-            statement.execute(format(
-                    ADD_NEW_NOTE_SQL,
-                    entity.getHeader(), entity.getBody(), entity.getState().getStateAsString(), entity.getUser().getId()
-            ));
-
+            statement.execute(getPreparedInsertSql(entity));
             LOGGER.info("Note adding query executed successfully.");
+
         } catch (SQLException e) {
-            LOGGER.error("Error during new note creation for user with id={}: ", entity.getUser().getId(), e);
+            LOGGER.error("Error during new note creation for user with id={}: ",
+                    entity.getUser().getId(), e);
             return false;
         }
         return true;
+    }
+
+    private String getPreparedInsertSql(Note note) {
+        return format(ADD_NEW_NOTE_SQL,
+                note.getHeader(), note.getBody(),
+                note.getState().getStateAsString(), note.getUser().getId());
     }
 
     @Override
@@ -113,11 +120,9 @@ public class JdbcNoteDao implements NoteDao {
         try (Connection connection = connectionManager.getConnection();
              Statement statement = connection.createStatement()) {
 
-            LOGGER.info("Updating a note with id={} for a user with id={}", entity.getId(), entity.getUser().getId());
-            statement.execute(format(
-                    UPDATE_NOTE_SQL,
-                    entity.getHeader(), entity.getBody(), entity.getState().getStateAsString(), entity.getId()
-            ));
+            LOGGER.info("Updating a note with id={} for a user with id={}",
+                    entity.getId(), entity.getUser().getId());
+            statement.execute(getPreparedUpdateSql(entity));
 
         } catch (SQLException e) {
             LOGGER.error(e);
@@ -125,6 +130,11 @@ public class JdbcNoteDao implements NoteDao {
         }
 
         return true;
+    }
+
+    private String getPreparedUpdateSql(Note note) {
+        return format(UPDATE_NOTE_SQL,
+                note.getHeader(), note.getBody(), note.getState().getStateAsString(), note.getId());
     }
 
     @Override

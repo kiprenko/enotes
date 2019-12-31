@@ -25,14 +25,15 @@ public class JdbcUserDao implements UserDao {
 
     private ConnectionManager connectionManager;
 
-    private static final String ADD_NEW_USER_SQL = "INSERT INTO users (first_name, last_name, email, password, age, registration, country, role)" +
+    private static final String ADD_NEW_USER_SQL =
+            "INSERT INTO users (first_name, last_name, email, password, age, registration, country, role_id)" +
             " VALUES ('%s', '%s', '%s', '%s', %d, '%s', '%s', %d);";
     private static final String SELECT_USER_BY_ID_SQL = "SELECT * FROM users WHERE id = %d;";
     private static final String SELECT_ALL_USERS_SQL = "SELECT * FROM users;";
     private static final String DELETE_USER_BY_ID_SQL = "DELETE FROM users WHERE id=%d;";
-    private static final String UPDATE_USER_BY_ID_SQL = "UPDATE users " +
-            "SET first_name = '%s', last_name = '%s', email = '%s', password = '%s', age = '%d', registration = '%s', country = '%s', role = '%d' " +
-            "WHERE id = '%d';";
+    private static final String UPDATE_USER_BY_ID_SQL =
+            "UPDATE users SET first_name = '%s', last_name = '%s', email = '%s', password = '%s', " +
+                    "age = '%d', registration = '%s', country = '%s', role_id = '%d' WHERE id = '%d';";
 
 
     @Autowired
@@ -170,6 +171,6 @@ public class JdbcUserDao implements UserDao {
         user.setAge(resultSet.getInt("age"));
         user.setRegistration(resultSet.getDate("registration"));
         user.setCountry(resultSet.getString(("country")));
-        user.setRole(UserRole.getRoleById(resultSet.getInt("role")));
+        user.setRole(UserRole.getRoleById(resultSet.getInt("role_id")));
     }
 }
