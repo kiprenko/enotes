@@ -30,6 +30,9 @@ public class JdbcUserDao implements UserDao {
     private static final String SELECT_USER_BY_ID_SQL = "SELECT * FROM users WHERE id = %d;";
     private static final String SELECT_ALL_USERS_SQL = "SELECT * FROM users;";
     private static final String DELETE_USER_BY_ID_SQL = "DELETE FROM users WHERE id=%d;";
+    private static final String UPDATE_USER_BY_ID_SQL = "UPDATE users " +
+            "SET first_name = '%s', last_name = '%s', email = '%s', password = '%s', age = '%d', registration = '%s', country = '%s', role = '%d' " +
+            "WHERE id = '%d';";
 
 
     @Autowired
@@ -86,13 +89,7 @@ public class JdbcUserDao implements UserDao {
              Statement statement = connection.createStatement()) {
 
             LOGGER.info("Adding new user.");
-            statement.execute(format(
-                    ADD_NEW_USER_SQL,
-                    entity.getFirstName(), entity.getLastName(),
-                    entity.getEmail(), entity.getPassword(),
-                    entity.getAge(), convertDate(entity.getRegistration()),
-                    entity.getCountry(), entity.getRole().getRoleId()
-            ));
+            statement.execute(getPreparedInsertSql(entity));
             LOGGER.info("User adding query executed successfully.");
 
         } catch (SQLException e) {
@@ -103,9 +100,41 @@ public class JdbcUserDao implements UserDao {
         return true;
     }
 
+    private String getPreparedInsertSql(User user) {
+        return format(
+                ADD_NEW_USER_SQL,
+                user.getFirstName(), user.getLastName(),
+                user.getEmail(), user.getPassword(),
+                user.getAge(), convertDate(user.getRegistration()),
+                user.getCountry(), user.getRole().getRoleId()
+        );
+    }
+
     @Override
     public boolean update(User entity) {
-        return false;
+        try (Connection connection = connectionManager.getConnection();
+             Statement statement = connection.createStatement()) {
+
+            LOGGER.info("Updating user record with id={}", entity.getId());
+            statement.execute(getPreparedUpdateSql(entity));
+            LOGGER.info("User with id={} was successfully updated.", entity.getId());
+
+        } catch (SQLException e) {
+            LOGGER.error(e);
+            return false;
+        }
+        return true;
+    }
+
+    private String getPreparedUpdateSql(User user) {
+        return format(
+                UPDATE_USER_BY_ID_SQL,
+                user.getFirstName(), user.getLastName(),
+                user.getEmail(), user.getPassword(),
+                user.getAge(), convertDate(user.getRegistration()),
+                user.getCountry(), user.getRole().getRoleId(),
+                user.getId()
+        );
     }
 
     @Override
