@@ -29,6 +29,7 @@ public class NoteServiceImpl implements NoteService {
         if (noteDao.add(note)) {
             return note;
         }
+        LOGGER.error("Note creation was unsuccessful for user with id={}, see logs for more details.", note.getUser().getId());
         return null;
     }
 
