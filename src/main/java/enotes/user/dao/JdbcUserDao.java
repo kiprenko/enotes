@@ -29,6 +29,7 @@ public class JdbcUserDao implements UserDao {
             " VALUES ('%s', '%s', '%s', '%s', %d, '%s', '%s', %d);";
     private static final String SELECT_USER_BY_ID_SQL = "SELECT * FROM users WHERE id = %d;";
     private static final String SELECT_ALL_USERS_SQL = "SELECT * FROM users;";
+    private static final String DELETE_USER_BY_ID_SQL = "DELETE FROM users WHERE id=%d;";
 
 
     @Autowired
@@ -61,7 +62,7 @@ public class JdbcUserDao implements UserDao {
 
     @Override
     public User find(Long id) {
-        User  user = null;
+        User user = null;
         try (Connection connection = connectionManager.getConnection();
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(format(SELECT_USER_BY_ID_SQL, id))) {
@@ -109,7 +110,16 @@ public class JdbcUserDao implements UserDao {
 
     @Override
     public boolean delete(Long id) {
-        return false;
+        try (Connection connection = connectionManager.getConnection();
+             Statement statement = connection.createStatement()) {
+
+            statement.execute(format(DELETE_USER_BY_ID_SQL, id));
+
+        } catch (SQLException e) {
+            LOGGER.error(e);
+            return false;
+        }
+        return true;
     }
 
     private String convertDate(Date date) {
