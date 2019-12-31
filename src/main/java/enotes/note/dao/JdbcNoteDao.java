@@ -15,6 +15,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.lang.String.format;
+
 @Log4j2
 @Component
 public class JdbcNoteDao implements NoteDao {
@@ -45,7 +47,7 @@ public class JdbcNoteDao implements NoteDao {
             while (resultSet.next()) {
                 note = new Note();
                 user = new User();
-                handleNoteFromResultSet(resultSet, note, user);
+                fillNoteFromResultSet(resultSet, note, user);
                 list.add(note);
             }
 
@@ -57,7 +59,7 @@ public class JdbcNoteDao implements NoteDao {
         return list;
     }
 
-    private void handleNoteFromResultSet(ResultSet resultSet, Note note, User user) throws SQLException {
+    private void fillNoteFromResultSet(ResultSet resultSet, Note note, User user) throws SQLException {
         user.setId(resultSet.getLong("user_id"));
         note.setUser(user);
         note.setId(resultSet.getLong("id"));
@@ -71,12 +73,12 @@ public class JdbcNoteDao implements NoteDao {
         Note note = null;
         try (Connection connection = connectionManager.getConnection();
              Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery(String.format(SELECT_NOTE_BY_ID_SQL, id))) {
+             ResultSet resultSet = statement.executeQuery(format(SELECT_NOTE_BY_ID_SQL, id))) {
 
             if (resultSet.next()) {
                 note = new Note();
                 User user = new User();
-                handleNoteFromResultSet(resultSet, note, user);
+                fillNoteFromResultSet(resultSet, note, user);
             }
 
         } catch (SQLException e) {
@@ -93,7 +95,7 @@ public class JdbcNoteDao implements NoteDao {
              Statement statement = connection.createStatement()) {
 
             LOGGER.info("Adding new note.");
-            statement.execute(String.format(
+            statement.execute(format(
                     ADD_NEW_NOTE_SQL,
                     entity.getHeader(), entity.getBody(), entity.getState().getStateAsString(), entity.getUser().getId()
             ));
@@ -112,7 +114,7 @@ public class JdbcNoteDao implements NoteDao {
              Statement statement = connection.createStatement()) {
 
             LOGGER.info("Updating a note with id={} for a user with id={}", entity.getId(), entity.getUser().getId());
-            statement.execute(String.format(
+            statement.execute(format(
                     UPDATE_NOTE_SQL,
                     entity.getHeader(), entity.getBody(), entity.getState().getStateAsString(), entity.getId()
             ));
@@ -130,7 +132,7 @@ public class JdbcNoteDao implements NoteDao {
         try (Connection connection = connectionManager.getConnection();
              Statement statement = connection.createStatement()) {
 
-            statement.execute(String.format(DELETE_NOTE_BY_ID_SQL, id));
+            statement.execute(format(DELETE_NOTE_BY_ID_SQL, id));
 
         } catch (SQLException e) {
             LOGGER.error(e);
