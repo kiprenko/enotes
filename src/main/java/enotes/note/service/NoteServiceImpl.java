@@ -15,8 +15,7 @@ public class NoteServiceImpl implements NoteService {
 
     private NoteDao noteDao;
 
-    @Autowired
-    public void setNoteDao(NoteDao noteDao) {
+    public NoteServiceImpl(NoteDao noteDao) {
         this.noteDao = noteDao;
     }
 

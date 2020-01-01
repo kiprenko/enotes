@@ -1,6 +1,6 @@
 package enotes.db;
 
-import org.springframework.context.annotation.PropertySource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
@@ -11,7 +11,6 @@ import java.sql.SQLException;
 import static java.util.Objects.requireNonNull;
 
 @Component
-@PropertySource("classpath:configuration/base.properties")
 public class JdbcConnectionManager implements ConnectionManager {
 
     private final static String URL = "db.url";
@@ -20,6 +19,7 @@ public class JdbcConnectionManager implements ConnectionManager {
 
     private Environment env;
 
+    @Autowired
     public JdbcConnectionManager(Environment env) {
         this.env = env;
     }
