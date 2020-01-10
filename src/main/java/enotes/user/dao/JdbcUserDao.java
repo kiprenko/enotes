@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -58,7 +59,7 @@ public class JdbcUserDao implements UserDao {
 
         } catch (SQLException e) {
             LOGGER.error("An error during getting of all users list: ", e);
-            return null;
+            return Collections.emptyList();
         }
 
         return users;
