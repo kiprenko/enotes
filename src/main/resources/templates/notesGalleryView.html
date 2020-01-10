@@ -47,7 +47,7 @@
 
     <hr class="mt-2 mb-5">
     <div class="row text-center text-lg-left" id="gallery">
-        <th:block th:each="note : ${notes}">
+        <th:block th:if="${not #lists.isEmpty(notes)}" th:each="note : ${notes}">
             <div class="border-left  col-lg-3 col-md-4 col-6 m-3">
                 <div class="panel-heading d-inline" th:text="${note.header}"></div>
                 <th:block th:switch="${note.state.stateAsString}">
@@ -64,6 +64,8 @@
                 </div>
             </div>
         </th:block>
+
+        <p th:if="${#lists.isEmpty(notes)}">It seems you don't have any notes. <a href="/note/new">Let's create them!</a></p>
     </div>
 </div>
 </body>
