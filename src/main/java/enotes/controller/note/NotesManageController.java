@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Log4j2
 @RequestMapping("/note")
 @Controller
-public class NotesCrudController {
+public class NotesManageController {
 
     private NoteService noteService;
 
@@ -27,7 +27,7 @@ public class NotesCrudController {
     public String createNewNote(Model model) {
         LOGGER.info("Create page joined");
         model.addAttribute("note", new Note());
-        return "noteCrud/createNewNote.html";
+        return "noteManage/createNewNote.html";
     }
 
     @RequestMapping(value = "/saveNote", method = RequestMethod.POST)
@@ -38,7 +38,7 @@ public class NotesCrudController {
         note.setUser(user);
 
         LOGGER.info("Saving a new note");
-        if (noteService.create(note) != null) {
+        if (noteService.save(note) != null) {
             LOGGER.info("Note was successfully saved.");
         } else {
             LOGGER.error("Note wasn't saved.");
@@ -69,6 +69,6 @@ public class NotesCrudController {
     @RequestMapping("/{id}")
     public String viewNote(@PathVariable Long id, Model model) {
         model.addAttribute("note", noteService.get(id));
-        return "noteCrud/viewNote.html";
+        return "noteManage/viewNote.html";
     }
 }

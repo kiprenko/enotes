@@ -1,15 +1,10 @@
 package enotes.config;
 
-import enotes.db.ConnectionManager;
-import enotes.db.JdbcConnectionManager;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 
 @Configuration
+@PropertySource("classpath:configuration/base.properties")
 public class SpringContextConfiguration {
 
-    @Bean
-    public ConnectionManager getConnectionManager() {
-        return new JdbcConnectionManager();
-    }
 }

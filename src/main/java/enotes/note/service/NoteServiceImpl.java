@@ -15,21 +15,18 @@ public class NoteServiceImpl implements NoteService {
 
     private NoteDao noteDao;
 
-    @Autowired
-    public void setNoteDao(NoteDao noteDao) {
+    public NoteServiceImpl(NoteDao noteDao) {
         this.noteDao = noteDao;
     }
 
     @Override
-    public Note create(Note note) {
+    public Note save(Note note) {
         if (note == null) {
             LOGGER.error("Note can't be null!");
             return null;
         }
-        if (noteDao.add(note)) {
-            return note;
-        }
-        return null;
+
+        return noteDao.add(note) ? note : null;
     }
 
     @Cache
@@ -38,23 +35,25 @@ public class NoteServiceImpl implements NoteService {
         if (note == null) {
             LOGGER.error("Note can't be null!");
             return -1;
-        } else if (note.getId() == 0) {
+        }
+
+        Long noteId = note.getId();
+        if (noteId < 1) {
             LOGGER.error("Can't delete note with id less than 1. Note with header {} and body {}", note.getHeader(), note.getBody());
             return -1;
         }
-        noteDao.delete(note.getId());
-        return note.getId();
+
+        return noteDao.delete(noteId) ? noteId : -1;
     }
 
     @Override
     public long delete(long id) {
         if (id < 1) {
-            LOGGER.error("Can't delete note with id less than 1");
+            LOGGER.error("Can't delete note with id less than 1. Id = {}", id);
             return -1;
         }
 
-        noteDao.delete(id);
-        return id;
+        return noteDao.delete(id) ? id : -1;
     }
 
     @Cache
@@ -63,11 +62,15 @@ public class NoteServiceImpl implements NoteService {
         if (note == null) {
             LOGGER.error("Note can't be null!");
             return null;
-        } else if (note.getId() < 1) {
-            LOGGER.error("Can't find note with id less than 1. Id is {}", note.getId());
+        }
+
+        Long noteId = note.getId();
+        if (noteId < 1) {
+            LOGGER.error("Can't find note with id less than 1. Id is {}", noteId);
             return null;
         }
-        return noteDao.find(note.getId());
+
+        return noteDao.find(noteId);
     }
 
     @Cache
@@ -77,6 +80,7 @@ public class NoteServiceImpl implements NoteService {
             LOGGER.error("Can't find note with id less than 1. Id is {}", id);
             return null;
         }
+
         return noteDao.find(id);
     }
 
@@ -85,12 +89,15 @@ public class NoteServiceImpl implements NoteService {
         if (note == null) {
             LOGGER.error("Note can't be null!");
             return null;
-        } else if (note.getId() < 1) {
-            LOGGER.error("Can't update note with id less than 1. Id is {}", note.getId());
+        }
+
+        Long noteId = note.getId();
+        if (noteId < 1) {
+            LOGGER.error("Can't update note with id less than 1. Id is {}", noteId);
             return null;
         }
-        noteDao.update(note);
-        return note;
+
+        return noteDao.update(note) ? note : null;
     }
 
     @Cache

@@ -5,11 +5,16 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.util.HashMap;
 import java.util.Map;
+
+import static java.lang.Integer.parseInt;
+import static java.util.Objects.requireNonNull;
 
 @Log4j2
 @Aspect
@@ -17,12 +22,19 @@ import java.util.Map;
 public class SqlRequestCachingAspect {
 
     private static Map<String, CachedSqlRequest> cachedSqlRequests;
+    private static int TIMEOUT;
 
-    private static final int TIMEOUT = 3000;
+    private Environment env;
+
+    @Autowired
+    public SqlRequestCachingAspect(Environment env) {
+        this.env = env;
+    }
 
     @PostConstruct
     private void init() {
         cachedSqlRequests = new HashMap<>();
+        TIMEOUT = parseInt(requireNonNull(env.getProperty("aspect.cache.timeout")));
     }
 
     @Pointcut("@annotation(enotes.annotation.cache.Cache)")

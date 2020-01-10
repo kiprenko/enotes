@@ -12,7 +12,6 @@ import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
 import lombok.Setter;
 import lombok.Singular;
 import lombok.ToString;
@@ -25,21 +24,13 @@ import lombok.ToString;
 @Builder
 public class User implements Serializable {
     private Long id;
-    @NonNull
     private String firstName;
-    @NonNull
     private String lastName;
-    @NonNull
     private String email;
-
     private String password;
-    @NonNull
     private int age;
-    @NonNull
     private String country;
-    @NonNull
     private Date registration;
-    @NonNull
     private UserRole role;
 
     @Singular

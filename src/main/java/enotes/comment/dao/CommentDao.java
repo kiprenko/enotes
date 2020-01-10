@@ -1,4 +1,7 @@
 package enotes.comment.dao;
 
-public interface CommentDao {
+import enotes.comment.Comment;
+import enotes.db.Dao;
+
+public interface CommentDao extends Dao<Comment, Long> {
 }

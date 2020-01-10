@@ -18,9 +18,9 @@ CREATE TABLE IF NOT EXISTS users
     age          TINYINT     NOT NULL CHECK (age > 3 AND age < 100),
     registration DATE        NOT NULL,
     country      VARCHAR(25) NOT NULL,
-    role         INT         NOT NULL DEFAULT 1,
+    role_id         INT         NOT NULL DEFAULT 1,
     PRIMARY KEY (id),
-    FOREIGN KEY (role) REFERENCES user_roles (id)
+    FOREIGN KEY (role_id) REFERENCES user_roles (id)
 );
 
 CREATE TABLE IF NOT EXISTS notes
@@ -51,6 +51,6 @@ VALUES (1, 'User'),
        (2, 'Admin'),
        (3, 'God');
 
-INSERT INTO users (first_name, last_name, password, email, age, registration, country, role)
+INSERT INTO users (first_name, last_name, password, email, age, registration, country, role_id)
 VALUES ('admin', 'admin', 'A12345', 'admin@mail.com', 21, '2019-01-01', 'Ukraine', 3);
 
