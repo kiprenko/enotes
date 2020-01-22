@@ -17,8 +17,7 @@ public class JpaNoteDaoImpl implements NoteDao {
     }
 
     @Override
-    public boolean add(Note entity)
-    {
+    public boolean add(Note entity) {
         return false;
     }
 
