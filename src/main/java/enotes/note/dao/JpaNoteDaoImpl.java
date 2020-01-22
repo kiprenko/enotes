@@ -4,6 +4,7 @@ import java.util.List;
 
 import enotes.note.Note;
 
+//TODO use tutorial from Spring Framework guru to make this realization
 public class JpaNoteDaoImpl implements NoteDao {
 
     @Override
