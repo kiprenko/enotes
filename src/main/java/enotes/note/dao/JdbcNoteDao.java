@@ -2,7 +2,7 @@ package enotes.note.dao;
 
 import enotes.db.ConnectionManager;
 import enotes.note.Note;
-import enotes.note.NoteState;
+import enotes.note.noteState.NoteState;
 import enotes.user.User;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;

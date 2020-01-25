@@ -1,6 +1,7 @@
 package enotes.note;
 
 import enotes.comment.Comment;
+import enotes.note.noteState.NoteState;
 import enotes.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

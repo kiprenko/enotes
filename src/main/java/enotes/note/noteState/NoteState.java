@@ -1,4 +1,4 @@
-package enotes.note;
+package enotes.note.noteState;
 
 public enum NoteState {
     HIGH("High"),
