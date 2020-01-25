@@ -6,6 +6,7 @@ import enotes.note.noteState.NoteState;
 import enotes.user.User;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import java.sql.Connection;
@@ -20,6 +21,7 @@ import static java.lang.String.format;
 
 @Log4j2
 @Component
+@Profile("jdbc")
 public class JdbcNoteDao implements NoteDao {
 
     private ConnectionManager connectionManager;

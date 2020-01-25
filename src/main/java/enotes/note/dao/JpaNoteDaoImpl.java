@@ -3,8 +3,11 @@ package enotes.note.dao;
 import java.util.List;
 
 import enotes.note.Note;
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Component;
 
-//TODO use tutorial from Spring Framework guru to make this realization
+@Component
+@Profile("jpa")
 public class JpaNoteDaoImpl implements NoteDao {
 
     @Override
