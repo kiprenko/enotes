@@ -14,8 +14,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import static java.lang.String.format;
 
@@ -59,14 +59,14 @@ public class JdbcCommentDao implements CommentDao {
 
         } catch (SQLException e) {
             LOGGER.error(e);
-            return Collections.emptyList();
+            throw new RuntimeException(e);
         }
 
         return comments;
     }
 
     @Override
-    public Comment find(Long id) {
+    public Optional<Comment> find(Long id) {
         Comment comment = null;
         try (Connection connection = connectionManager.getConnection();
              Statement statement = connection.createStatement();
@@ -79,10 +79,10 @@ public class JdbcCommentDao implements CommentDao {
 
         } catch (SQLException e) {
             LOGGER.error(e);
-            return null;
+            throw new RuntimeException(e);
         }
 
-        return comment;
+        return Optional.ofNullable(comment);
     }
 
     private void fillCommentFromResultSet(Comment comment, ResultSet resultSet) throws SQLException {
@@ -107,6 +107,7 @@ public class JdbcCommentDao implements CommentDao {
 
         } catch (SQLException e) {
             LOGGER.error(e);
+            throw new RuntimeException(e);
         }
     }
 
@@ -125,6 +126,7 @@ public class JdbcCommentDao implements CommentDao {
 
         } catch (SQLException e) {
             LOGGER.error(e);
+            throw new RuntimeException(e);
         }
     }
 
@@ -144,6 +146,7 @@ public class JdbcCommentDao implements CommentDao {
 
         } catch (SQLException e) {
             LOGGER.error(e);
+            throw new RuntimeException(e);
         }
     }
 }

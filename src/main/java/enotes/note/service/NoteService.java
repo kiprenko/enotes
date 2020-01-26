@@ -1,22 +1,23 @@
 package enotes.note.service;
 
-import java.util.List;
-
 import enotes.note.Note;
+
+import java.util.List;
+import java.util.Optional;
 
 public interface NoteService {
 
-    Note save(Note note);
+    void save(Note note);
 
     long delete(Note note);
 
     long delete(long id);
 
-    Note get(Note note);
+    Optional<Note> get(Note note);
 
-    Note get(long id);
+    Optional<Note> get(long id);
 
-    Note update(Note note);
+    void update(Note note);
 
     List<Note> getAllNotes();
 }

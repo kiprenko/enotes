@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Log4j2
 @Service
@@ -20,82 +21,84 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User save(User user) {
+    public void save(User user) {
         if (user == null) {
             LOGGER.error("Passed user is null, user creation denied.");
-            return null;
+            throw new IllegalArgumentException();
         }
 
-        return userDao.add(user) ? user : null;
+        userDao.add(user);
     }
 
     @Override
     public long delete(User user) {
         if (user == null) {
             LOGGER.error("Passed user is null, user deletion denied.");
-            return -1;
+            throw new IllegalArgumentException();
         }
 
         Long userId = user.getId();
         if (userId == null || userId < 1) {
             LOGGER.error("Can't delete user with id equals null or less than 1. Id = {}", userId);
-            return -1;
+            throw new IllegalArgumentException();
         }
 
-        return userDao.delete(userId) ? userId : -1;
+        userDao.delete(userId);
+        return userId;
     }
 
     @Override
     public long delete(long id) {
         if (id < 1) {
             LOGGER.error("Passed user id is less than 1, user deletion denied.");
-            return -1;
+            throw new IllegalArgumentException();
         }
 
         User user = User.builder().id(id).build();
-        return userDao.delete(user.getId()) ? id : -1;
+        userDao.delete(user.getId());
+        return user.getId();
     }
 
     @Override
-    public User get(User user) {
+    public Optional<User> get(User user) {
         if (user == null) {
             LOGGER.error("Passed user is null, user getting denied.");
-            return null;
+            throw new IllegalArgumentException();
         }
 
         Long userId = user.getId();
         if (userId == null || userId < 1) {
             LOGGER.error("Can't find user with id equals null or less than 1. Id = {}", userId);
-            return null;
+            throw new IllegalArgumentException();
         }
 
         return userDao.find(userId);
     }
 
     @Override
-    public User get(long id) {
+    public Optional<User> get(long id) {
         if (id < 1) {
             LOGGER.error("Can't find user with id less than 1. Id = {}", id);
-            return null;
+            throw new IllegalArgumentException();
         }
 
         return userDao.find(id);
     }
 
     @Override
-    public User update(User user) {
+    public void update(User user) {
         if (user == null) {
             LOGGER.error("Passed user is null, user updating denied.");
-            return null;
+            throw new IllegalArgumentException();
         }
 
         Long userId = user.getId();
         if (userId == null || userId < 1) {
             LOGGER.error("Can't find user with id equals null or less than 1, updating denied. Id = {}", userId);
-            return null;
+            throw new IllegalArgumentException();
         }
 
-        return userDao.update(user) ? user : null;
+        userDao.update(user);
     }
 
     @Override

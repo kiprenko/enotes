@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Log4j2
 @Service
@@ -20,81 +21,83 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public Comment save(Comment comment) {
+    public void save(Comment comment) {
         if (comment == null) {
             LOGGER.error("Passed comment is null, comment saving denied.");
-            return null;
+            throw new IllegalArgumentException();
         }
 
-        return commentDao.add(comment) ? comment : null;
+        commentDao.add(comment);
     }
 
     @Override
     public long delete(Comment comment) {
         if (comment == null) {
             LOGGER.error("Passed comment is null, comment deletion denied.");
-            return -1;
+            throw new IllegalArgumentException();
         }
 
         Long commentId = comment.getId();
         if (commentId == null || commentId < 1) {
             LOGGER.error("Can't delete comment with id equals null or less than 1. Id = {}", commentId);
-            return -1;
+            throw new IllegalArgumentException();
         }
 
-        return commentDao.delete(commentId) ? commentId : -1;
+        commentDao.delete(commentId);
+        return commentId;
     }
 
     @Override
     public long delete(long id) {
         if (id < 1) {
             LOGGER.error("Passed comment id is less than 1, comment deletion denied.");
-            return -1;
+            throw new IllegalArgumentException();
         }
 
-        return commentDao.delete(id) ? id : -1;
+        commentDao.delete(id);
+        return id;
     }
 
     @Override
-    public Comment get(Comment comment) {
+    public Optional<Comment> get(Comment comment) {
         if (comment == null) {
             LOGGER.error("Passed comment is null, comment getting denied.");
-            return null;
+            throw new IllegalArgumentException();
         }
 
         Long commentId = comment.getId();
         if (commentId == null || commentId < 1) {
             LOGGER.error("Can't find comment with id equals null or less than 1. Id = {}", commentId);
-            return null;
+            throw new IllegalArgumentException();
         }
 
         return commentDao.find(commentId);
     }
 
     @Override
-    public Comment get(long id) {
+    public Optional<Comment> get(long id) {
         if (id < 1) {
             LOGGER.error("Can't find comment with id less than 1. Id = {}", id);
-            return null;
+            throw new IllegalArgumentException();
         }
 
         return commentDao.find(id);
     }
 
     @Override
-    public Comment update(Comment comment) {
+    public void update(Comment comment) {
         if (comment == null) {
             LOGGER.error("Passed comment is null, comment updating denied.");
-            return null;
+            throw new IllegalArgumentException();
         }
 
         Long commentId = comment.getId();
         if (commentId == null || commentId < 1) {
             LOGGER.error("Can't find comment with id equals null or less than 1, updating denied. Id = {}", commentId);
-            return null;
+            throw new IllegalArgumentException();
         }
 
-        return commentDao.update(comment) ? comment : null;
+        commentDao.update(comment);
     }
 
     @Override

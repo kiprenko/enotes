@@ -14,8 +14,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import static java.lang.String.format;
 
@@ -57,7 +57,7 @@ public class JdbcNoteDao implements NoteDao {
 
         } catch (SQLException e) {
             LOGGER.error(e);
-            return Collections.emptyList();
+            throw new RuntimeException(e);
         }
 
         return list;
@@ -73,7 +73,7 @@ public class JdbcNoteDao implements NoteDao {
     }
 
     @Override
-    public Note find(Long id) {
+    public Optional<Note> find(Long id) {
         Note note = null;
         try (Connection connection = connectionManager.getConnection();
              Statement statement = connection.createStatement();
@@ -86,10 +86,10 @@ public class JdbcNoteDao implements NoteDao {
 
         } catch (SQLException e) {
             LOGGER.error(e);
-            return null;
+            throw new RuntimeException(e);
         }
 
-        return note;
+        return Optional.ofNullable(note);
     }
 
     @Override
@@ -104,6 +104,7 @@ public class JdbcNoteDao implements NoteDao {
         } catch (SQLException e) {
             LOGGER.error("Error during new note creation for user with id={}: ",
                     entity.getUser().getId(), e);
+            throw new RuntimeException(e);
         }
     }
 
@@ -124,6 +125,7 @@ public class JdbcNoteDao implements NoteDao {
 
         } catch (SQLException e) {
             LOGGER.error(e);
+            throw new RuntimeException(e);
         }
     }
 
@@ -141,6 +143,7 @@ public class JdbcNoteDao implements NoteDao {
 
         } catch (SQLException e) {
             LOGGER.error(e);
+            throw new RuntimeException(e);
         }
     }
 }

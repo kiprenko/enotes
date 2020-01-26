@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Log4j2
 @Service
@@ -15,18 +16,19 @@ public class NoteServiceImpl implements NoteService {
 
     private NoteDao noteDao;
 
+    @Autowired
     public NoteServiceImpl(NoteDao noteDao) {
         this.noteDao = noteDao;
     }
 
     @Override
-    public Note save(Note note) {
+    public void save(Note note) {
         if (note == null) {
             LOGGER.error("Note can't be null!");
-            return null;
+            return;
         }
 
-        return noteDao.add(note) ? note : null;
+        noteDao.add(note);
     }
 
     @Cache
@@ -43,7 +45,8 @@ public class NoteServiceImpl implements NoteService {
             return -1;
         }
 
-        return noteDao.delete(noteId) ? noteId : -1;
+        noteDao.delete(noteId);
+        return noteId;
     }
 
     @Override
@@ -53,12 +56,13 @@ public class NoteServiceImpl implements NoteService {
             return -1;
         }
 
-        return noteDao.delete(id) ? id : -1;
+        noteDao.delete(id);
+        return id;
     }
 
     @Cache
     @Override
-    public Note get(Note note) {
+    public Optional<Note> get(Note note) {
         if (note == null) {
             LOGGER.error("Note can't be null!");
             return null;
@@ -75,29 +79,29 @@ public class NoteServiceImpl implements NoteService {
 
     @Cache
     @Override
-    public Note get(long id) {
+    public Optional<Note> get(long id) {
         if (id < 1) {
             LOGGER.error("Can't find note with id less than 1. Id is {}", id);
-            return null;
+            throw new IllegalArgumentException();
         }
 
         return noteDao.find(id);
     }
 
     @Override
-    public Note update(Note note) {
+    public void update(Note note) {
         if (note == null) {
             LOGGER.error("Note can't be null!");
-            return null;
+            throw new IllegalArgumentException();
         }
 
         Long noteId = note.getId();
         if (noteId < 1) {
             LOGGER.error("Can't update note with id less than 1. Id is {}", noteId);
-            return null;
+            throw new IllegalArgumentException();
         }
 
-        return noteDao.update(note) ? note : null;
+        noteDao.update(note);
     }
 
     @Cache

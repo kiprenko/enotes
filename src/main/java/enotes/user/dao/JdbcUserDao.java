@@ -61,14 +61,14 @@ public class JdbcUserDao implements UserDao {
 
         } catch (SQLException e) {
             LOGGER.error("An error during getting of all users list: ", e);
-            return Collections.emptyList();
+            throw new RuntimeException(e);
         }
 
         return users;
     }
 
     @Override
-    public User find(Long id) {
+    public Optional<User> find(Long id) {
         User user = null;
         try (Connection connection = connectionManager.getConnection();
              Statement statement = connection.createStatement();
@@ -78,13 +78,12 @@ public class JdbcUserDao implements UserDao {
                 user = new User();
                 fillUserFromResultSet(user, resultSet);
             }
-
         } catch (SQLException e) {
             LOGGER.error(e);
-            return null;
+            throw new RuntimeException(e);
         }
 
-        return user;
+        return Optional.ofNullable(user);
     }
 
     @Override
@@ -98,6 +97,7 @@ public class JdbcUserDao implements UserDao {
 
         } catch (SQLException e) {
             LOGGER.error("Error during creation of a new user: ", e);
+            throw new RuntimeException(e);
         }
     }
 
@@ -122,6 +122,7 @@ public class JdbcUserDao implements UserDao {
 
         } catch (SQLException e) {
             LOGGER.error(e);
+            throw new RuntimeException(e);
         }
     }
 
@@ -145,6 +146,7 @@ public class JdbcUserDao implements UserDao {
 
         } catch (SQLException e) {
             LOGGER.error(e);
+            throw new RuntimeException(e);
         }
     }
 

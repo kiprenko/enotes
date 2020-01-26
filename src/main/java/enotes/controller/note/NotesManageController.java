@@ -38,11 +38,7 @@ public class NotesManageController {
         note.setUser(user);
 
         LOGGER.info("Saving a new note");
-        if (noteService.save(note) != null) {
-            LOGGER.info("Note was successfully saved.");
-        } else {
-            LOGGER.error("Note wasn't saved.");
-        }
+        noteService.save(note);
         return "redirect:/notesGalleryView";
     }
 

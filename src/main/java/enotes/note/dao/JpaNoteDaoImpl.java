@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceUnit;
 import java.util.List;
+import java.util.Optional;
 
 @Component
 @Profile("jpa")
@@ -30,8 +31,8 @@ public class JpaNoteDaoImpl implements NoteDao {
     }
 
     @Override
-    public Note find(Long id) {
-        return getEntityManager().find(Note.class, id);
+    public Optional<Note> find(Long id) {
+        return Optional.ofNullable(getEntityManager().find(Note.class, id));
     }
 
     @Override

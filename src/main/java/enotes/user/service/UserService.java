@@ -3,20 +3,21 @@ package enotes.user.service;
 import enotes.user.User;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserService {
 
-    User save(User user);
+    void save(User user);
 
     long delete(User user);
 
     long delete(long id);
 
-    User get(User user);
+    Optional<User> get(User user);
 
-    User get(long id);
+    Optional<User> get(long id);
 
-    User update(User user);
+    void update(User user);
 
     List<User> getAllUsers();
 }

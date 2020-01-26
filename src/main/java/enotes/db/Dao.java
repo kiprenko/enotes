@@ -1,6 +1,7 @@
 package enotes.db;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Base interface for all dao interfaces. Declare necessary methods for DAOs
@@ -11,7 +12,7 @@ import java.util.List;
 public interface Dao<T, L> {
     List<T> findAll();
 
-    T find(L id);
+    Optional<T> find(L id);
 
     void add(T entity);
 
