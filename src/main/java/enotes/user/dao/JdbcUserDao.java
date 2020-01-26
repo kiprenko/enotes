@@ -88,7 +88,7 @@ public class JdbcUserDao implements UserDao {
     }
 
     @Override
-    public boolean add(User entity) {
+    public void add(User entity) {
         try (Connection connection = connectionManager.getConnection();
              Statement statement = connection.createStatement()) {
 
@@ -98,10 +98,7 @@ public class JdbcUserDao implements UserDao {
 
         } catch (SQLException e) {
             LOGGER.error("Error during creation of a new user: ", e);
-            return false;
         }
-
-        return true;
     }
 
     private String getPreparedInsertSql(User user) {
@@ -115,7 +112,7 @@ public class JdbcUserDao implements UserDao {
     }
 
     @Override
-    public boolean update(User entity) {
+    public void update(User entity) {
         try (Connection connection = connectionManager.getConnection();
              Statement statement = connection.createStatement()) {
 
@@ -125,9 +122,7 @@ public class JdbcUserDao implements UserDao {
 
         } catch (SQLException e) {
             LOGGER.error(e);
-            return false;
         }
-        return true;
     }
 
     private String getPreparedUpdateSql(User user) {
@@ -142,7 +137,7 @@ public class JdbcUserDao implements UserDao {
     }
 
     @Override
-    public boolean delete(Long id) {
+    public void delete(Long id) {
         try (Connection connection = connectionManager.getConnection();
              Statement statement = connection.createStatement()) {
 
@@ -150,9 +145,7 @@ public class JdbcUserDao implements UserDao {
 
         } catch (SQLException e) {
             LOGGER.error(e);
-            return false;
         }
-        return true;
     }
 
     private String convertDate(Date date) {

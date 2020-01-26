@@ -1,37 +1,53 @@
 package enotes.note.dao;
 
-import java.util.List;
-
 import enotes.note.Note;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceUnit;
+import java.util.List;
 
 @Component
 @Profile("jpa")
 public class JpaNoteDaoImpl implements NoteDao {
 
+    private EntityManagerFactory entityManagerFactory;
+
+    @PersistenceUnit
+    public void setEntityManagerFactory(EntityManagerFactory entityManagerFactory) {
+        this.entityManagerFactory = entityManagerFactory;
+    }
+
+    private EntityManager getEntityManager() {
+        return entityManagerFactory.createEntityManager();
+    }
+
     @Override
     public List<Note> findAll() {
-        return null;
+        return getEntityManager().createQuery("FROM notes", Note.class).getResultList();
     }
 
     @Override
     public Note find(Long id) {
-        return null;
+        return getEntityManager().find(Note.class, id);
     }
 
     @Override
-    public boolean add(Note entity) {
-        return false;
+    public void add(Note entity) {
+        EntityManager entityManager = getEntityManager();
+        entityManager.getTransaction().begin();
+        entityManager.persist(entity);
+        entityManager.getTransaction().commit();
     }
 
     @Override
-    public boolean update(Note entity) {
-        return false;
+    public void update(Note entity) {
+
     }
 
     @Override
-    public boolean delete(Long id) {
-        return false;
+    public void delete(Long id) {
     }
 }

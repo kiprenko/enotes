@@ -95,7 +95,7 @@ public class JdbcCommentDao implements CommentDao {
     }
 
     @Override
-    public boolean add(Comment entity) {
+    public void add(Comment entity) {
         try (Connection connection = connectionManager.getConnection();
              Statement statement = connection.createStatement()) {
 
@@ -107,10 +107,7 @@ public class JdbcCommentDao implements CommentDao {
 
         } catch (SQLException e) {
             LOGGER.error(e);
-            return false;
         }
-
-        return true;
     }
 
     private String getPreparedInsertSql(Comment comment) {
@@ -119,7 +116,7 @@ public class JdbcCommentDao implements CommentDao {
     }
 
     @Override
-    public boolean update(Comment entity) {
+    public void update(Comment entity) {
         try (Connection connection = connectionManager.getConnection();
              Statement statement = connection.createStatement()) {
 
@@ -128,10 +125,7 @@ public class JdbcCommentDao implements CommentDao {
 
         } catch (SQLException e) {
             LOGGER.error(e);
-            return false;
         }
-
-        return true;
     }
 
     private String getPreparedUpdateSql(Comment comment) {
@@ -141,7 +135,7 @@ public class JdbcCommentDao implements CommentDao {
     }
 
     @Override
-    public boolean delete(Long id) {
+    public void delete(Long id) {
         try (Connection connection = connectionManager.getConnection();
              Statement statement = connection.createStatement()) {
 
@@ -150,9 +144,6 @@ public class JdbcCommentDao implements CommentDao {
 
         } catch (SQLException e) {
             LOGGER.error(e);
-            return false;
         }
-
-        return true;
     }
 }

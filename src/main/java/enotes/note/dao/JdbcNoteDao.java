@@ -93,7 +93,7 @@ public class JdbcNoteDao implements NoteDao {
     }
 
     @Override
-    public boolean add(Note entity) {
+    public void add(Note entity) {
         try (Connection connection = connectionManager.getConnection();
              Statement statement = connection.createStatement()) {
 
@@ -104,9 +104,7 @@ public class JdbcNoteDao implements NoteDao {
         } catch (SQLException e) {
             LOGGER.error("Error during new note creation for user with id={}: ",
                     entity.getUser().getId(), e);
-            return false;
         }
-        return true;
     }
 
     private String getPreparedInsertSql(Note note) {
@@ -116,7 +114,7 @@ public class JdbcNoteDao implements NoteDao {
     }
 
     @Override
-    public boolean update(Note entity) {
+    public void update(Note entity) {
         try (Connection connection = connectionManager.getConnection();
              Statement statement = connection.createStatement()) {
 
@@ -126,10 +124,7 @@ public class JdbcNoteDao implements NoteDao {
 
         } catch (SQLException e) {
             LOGGER.error(e);
-            return false;
         }
-
-        return true;
     }
 
     private String getPreparedUpdateSql(Note note) {
@@ -138,7 +133,7 @@ public class JdbcNoteDao implements NoteDao {
     }
 
     @Override
-    public boolean delete(Long id) {
+    public void delete(Long id) {
         try (Connection connection = connectionManager.getConnection();
              Statement statement = connection.createStatement()) {
 
@@ -146,9 +141,6 @@ public class JdbcNoteDao implements NoteDao {
 
         } catch (SQLException e) {
             LOGGER.error(e);
-            return false;
         }
-
-        return true;
     }
 }
