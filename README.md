@@ -1,11 +1,11 @@
 # enotes :notebook_with_decorative_cover:
 **Enotes** is a web application for creating and managing personal notes. 
 
-## Subject area
+## Subject area :bulb:
 A user can create his account using the registration form. Then he will be able to log in with it. The
 application will provide high notes management system. Notes have headers and bodies. In addition, they have priority marks, which can be Low, Middle or High.
 
-## Definitions
+## Definitions :page_with_curl:
 - **User** - a customer of Enotes. To become a user you need to create an account using the registration form or using Rest API. Users can create and manage their notes, combine them into notebooks, etc;
 - **Note** - a simple note, which includes header, body and priority mark (high, middle, low). It can be created, modified and deleted by a user. Also can be combined into a notebook;
 - **Comment** - a comment for a note. Users can comment notes. Comments can be edited and deleted.
@@ -20,8 +20,9 @@ application will provide high notes management system. Notes have headers and bo
 - The project uses Apache Tomcat;
 
 ## Author :person_with_blond_hair:
-name: Yevgeniy Kiprenko 
-email: zhenyakiprenko@gmail.com
-telegram: https://t.me/Jus7XV
+- Name: Yevgeniy Kiprenko 
+- [LinkedIn](https://www.linkedin.com/in/evgeniy-kiprenko/)
+- [Email](zhenyakiprenko@gmail.com)
+- [Telegram](https://t.me/Jus7XV)
 
 **Note:** this README file will be updated regularly, to include more project information. I have a plan to add **diagrams** here.
