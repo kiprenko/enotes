@@ -15,6 +15,7 @@ public class NoteServiceImpl implements NoteService {
 
     private NoteDao noteDao;
 
+    @Autowired
     public NoteServiceImpl(NoteDao noteDao) {
         this.noteDao = noteDao;
     }
@@ -22,8 +23,7 @@ public class NoteServiceImpl implements NoteService {
     @Override
     public Note save(Note note) {
         if (note == null) {
-            LOGGER.error("Note can't be null!");
-            return null;
+            throw new IllegalArgumentException();
         }
 
         noteDao.add(note);
@@ -34,14 +34,14 @@ public class NoteServiceImpl implements NoteService {
     @Override
     public long delete(Note note) {
         if (note == null) {
-            LOGGER.error("Note can't be null!");
-            return -1;
+            throw new IllegalArgumentException();
         }
 
         Long noteId = note.getId();
         if (noteId < 1) {
-            LOGGER.error("Can't delete note with id less than 1. Note with header {} and body {}", note.getHeader(), note.getBody());
-            return -1;
+            throw new IllegalArgumentException(String.format("Can't delete note with id less than 1. Note with header %s and body %s",
+                    note.getHeader(),
+                    note.getBody()));
         }
 
         noteDao.delete(noteId);
@@ -51,8 +51,7 @@ public class NoteServiceImpl implements NoteService {
     @Override
     public long delete(long id) {
         if (id < 1) {
-            LOGGER.error("Can't delete note with id less than 1. Id = {}", id);
-            return -1;
+            throw new IllegalArgumentException(String.format("Can't delete note with id less than 1. Id = %d", id));
         }
 
         noteDao.delete(id);
@@ -63,14 +62,12 @@ public class NoteServiceImpl implements NoteService {
     @Override
     public Note get(Note note) {
         if (note == null) {
-            LOGGER.error("Note can't be null!");
-            return null;
+            throw new IllegalArgumentException();
         }
 
         Long noteId = note.getId();
         if (noteId < 1) {
-            LOGGER.error("Can't find note with id less than 1. Id is {}", noteId);
-            return null;
+            throw new IllegalArgumentException(String.format("Can't find note with id less than 1. Id is %d", noteId));
         }
 
         return noteDao.find(noteId);
@@ -80,8 +77,7 @@ public class NoteServiceImpl implements NoteService {
     @Override
     public Note get(long id) {
         if (id < 1) {
-            LOGGER.error("Can't find note with id less than 1. Id is {}", id);
-            return null;
+            throw new IllegalArgumentException(String.format("Can't find note with id less than 1. Id = %d", id));
         }
 
         return noteDao.find(id);
@@ -90,14 +86,12 @@ public class NoteServiceImpl implements NoteService {
     @Override
     public Note update(Note note) {
         if (note == null) {
-            LOGGER.error("Note can't be null!");
-            return null;
+            throw new IllegalArgumentException();
         }
 
         Long noteId = note.getId();
         if (noteId < 1) {
-            LOGGER.error("Can't update note with id less than 1. Id is {}", noteId);
-            return null;
+            throw new IllegalArgumentException(String.format("Can't update note with id less than 1. Id = %d", noteId));
         }
 
         noteDao.update(note);

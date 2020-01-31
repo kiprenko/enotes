@@ -22,8 +22,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User save(User user) {
         if (user == null) {
-            LOGGER.error("Passed user is null, user creation denied.");
-            return null;
+            throw new IllegalArgumentException();
         }
 
         userDao.add(user);
@@ -33,14 +32,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public long delete(User user) {
         if (user == null) {
-            LOGGER.error("Passed user is null, user deletion denied.");
-            return -1;
+            throw new IllegalArgumentException();
         }
 
         Long userId = user.getId();
         if (userId == null || userId < 1) {
-            LOGGER.error("Can't delete user with id equals null or less than 1. Id = {}", userId);
-            return -1;
+            throw new IllegalArgumentException(String.format("Can't delete user with id equals null or less than 1. Id = %d", userId));
         }
 
         userDao.delete(userId);
@@ -50,8 +47,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public long delete(long id) {
         if (id < 1) {
-            LOGGER.error("Passed user id is less than 1, user deletion denied.");
-            return -1;
+            throw new IllegalArgumentException();
         }
 
         userDao.delete(id);
@@ -61,14 +57,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public User get(User user) {
         if (user == null) {
-            LOGGER.error("Passed user is null, user getting denied.");
-            return null;
+            throw new IllegalArgumentException();
         }
 
         Long userId = user.getId();
         if (userId == null || userId < 1) {
-            LOGGER.error("Can't find user with id equals null or less than 1. Id = {}", userId);
-            return null;
+            throw new IllegalArgumentException(String.format("Can't find user with id equals null or less than 1. Id = %d", userId));
         }
 
         return userDao.find(userId);
@@ -77,8 +71,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User get(long id) {
         if (id < 1) {
-            LOGGER.error("Can't find user with id less than 1. Id = {}", id);
-            return null;
+            throw new IllegalArgumentException();
         }
 
         return userDao.find(id);
@@ -87,14 +80,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public User update(User user) {
         if (user == null) {
-            LOGGER.error("Passed user is null, user updating denied.");
-            return null;
+            throw new IllegalArgumentException();
         }
 
         Long userId = user.getId();
         if (userId == null || userId < 1) {
-            LOGGER.error("Can't find user with id equals null or less than 1, updating denied. Id = {}", userId);
-            return null;
+            throw new IllegalArgumentException(String.format("Can't find user with id equals null or less than 1, updating denied. Id = %d", userId));
         }
 
         userDao.update(user);

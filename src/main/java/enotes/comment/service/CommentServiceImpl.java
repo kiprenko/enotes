@@ -22,8 +22,7 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public Comment save(Comment comment) {
         if (comment == null) {
-            LOGGER.error("Passed comment is null, comment saving denied.");
-            return null;
+            throw new IllegalArgumentException();
         }
 
         commentDao.add(comment);
@@ -33,14 +32,12 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public long delete(Comment comment) {
         if (comment == null) {
-            LOGGER.error("Passed comment is null, comment deletion denied.");
-            return -1;
+            throw new IllegalArgumentException();
         }
 
         Long commentId = comment.getId();
         if (commentId == null || commentId < 1) {
-            LOGGER.error("Can't delete comment with id equals null or less than 1. Id = {}", commentId);
-            return -1;
+            throw new IllegalArgumentException(String.format("Can't delete comment with id equals null or less than 1. Id = %d", commentId));
         }
 
         commentDao.delete(commentId);
@@ -50,8 +47,7 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public long delete(long id) {
         if (id < 1) {
-            LOGGER.error("Passed comment id is less than 1, comment deletion denied.");
-            return -1;
+            throw new IllegalArgumentException(String.format("Can't delete comment with id equals null or less than 1. Id = %d", id));
         }
 
         commentDao.delete(id);
@@ -61,14 +57,12 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public Comment get(Comment comment) {
         if (comment == null) {
-            LOGGER.error("Passed comment is null, comment getting denied.");
-            return null;
+            throw new IllegalArgumentException();
         }
 
         Long commentId = comment.getId();
         if (commentId == null || commentId < 1) {
-            LOGGER.error("Can't find comment with id equals null or less than 1. Id = {}", commentId);
-            return null;
+            throw new IllegalArgumentException(String.format("Can't find comment with id equals null or less than 1. Id = %d", commentId));
         }
 
         return commentDao.find(commentId);
@@ -77,8 +71,7 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public Comment get(long id) {
         if (id < 1) {
-            LOGGER.error("Can't find comment with id less than 1. Id = {}", id);
-            return null;
+            throw new IllegalArgumentException(String.format("Can't find comment with id less than 1. Id = %d", id));
         }
 
         return commentDao.find(id);
@@ -87,14 +80,12 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public Comment update(Comment comment) {
         if (comment == null) {
-            LOGGER.error("Passed comment is null, comment updating denied.");
-            return null;
+            throw new IllegalArgumentException();
         }
 
         Long commentId = comment.getId();
         if (commentId == null || commentId < 1) {
-            LOGGER.error("Can't find comment with id equals null or less than 1, updating denied. Id = {}", commentId);
-            return null;
+            throw new IllegalArgumentException(String.format("Can't find comment with id equals null or less than 1, updating denied. Id = %d", commentId));
         }
 
         commentDao.update(comment);
