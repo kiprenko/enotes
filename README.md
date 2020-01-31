@@ -21,8 +21,8 @@ application will provide high notes management system. Notes have headers and bo
 
 ## Author :person_with_blond_hair:
 - Name: Yevgeniy Kiprenko 
+- Email: zhenyakiprenko@gmail.com
 - [LinkedIn](https://www.linkedin.com/in/evgeniy-kiprenko/)
-- [Email](zhenyakiprenko@gmail.com)
 - [Telegram](https://t.me/Jus7XV)
 
 **Note:** this README file will be updated regularly, to include more project information. I have a plan to add **diagrams** here.
