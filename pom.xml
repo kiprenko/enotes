@@ -7,13 +7,17 @@
     <groupId>evgeniy.kiprenko</groupId>
     <artifactId>enotes</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <name>enotes</name>
+    <description>Enotes is a web application for creating and managing personal notes.</description>
 
     <properties>
-        <spring-boot.version>2.2.2.RELEASE</spring-boot.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <java.version>1.8</java.version>
+
+        <spring-boot.version>1.3.0.RELEASE</spring-boot.version>
         <lombok.version>1.18.10</lombok.version>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
-        <spring.version>5.2.3.RELEASE</spring.version>
         <aspectjrt.version>1.8.9</aspectjrt.version>
         <mysql-connector.version>8.0.18</mysql-connector.version>
     </properties>
@@ -54,12 +58,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
             <version>${spring-boot.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-webmvc</artifactId>
-            <version>${spring.version}</version>
         </dependency>
 
         <dependency>
