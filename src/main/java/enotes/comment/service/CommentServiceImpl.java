@@ -26,7 +26,8 @@ public class CommentServiceImpl implements CommentService {
             return null;
         }
 
-        return commentDao.add(comment) ? comment : null;
+        commentDao.add(comment);
+        return comment;
     }
 
     @Override
@@ -42,7 +43,8 @@ public class CommentServiceImpl implements CommentService {
             return -1;
         }
 
-        return commentDao.delete(commentId) ? commentId : -1;
+        commentDao.delete(commentId);
+        return commentId;
     }
 
     @Override
@@ -52,7 +54,8 @@ public class CommentServiceImpl implements CommentService {
             return -1;
         }
 
-        return commentDao.delete(id) ? id : -1;
+        commentDao.delete(id);
+        return id;
     }
 
     @Override
@@ -94,7 +97,8 @@ public class CommentServiceImpl implements CommentService {
             return null;
         }
 
-        return commentDao.update(comment) ? comment : null;
+        commentDao.update(comment);
+        return comment;
     }
 
     @Override

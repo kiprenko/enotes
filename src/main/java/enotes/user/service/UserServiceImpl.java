@@ -26,7 +26,8 @@ public class UserServiceImpl implements UserService {
             return null;
         }
 
-        return userDao.add(user) ? user : null;
+        userDao.add(user);
+        return user;
     }
 
     @Override
@@ -42,7 +43,8 @@ public class UserServiceImpl implements UserService {
             return -1;
         }
 
-        return userDao.delete(userId) ? userId : -1;
+        userDao.delete(userId);
+        return userId;
     }
 
     @Override
@@ -52,8 +54,8 @@ public class UserServiceImpl implements UserService {
             return -1;
         }
 
-        User user = User.builder().id(id).build();
-        return userDao.delete(user.getId()) ? id : -1;
+        userDao.delete(id);
+        return id;
     }
 
     @Override
@@ -95,7 +97,8 @@ public class UserServiceImpl implements UserService {
             return null;
         }
 
-        return userDao.update(user) ? user : null;
+        userDao.update(user);
+        return user;
     }
 
     @Override

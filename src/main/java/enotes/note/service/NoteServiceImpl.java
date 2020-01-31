@@ -26,7 +26,8 @@ public class NoteServiceImpl implements NoteService {
             return null;
         }
 
-        return noteDao.add(note) ? note : null;
+        noteDao.add(note);
+        return note;
     }
 
     @Cache
@@ -43,7 +44,8 @@ public class NoteServiceImpl implements NoteService {
             return -1;
         }
 
-        return noteDao.delete(noteId) ? noteId : -1;
+        noteDao.delete(noteId);
+        return noteId;
     }
 
     @Override
@@ -53,7 +55,8 @@ public class NoteServiceImpl implements NoteService {
             return -1;
         }
 
-        return noteDao.delete(id) ? id : -1;
+        noteDao.delete(id);
+        return id;
     }
 
     @Cache
@@ -97,7 +100,8 @@ public class NoteServiceImpl implements NoteService {
             return null;
         }
 
-        return noteDao.update(note) ? note : null;
+        noteDao.update(note);
+        return note;
     }
 
     @Cache
