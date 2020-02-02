@@ -33,7 +33,4 @@ public class Note implements Serializable {
     @NotNull
     private User user;
     private boolean isDeleted;
-
-    @Version
-    private Integer version;
 }
