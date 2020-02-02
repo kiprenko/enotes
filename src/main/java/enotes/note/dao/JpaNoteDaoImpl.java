@@ -45,10 +45,14 @@ public class JpaNoteDaoImpl implements NoteDao {
 
     @Override
     public void update(Note entity) {
-
+        getEntityManager().merge(entity);
     }
 
     @Override
     public void delete(Long id) {
+        EntityManager entityManager = getEntityManager();
+        entityManager.getTransaction().begin();
+        entityManager.remove(entityManager.find(Note.class, id));
+        entityManager.getTransaction().commit();
     }
 }
