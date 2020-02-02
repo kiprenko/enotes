@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Log4j2
 @Service
@@ -20,13 +21,12 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public Comment save(Comment comment) {
+    public void save(Comment comment) {
         if (comment == null) {
             throw new IllegalArgumentException();
         }
 
         commentDao.add(comment);
-        return comment;
     }
 
     @Override
@@ -55,7 +55,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public Comment get(Comment comment) {
+    public Optional<Comment> get(Comment comment) {
         if (comment == null) {
             throw new IllegalArgumentException();
         }
@@ -69,7 +69,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public Comment get(long id) {
+    public Optional<Comment> get(long id) {
         if (id < 1) {
             throw new IllegalArgumentException(String.format("Can't find comment with id less than 1. Id = %d", id));
         }
@@ -78,7 +78,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public Comment update(Comment comment) {
+    public void update(Comment comment) {
         if (comment == null) {
             throw new IllegalArgumentException();
         }
@@ -89,7 +89,6 @@ public class CommentServiceImpl implements CommentService {
         }
 
         commentDao.update(comment);
-        return comment;
     }
 
     @Override

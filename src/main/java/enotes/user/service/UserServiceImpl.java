@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Log4j2
 @Service
@@ -20,13 +21,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User save(User user) {
+    public void save(User user) {
         if (user == null) {
             throw new IllegalArgumentException();
         }
 
         userDao.add(user);
-        return user;
     }
 
     @Override
@@ -55,7 +55,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User get(User user) {
+    public Optional<User> get(User user) {
         if (user == null) {
             throw new IllegalArgumentException();
         }
@@ -69,7 +69,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User get(long id) {
+    public Optional<User> get(long id) {
         if (id < 1) {
             throw new IllegalArgumentException();
         }
@@ -78,7 +78,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User update(User user) {
+    public void update(User user) {
         if (user == null) {
             throw new IllegalArgumentException();
         }
@@ -89,7 +89,6 @@ public class UserServiceImpl implements UserService {
         }
 
         userDao.update(user);
-        return user;
     }
 
     @Override

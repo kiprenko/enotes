@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Log4j2
 @Service
@@ -21,13 +22,12 @@ public class NoteServiceImpl implements NoteService {
     }
 
     @Override
-    public Note save(Note note) {
+    public void save(Note note) {
         if (note == null) {
             throw new IllegalArgumentException();
         }
 
         noteDao.add(note);
-        return note;
     }
 
     @Cache
@@ -60,7 +60,7 @@ public class NoteServiceImpl implements NoteService {
 
     @Cache
     @Override
-    public Note get(Note note) {
+    public Optional<Note> get(Note note) {
         if (note == null) {
             throw new IllegalArgumentException();
         }
@@ -75,7 +75,7 @@ public class NoteServiceImpl implements NoteService {
 
     @Cache
     @Override
-    public Note get(long id) {
+    public Optional<Note> get(long id) {
         if (id < 1) {
             throw new IllegalArgumentException(String.format("Can't find note with id less than 1. Id = %d", id));
         }
@@ -84,7 +84,7 @@ public class NoteServiceImpl implements NoteService {
     }
 
     @Override
-    public Note update(Note note) {
+    public void update(Note note) {
         if (note == null) {
             throw new IllegalArgumentException();
         }
@@ -95,7 +95,6 @@ public class NoteServiceImpl implements NoteService {
         }
 
         noteDao.update(note);
-        return note;
     }
 
     @Cache
