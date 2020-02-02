@@ -20,6 +20,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -45,4 +46,7 @@ public class Note implements Serializable {
     @NotNull
     private User user;
     private boolean isDeleted;
+
+    @Version
+    private Integer version;
 }
