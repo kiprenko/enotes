@@ -27,7 +27,7 @@
         </div>
         <div class="form-group">
             <select name="state" id="noteStateSelect">
-                <option th:each="state : ${T(enotes.note.NoteState).values()}"
+                <option th:each="state : ${T(enotes.note.noteState.NoteState).values()}"
                         th:value="${state}" th:text="${state.stateAsString}"
                         th:selected="${state == note.state}"></option>
             </select>

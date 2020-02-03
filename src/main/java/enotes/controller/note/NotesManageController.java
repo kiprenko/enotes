@@ -7,9 +7,10 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 @Log4j2
 @RequestMapping("/note")
@@ -23,14 +24,14 @@ public class NotesManageController {
         this.noteService = noteService;
     }
 
-    @RequestMapping(value = "/new", method = RequestMethod.GET)
+    @GetMapping(value = "/new")
     public String createNewNote(Model model) {
         LOGGER.info("Create page joined");
         model.addAttribute("note", new Note());
         return "noteManage/createNewNote.html";
     }
 
-    @RequestMapping(value = "/saveNote", method = RequestMethod.POST)
+    @PostMapping(value = "/saveNote")
     public String saveNote(Note note) {
         //the temporary solution while i don't have a authorization mechanism
         User user = new User();
@@ -42,7 +43,7 @@ public class NotesManageController {
         return "redirect:/notesGalleryView";
     }
 
-    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    @PostMapping(value = "/update")
     public String updateNote(Note note) {
         LOGGER.info("Updating a note with id = {}", note.getId());
         User user = new User();
@@ -52,7 +53,7 @@ public class NotesManageController {
         return "redirect:/note/" + note.getId();
     }
 
-    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+    @GetMapping(value = "/delete/{id}")
     public String deleteNote(@PathVariable Long id) {
         LOGGER.info("Deleting note with id = {}", id);
         if (noteService.delete(id) == -1) {
@@ -62,7 +63,7 @@ public class NotesManageController {
     }
 
 
-    @RequestMapping("/{id}")
+    @GetMapping("/{id}")
     public String viewNote(@PathVariable Long id, Model model) {
         model.addAttribute("note", noteService.get(id));
         return "noteManage/viewNote.html";
