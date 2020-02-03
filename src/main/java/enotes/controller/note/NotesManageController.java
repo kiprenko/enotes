@@ -26,7 +26,6 @@ public class NotesManageController {
 
     @GetMapping(value = "/new")
     public String createNewNote(Model model) {
-        LOGGER.info("Create page joined");
         model.addAttribute("note", new Note());
         return "noteManage/createNewNote.html";
     }
@@ -65,7 +64,7 @@ public class NotesManageController {
 
     @GetMapping("/{id}")
     public String viewNote(@PathVariable Long id, Model model) {
-        model.addAttribute("note", noteService.get(id));
+        noteService.get(id).ifPresent(note -> model.addAttribute("note", note));
         return "noteManage/viewNote.html";
     }
 }
