@@ -13,7 +13,7 @@ import java.util.Optional;
 @Service
 public class CommentServiceImpl implements CommentService {
 
-    private CommentDao commentDao;
+    private final CommentDao commentDao;
 
     @Autowired
     public CommentServiceImpl(CommentDao commentDao) {

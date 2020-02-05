@@ -14,7 +14,7 @@ import java.util.Optional;
 @Service
 public class NoteServiceImpl implements NoteService {
 
-    private NoteDao noteDao;
+    private final NoteDao noteDao;
 
     @Autowired
     public NoteServiceImpl(NoteDao noteDao) {
