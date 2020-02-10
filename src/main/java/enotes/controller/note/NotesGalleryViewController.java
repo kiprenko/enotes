@@ -1,7 +1,7 @@
 package enotes.controller.note;
 
-import enotes.note.Note;
-import enotes.note.service.NoteService;
+import enotes.entity.note.Note;
+import enotes.entity.note.service.NoteService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
