@@ -1,6 +1,6 @@
-package enotes.entity.user.role;
+package enotes.entity.userrole;
 
-public enum UserRole {
+public enum UserRoleEnum {
     USER("User", 1),
     ADMIN("Admin", 2),
     GOD("God", 3);
@@ -8,7 +8,7 @@ public enum UserRole {
     private int roleId;
     private String roleName;
 
-    UserRole(String roleName, int id) {
+    UserRoleEnum(String roleName, int id) {
         this.roleName = roleName;
         this.roleId = id;
     }
@@ -21,7 +21,7 @@ public enum UserRole {
         return roleName;
     }
 
-    public static UserRole getRoleByName(String roleName) {
+    public static UserRoleEnum getRoleByName(String roleName) {
         if (roleName.equals("God")) {
             return GOD;
         } else if (roleName.equals("Admin")) {
@@ -31,7 +31,7 @@ public enum UserRole {
         }
     }
 
-    public static UserRole getRoleById(int roleId) {
+    public static UserRoleEnum getRoleById(int roleId) {
         switch (roleId) {
             case 3: {
                 return GOD;

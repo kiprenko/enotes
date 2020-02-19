@@ -1,7 +1,7 @@
 package enotes.entity.user;
 
 import enotes.entity.note.Note;
-import enotes.entity.user.role.UserRole;
+import enotes.entity.userrole.UserRole;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -36,7 +36,7 @@ import java.util.List;
 @Builder
 public class User implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Version
@@ -53,7 +53,7 @@ public class User implements Serializable {
     @JoinColumn(name = "role_id")
     private UserRole role;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "users", orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", orphanRemoval = true)
     @Singular
     private List<Note> notes = new ArrayList<>();
 }

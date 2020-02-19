@@ -1,4 +1,4 @@
-package enotes.entity.note.noteState;
+package enotes.entity.note.notestate;
 
 public enum NoteState {
     HIGH("High"),
@@ -16,12 +16,16 @@ public enum NoteState {
     }
 
     public static NoteState getByStringName(String state) {
-        if (state.equals("High")) {
+        state = state.toLowerCase();
+
+        if (state.equals("high")) {
             return HIGH;
-        } else if (state.equals("Middle")) {
+        } else if (state.equals("middle")) {
             return MIDDLE;
-        } else {
+        } else if (state.equals("low")){
             return LOW;
+        } else {
+            throw new IllegalArgumentException("No such element in NoteState enum!");
         }
     }
 }

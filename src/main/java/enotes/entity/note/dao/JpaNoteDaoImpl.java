@@ -25,7 +25,7 @@ public class JpaNoteDaoImpl implements NoteDao {
 
     @Override
     public List<Note> findAll() {
-        return getEntityManager().createQuery("FROM notes", Note.class).getResultList();
+        return getEntityManager().createQuery("FROM Note", Note.class).getResultList();
     }
 
     @Override
