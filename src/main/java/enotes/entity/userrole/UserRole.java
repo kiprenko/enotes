@@ -9,10 +9,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.io.Serializable;
 
@@ -28,6 +26,5 @@ public class UserRole implements Serializable {
     @Id
     private Long id;
 
-    @OneToMany(cascade = CascadeType.REFRESH, mappedBy = "user_roles")
     private String role;
 }

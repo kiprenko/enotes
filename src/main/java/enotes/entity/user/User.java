@@ -16,6 +16,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -49,6 +50,7 @@ public class User implements Serializable {
     private String country;
     private Date registration;
     @ManyToOne
+    @JoinColumn(name = "role_id")
     private UserRole role;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "users", orphanRemoval = true)
