@@ -3,6 +3,7 @@ package enotes.controller.note;
 import enotes.entity.note.Note;
 import enotes.entity.note.service.NoteService;
 import enotes.entity.user.User;
+import enotes.entity.user.service.UserService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,16 +13,24 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.Optional;
+
 @Log4j2
 @RequestMapping("/note")
 @Controller
 public class NotesManageController {
 
     private NoteService noteService;
+    private UserService userService;
 
     @Autowired
     public void setNoteService(NoteService noteService) {
         this.noteService = noteService;
+    }
+
+    @Autowired
+    public void setUserService(UserService userService) {
+        this.userService = userService;
     }
 
     @GetMapping(value = "/new")
@@ -32,22 +41,20 @@ public class NotesManageController {
 
     @PostMapping(value = "/saveNote")
     public String saveNote(Note note) {
-        //the temporary solution while i don't have a authorization mechanism
-        User user = new User();
-        user.setId(1L);
-        note.setUser(user);
-
         LOGGER.info("Saving a new note");
-        noteService.save(note);
-        return "redirect:/notesGalleryView";
+        Optional<User> user = userService.get(1L);
+        if (user.isPresent()) {
+            note.setUser(user.get());
+            noteService.save(note);
+            return "redirect:/notesGalleryView";
+        }
+
+        return "noteManage/createNewNote.html";
     }
 
     @PostMapping(value = "/update")
     public String updateNote(Note note) {
         LOGGER.info("Updating a note with id = {}", note.getId());
-        User user = new User();
-        user.setId(1L);
-        note.setUser(user);
         noteService.update(note);
         return "redirect:/note/" + note.getId();
     }
