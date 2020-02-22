@@ -32,7 +32,7 @@ import java.util.List;
 @EqualsAndHashCode(of = {"firstName", "lastName", "email", "age", "country", "registration", "role", "version"})
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
+@ToString(of = {"firstName", "lastName", "email", "age", "country", "registration", "role", "version"})
 @Builder
 public class User implements Serializable {
     @Id

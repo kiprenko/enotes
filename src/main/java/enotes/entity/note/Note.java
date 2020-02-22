@@ -29,7 +29,7 @@ import java.io.Serializable;
 @EqualsAndHashCode(of = {"header", "body", "state", "user", "version"})
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
+@ToString(of = {"header", "body", "state", "user", "version"})
 @Builder
 public class Note implements Serializable {
     @Id

@@ -26,7 +26,7 @@ import java.io.Serializable;
 @EqualsAndHashCode(of = {"text", "user", "note", "version"})
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
+@ToString(of = {"text", "user", "version"})
 @Builder
 public class Comment implements Serializable {
     @Id

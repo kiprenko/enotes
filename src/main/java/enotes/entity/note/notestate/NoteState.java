@@ -18,14 +18,15 @@ public enum NoteState {
     public static NoteState getByStringName(String state) {
         state = state.toLowerCase();
 
-        if (state.equals("high")) {
-            return HIGH;
-        } else if (state.equals("middle")) {
-            return MIDDLE;
-        } else if (state.equals("low")){
-            return LOW;
-        } else {
-            throw new IllegalArgumentException("No such element in NoteState enum!");
+        switch (state) {
+            case "high":
+                return HIGH;
+            case "middle":
+                return MIDDLE;
+            case "low":
+                return LOW;
+            default:
+                throw new IllegalArgumentException("No such element in NoteState enum!");
         }
     }
 }
