@@ -13,8 +13,6 @@ public interface CommentService {
 
     long delete(long id);
 
-    Optional<Comment> get(Comment comment);
-
     Optional<Comment> get(long id);
 
     void update(Comment comment);

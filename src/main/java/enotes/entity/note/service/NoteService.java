@@ -13,8 +13,6 @@ public interface NoteService {
 
     long delete(long id);
 
-    Optional<Note> get(Note note);
-
     Optional<Note> get(long id);
 
     void update(Note note);

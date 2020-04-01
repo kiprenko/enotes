@@ -1,7 +1,7 @@
 package enotes.entity.user.service;
 
 import enotes.entity.user.User;
-import enotes.entity.user.dao.UserDao;
+import enotes.entity.user.repository.UserRepository;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,11 +13,11 @@ import java.util.Optional;
 @Service
 public class UserServiceImpl implements UserService {
 
-    private final UserDao userDao;
+    private final UserRepository userRepository;
 
     @Autowired
-    public UserServiceImpl(UserDao userDao) {
-        this.userDao = userDao;
+    public UserServiceImpl(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -26,7 +26,7 @@ public class UserServiceImpl implements UserService {
             throw new IllegalArgumentException();
         }
 
-        userDao.add(user);
+        userRepository.save(user);
     }
 
     @Override
@@ -40,7 +40,7 @@ public class UserServiceImpl implements UserService {
             throw new IllegalArgumentException(String.format("Can't delete user with id equals null or less than 1. Id = %d", userId));
         }
 
-        userDao.delete(userId);
+        userRepository.delete(user);
         return userId;
     }
 
@@ -50,22 +50,8 @@ public class UserServiceImpl implements UserService {
             throw new IllegalArgumentException();
         }
 
-        userDao.delete(id);
+        userRepository.deleteById(id);
         return id;
-    }
-
-    @Override
-    public Optional<User> get(User user) {
-        if (user == null) {
-            throw new IllegalArgumentException();
-        }
-
-        Long userId = user.getId();
-        if (userId == null || userId < 1) {
-            throw new IllegalArgumentException(String.format("Can't find user with id equals null or less than 1. Id = %d", userId));
-        }
-
-        return userDao.find(userId);
     }
 
     @Override
@@ -74,7 +60,7 @@ public class UserServiceImpl implements UserService {
             throw new IllegalArgumentException();
         }
 
-        return userDao.find(id);
+        return userRepository.findById(id);
     }
 
     @Override
@@ -88,11 +74,11 @@ public class UserServiceImpl implements UserService {
             throw new IllegalArgumentException(String.format("Can't find user with id equals null or less than 1, updating denied. Id = %d", userId));
         }
 
-        userDao.update(user);
+        userRepository.save(user);
     }
 
     @Override
     public List<User> getAllUsers() {
-        return userDao.findAll();
+        return (List<User>) userRepository.findAll();
     }
 }

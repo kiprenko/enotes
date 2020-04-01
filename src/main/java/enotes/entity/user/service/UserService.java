@@ -13,8 +13,6 @@ public interface UserService {
 
     long delete(long id);
 
-    Optional<User> get(User user);
-
     Optional<User> get(long id);
 
     void update(User user);
