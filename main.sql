@@ -31,6 +31,7 @@ CREATE TABLE IF NOT EXISTS notes
     state      VARCHAR(10)  NOT NULL,
     user_id    INT          NOT NULL,
     is_deleted BOOLEAN DEFAULT FALSE,
+    version    INT,
     PRIMARY KEY (id),
     FOREIGN KEY (user_id) REFERENCES users (id)
 );

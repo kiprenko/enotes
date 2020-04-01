@@ -1,6 +1,6 @@
 package enotes.utils.validation;
 
-import enotes.user.User;
+import enotes.entity.user.User;
 import lombok.extern.log4j.Log4j2;
 
 import java.util.regex.Matcher;
