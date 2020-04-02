@@ -1,7 +1,7 @@
-package enotes.dto.note;
+package enotes.dto.comment;
 
+import enotes.dto.note.NoteDto;
 import enotes.dto.user.UserDto;
-import enotes.entity.note.notestate.NoteState;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -14,17 +14,15 @@ import java.io.Serializable;
 
 @Getter @Setter
 @EqualsAndHashCode
-@ToString
 @AllArgsConstructor
+@ToString
 @NoArgsConstructor
 @Builder
-public class NoteDto implements Serializable {
+public class CommentDto implements Serializable {
 
     private Long id;
     private Integer version;
-    private String header;
-    private String body;
-    private NoteState state;
+    private String text;
     private UserDto user;
-    private boolean isDeleted;
+    private NoteDto note;
 }

@@ -4,7 +4,9 @@ import enotes.entity.user.User;
 import enotes.entity.userrole.UserRole;
 import enotes.entity.userrole.UserRoleEnum;
 import org.springframework.beans.BeanUtils;
+import org.springframework.stereotype.Component;
 
+@Component
 public class UserDtoConverterImpl implements UserDtoConverter {
 
     private static final String ROLE_FIELD = "role";
