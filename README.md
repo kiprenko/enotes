@@ -12,7 +12,7 @@ application will provide high notes management system. Notes have headers and bo
 -**NotesGalleryView** - the main page for every user, this page shows all user's notes. Using this page users can view, edit and delete notes.
 
 ## Tech part :mountain_cableway:
-- The main project language is Java. The project includes such Java frameworks and libraries: JDBC, Spring Boot, Lombok, AspectJ, Log4J2. For unit tests, the project uses JUnit, H2 database. Also, the project uses Thymeleaf;
+- The main project language is Java. The project includes such Java frameworks and libraries: Spring Data, Spring MVC, Spring Boot, Lombok, AspectJ, Log4J2. For unit tests, the project uses JUnit, H2 database. Also, the project uses Thymeleaf;
 - To represent front part I use Bootstrap 4 and jQuery (Bootstrap need it for some features);
 - The project builds on the MVC pattern. But it also contains other patterns, such as Strategy, DAO, etc.
 - To build the project I use Maven (at the first versions of the applications there was Gradle, but I decided to switch to Maven);
