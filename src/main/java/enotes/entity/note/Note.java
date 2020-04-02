@@ -20,31 +20,39 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Version;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 @Entity
 @Table(name = "notes")
 @Getter @Setter
-@EqualsAndHashCode(of = {"header", "body", "state", "user", "version"})
+@EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(of = {"header", "body", "state", "user", "version"})
+@ToString
 @Builder
 public class Note implements Serializable {
     @Id
+    @Positive
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Version
     private Integer version;
 
-    @NotNull
+    @NotBlank
+    @Size(max = 500)
     private String header;
+    @Size(max = 5000)
     private String body;
     @NotNull
     @Enumerated(EnumType.STRING)
     private NoteState state;
+
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;

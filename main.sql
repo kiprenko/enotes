@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS users
     id           INT AUTO_INCREMENT,
     first_name   VARCHAR(25) NOT NULL,
     last_name    VARCHAR(25) NOT NULL,
-    password     VARCHAR(40) NOT NULL,
+    password     VARCHAR(2000) NOT NULL,
     email        VARCHAR(50) NOT NULL,
     age          TINYINT     NOT NULL CHECK (age > 3 AND age < 100),
     registration DATE        NOT NULL,
@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS notes
 CREATE TABLE IF NOT EXISTS comments
 (
     id      INT AUTO_INCREMENT,
-    text    VARCHAR(2000),
+    text    VARCHAR(2000) NOT NULL,
     user_id INT NOT NULL,
     note_id INT NOT NULL,
     PRIMARY KEY (id),

@@ -20,7 +20,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.persistence.Version;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PastOrPresent;
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -29,26 +37,52 @@ import java.util.List;
 @Entity
 @Table(name = "users")
 @Getter @Setter
-@EqualsAndHashCode(of = {"firstName", "lastName", "email", "age", "country", "registration", "role", "version"})
+@EqualsAndHashCode(exclude = {"password", "decryptedPassword"})
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(of = {"firstName", "lastName", "email", "age", "country", "registration", "role", "version"})
+@ToString(exclude = {"password", "decryptedPassword"})
 @Builder
 public class User implements Serializable {
     @Id
+    @Positive
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Version
     private Integer version;
 
+    @NotBlank
+    @Size(max = 25)
     private String firstName;
+
+    @NotBlank
+    @Size(max = 25)
     private String lastName;
+
+    @NotBlank
+    @Size(max = 50)
     private String email;
+
+    @NotBlank
+    @Size(max = 2000)
     private String password;
+
+    @Transient
+    private String decryptedPassword;
+
+    @Min(3)
+    @Max(100)
     private int age;
+
+    @NotBlank
+    @Size(max = 25)
     private String country;
+
+    @PastOrPresent
+    @NotNull
     private Date registration;
+
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "role_id")
     private UserRole role;
