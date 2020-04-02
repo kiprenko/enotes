@@ -5,15 +5,15 @@ public enum UserRoleEnum {
     ADMIN("Admin", 2),
     GOD("God", 3);
 
-    private int roleId;
+    private long roleId;
     private String roleName;
 
-    UserRoleEnum(String roleName, int id) {
+    UserRoleEnum(String roleName, long id) {
         this.roleName = roleName;
         this.roleId = id;
     }
 
-    public int getRoleId() {
+    public long getRoleId() {
         return roleId;
     }
 
