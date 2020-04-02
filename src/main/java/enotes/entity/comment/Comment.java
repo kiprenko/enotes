@@ -18,28 +18,39 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Version;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 @Entity
 @Table(name = "comments")
 @Getter @Setter
-@EqualsAndHashCode(of = {"text", "user", "note", "version"})
+@EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(of = {"text", "user", "version"})
+@ToString
 @Builder
 public class Comment implements Serializable {
     @Id
+    @Positive
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Version
     private Integer version;
 
+    @NotBlank
+    @Size(max = 200)
     private String text;
+
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "note_id")
     private Note note;
