@@ -16,6 +16,10 @@
 <div th:insert="fragments/header :: header"></div>
 
 <div class="container">
+    <h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
+    <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Sign Out"/>
+    </form>
     <h3 class="font-weight-light text-center text-lg-left mt-4 mb-0">Your notes</h3>
 
     <hr class="mt-2 mb-5">
