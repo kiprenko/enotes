@@ -1,5 +1,7 @@
 package enotes.controller.note;
 
+import enotes.dto.note.NoteDto;
+import enotes.dto.note.NoteDtoConverter;
 import enotes.entity.note.Note;
 import enotes.entity.note.service.NoteService;
 import enotes.entity.user.User;
@@ -20,32 +22,33 @@ import java.util.Optional;
 @Controller
 public class NotesManageController {
 
-    private NoteService noteService;
-    private UserService userService;
+    private final NoteService noteService;
+    private final UserService userService;
+    private final NoteDtoConverter noteDtoConverter;
 
     @Autowired
-    public void setNoteService(NoteService noteService) {
+    public NotesManageController(NoteService noteService,
+                                 UserService userService,
+                                 NoteDtoConverter noteDtoConverter) {
         this.noteService = noteService;
-    }
-
-    @Autowired
-    public void setUserService(UserService userService) {
         this.userService = userService;
+        this.noteDtoConverter = noteDtoConverter;
     }
 
     @GetMapping(value = "/new")
     public String createNewNote(Model model) {
-        model.addAttribute("note", new Note());
+        model.addAttribute("note", new NoteDto());
         return "noteManage/createNewNote.html";
     }
 
     @PostMapping(value = "/saveNote")
-    public String saveNote(Note note) {
+    public String saveNote(NoteDto note) {
         LOGGER.info("Saving a new note");
         Optional<User> user = userService.get(1L);
         if (user.isPresent()) {
-            note.setUser(user.get());
-            noteService.save(note);
+            Note noteEntity = noteDtoConverter.convertToEntity(note);
+            noteEntity.setUser(user.get());
+            noteService.save(noteEntity);
             return "redirect:/notesGalleryView";
         }
 
@@ -53,9 +56,9 @@ public class NotesManageController {
     }
 
     @PostMapping(value = "/update")
-    public String updateNote(Note note) {
+    public String updateNote(NoteDto note) {
         LOGGER.info("Updating a note with id = {}", note.getId());
-        noteService.update(note);
+        noteService.update(noteDtoConverter.convertToEntity(note));
         return "redirect:/note/" + note.getId();
     }
 
@@ -71,7 +74,7 @@ public class NotesManageController {
 
     @GetMapping("/{id}")
     public String viewNote(@PathVariable Long id, Model model) {
-        noteService.get(id).ifPresent(note -> model.addAttribute("note", note));
+        noteService.get(id).ifPresent(n -> model.addAttribute("note", noteDtoConverter.convertToDto(n)));
         return "noteManage/viewNote.html";
     }
 }
