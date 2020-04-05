@@ -26,6 +26,7 @@ public class NotesManageController {
     private final UserService userService;
     private final NoteDtoConverter noteDtoConverter;
 
+    @Autowired
     public NotesManageController(NoteService noteService,
                                  UserService userService,
                                  NoteDtoConverter noteDtoConverter) {

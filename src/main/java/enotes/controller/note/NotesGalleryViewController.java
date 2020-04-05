@@ -2,7 +2,6 @@ package enotes.controller.note;
 
 import enotes.dto.note.NoteDto;
 import enotes.dto.note.NoteDtoConverter;
-import enotes.entity.note.Note;
 import enotes.entity.note.service.NoteService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +19,7 @@ public class NotesGalleryViewController {
     private final NoteService noteService;
     private final NoteDtoConverter noteDtoConverter;
 
+    @Autowired
     public NotesGalleryViewController(NoteService noteService, NoteDtoConverter noteDtoConverter) {
         this.noteService = noteService;
         this.noteDtoConverter = noteDtoConverter;
