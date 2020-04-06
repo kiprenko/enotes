@@ -38,7 +38,7 @@ public class NotesManageController {
     @GetMapping(value = "/new")
     public String createNewNote(Model model) {
         model.addAttribute("note", new NoteDto());
-        return "noteManage/createNewNote.html";
+        return "noteManage/createNewNote";
     }
 
     @PostMapping(value = "/saveNote")
@@ -52,7 +52,7 @@ public class NotesManageController {
             return "redirect:/notesGalleryView";
         }
 
-        return "noteManage/createNewNote.html";
+        return "noteManage/createNewNote";
     }
 
     @PostMapping(value = "/update")
