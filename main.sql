@@ -19,6 +19,7 @@ CREATE TABLE IF NOT EXISTS users
     registration DATE        NOT NULL,
     country      VARCHAR(25) NOT NULL,
     role_id         INT         NOT NULL DEFAULT 1,
+    active       BOOLEAN DEFAULT TRUE,
     PRIMARY KEY (id),
     FOREIGN KEY (role_id) REFERENCES user_roles (id)
 );

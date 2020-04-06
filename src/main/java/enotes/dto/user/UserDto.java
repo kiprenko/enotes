@@ -30,5 +30,6 @@ public class UserDto implements Serializable {
     private int age;
     private String country;
     private Date registration;
+    private boolean active = true;
     private UserRoleEnum role;
 }

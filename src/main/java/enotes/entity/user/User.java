@@ -18,6 +18,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.Version;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
@@ -53,6 +54,7 @@ public class User implements Serializable {
     @Size(max = 25)
     private String lastName;
 
+    @Email
     @NotBlank
     @Size(max = 50)
     private String email;
@@ -75,6 +77,8 @@ public class User implements Serializable {
     @PastOrPresent
     @NotNull
     private Date registration;
+
+    private boolean active = true;
 
     @NotNull
     @ManyToOne

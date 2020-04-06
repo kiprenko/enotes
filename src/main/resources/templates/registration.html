@@ -13,19 +13,16 @@
 </head>
 <body>
 <div class="container">
-    <div th:if="${param.error}">
-        Invalid username and password.
-    </div>
-    <div th:if="${param.logout}">
-        You have been logged out.
-    </div>
-    <form th:action="@{/login}" method="post">
+    <h5>Registration: </h5>
+    <form th:action="@{/registration}" method="post">
+        <div><label> First name: <input type="text" name="text"/> </label></div>
+        <div><label> Last name: <input type="text" name="text"/> </label></div>
+        <div><label> Age: <input type="text" name="text"/> </label></div>
+        <div><label> Country: <input type="text" name="text"/> </label></div>
         <div><label> Email : <input type="email" name="email"/> </label></div>
         <div><label> Password: <input type="password" name="password"/> </label></div>
-        <div><input type="submit" value="Sign In"/></div>
+        <div><input type="submit" value="Sign Up"/></div>
     </form>
-
-    <a href="/registration">Registration</a>
 </div>
 </body>
 </html>
