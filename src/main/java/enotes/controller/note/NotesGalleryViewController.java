@@ -32,6 +32,6 @@ public class NotesGalleryViewController {
                                                        .collect(Collectors.toList());
         model.addAttribute("notes", notes);
         LOGGER.info("Showing all list of notes. List size is " + notes.size());
-        return "notesGalleryView.html";
+        return "notesGalleryView";
     }
 }

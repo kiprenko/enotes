@@ -20,14 +20,14 @@ public class RegistrationController {
 
     @GetMapping("/registration")
     public String registration() {
-        return "registration.html";
+        return "registration";
     }
 
     @PostMapping("/registration")
     public String addUser(UserDto user, Model model) {
         if (userRepository.findByEmail(user.getEmail()).isPresent()) {
             model.addAttribute("message", "User exists!");
-            return "registration.html";
+            return "registration";
         }
 
 

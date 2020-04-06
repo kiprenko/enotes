@@ -75,6 +75,6 @@ public class NotesManageController {
     @GetMapping("/{id}")
     public String viewNote(@PathVariable Long id, Model model) {
         noteService.get(id).ifPresent(n -> model.addAttribute("note", noteDtoConverter.convertToDto(n)));
-        return "noteManage/viewNote.html";
+        return "noteManage/viewNote";
     }
 }

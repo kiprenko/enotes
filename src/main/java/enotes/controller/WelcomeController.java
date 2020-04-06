@@ -11,6 +11,6 @@ public class WelcomeController {
     @GetMapping({"/", "/welcome"})
     public String welcome() {
         LOGGER.info("Someone joined");
-        return "welcome.html";
+        return "welcome";
     }
 }
