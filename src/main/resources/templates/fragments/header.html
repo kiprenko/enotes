@@ -16,7 +16,9 @@
 
 <!--nav menu was took from https://getbootstrap.com/docs/4.0/components/navbar/-->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark" th:fragment="header">
-    <a class="navbar-brand" href="/welcome">Enotes</a>
+    <a class="navbar-brand" href="/">
+        <img th:src="@{/assets/img/raccoon.svg}" alt="Enotes" th:height="72" th:width="72">
+    </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
