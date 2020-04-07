@@ -45,5 +45,7 @@
         <p th:if="${#lists.isEmpty(notes)}">It seems you don't have any notes. <a href="/note/new">Let's create them!</a></p>
     </div>
 </div>
+
+<div th:insert="fragments/footer :: footer"></div>
 </body>
 </html>
