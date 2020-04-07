@@ -13,19 +13,30 @@
 </head>
 <body>
 <div class="container">
-    <div th:if="${param.error}">
-        Invalid username and password.
+    <div class="mt-5 text-center">
+        <div class="text-danger" th:if="${param.error}">
+            Invalid username and password.
+        </div>
+        <div class="text-danger" th:if="${param.logout}">
+            You have been logged out.
+        </div>
+        <form th:action="@{/login}" method="post">
+            <div class="col-3 mx-auto">
+                <div class="form-row">
+                    <label for="email">Email:</label>
+                    <input type="email" name="email" id="email" class="form-control" required/>
+                </div>
+                <div class="form-row">
+                    <label for="password">Password:</label>
+                    <input type="password" name="password" id="password" class="form-control" required/>
+                </div>
+                <div class="form-row mt-3">
+                    <button type="submit" class="btn btn-success">Sign In</button>
+                    <a class="ml-4" th:href="/registration">Registration</a>
+                </div>
+            </div>
+        </form>
     </div>
-    <div th:if="${param.logout}">
-        You have been logged out.
-    </div>
-    <form th:action="@{/login}" method="post">
-        <div><label> Email : <input type="email" name="email"/> </label></div>
-        <div><label> Password: <input type="password" name="password"/> </label></div>
-        <div><input type="submit" value="Sign In"/></div>
-    </form>
-
-    <a href="/registration">Registration</a>
 </div>
 </body>
 </html>
