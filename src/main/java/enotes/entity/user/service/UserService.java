@@ -18,4 +18,8 @@ public interface UserService {
     void update(User user);
 
     List<User> getAllUsers();
+
+    void defaultSave(User user);
+
+    Optional<User> getByEmail(String email);
 }

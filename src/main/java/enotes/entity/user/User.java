@@ -27,7 +27,7 @@ import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "users")
@@ -44,7 +44,7 @@ public class User implements Serializable {
     private Long id;
 
     @Version
-    private Integer version;
+    private int version;
 
     @NotBlank
     @Size(max = 25)
@@ -76,7 +76,7 @@ public class User implements Serializable {
 
     @PastOrPresent
     @NotNull
-    private Date registration;
+    private LocalDate registration;
 
     private boolean active = true;
 
