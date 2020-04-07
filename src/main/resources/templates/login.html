@@ -11,7 +11,7 @@
 
     <link th:href="@{/assets/css/main.css}" rel="stylesheet" media="screen"/>
 </head>
-<body>
+<body class="bg-light">
 <div class="container">
     <div class="mt-5 text-center">
         <div class="text-danger" th:if="${param.error}">
@@ -32,7 +32,7 @@
                 </div>
                 <div class="form-row mt-3">
                     <button type="submit" class="btn btn-success">Sign In</button>
-                    <a class="ml-4" th:href="/registration">Registration</a>
+                    <a class="ml-5" th:href="@{/registration}">Registration</a>
                 </div>
             </div>
         </form>
