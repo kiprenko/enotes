@@ -52,13 +52,12 @@ public class Note implements Serializable {
     @Size(max = 5000)
     private String body;
 
-    private boolean isDone;
-
     @NotNull
     @Enumerated(EnumType.STRING)
     private NoteState state;
 
     @PastOrPresent
+    @NotNull
     private LocalDate created;
     @PastOrPresent
     private LocalDate lastModified;
@@ -69,5 +68,8 @@ public class Note implements Serializable {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
     private boolean isDeleted;
+    private boolean isArchived;
+    private boolean isDone;
 }
