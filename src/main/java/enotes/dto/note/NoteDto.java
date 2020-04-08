@@ -30,7 +30,7 @@ public class NoteDto implements Serializable {
     private boolean isDone;
     private LocalDate created;
     private LocalDate lastModified;
-    private LocalDate archived;
+    private LocalDate archivedAt;
     private boolean isDeleted;
     private boolean isArchived;
 }

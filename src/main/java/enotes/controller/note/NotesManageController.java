@@ -2,6 +2,7 @@ package enotes.controller.note;
 
 import enotes.dto.note.NoteDto;
 import enotes.dto.note.NoteDtoConverter;
+import enotes.dto.user.UserDtoConverter;
 import enotes.entity.note.Note;
 import enotes.entity.note.service.NoteService;
 import enotes.entity.user.User;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.security.Principal;
+import java.time.LocalDate;
 import java.util.Optional;
 
 @Log4j2
@@ -25,14 +28,17 @@ public class NotesManageController {
     private final NoteService noteService;
     private final UserService userService;
     private final NoteDtoConverter noteDtoConverter;
+    private final UserDtoConverter userDtoConverter;
 
     @Autowired
     public NotesManageController(NoteService noteService,
                                  UserService userService,
-                                 NoteDtoConverter noteDtoConverter) {
+                                 NoteDtoConverter noteDtoConverter,
+                                 UserDtoConverter userDtoConverter) {
         this.noteService = noteService;
         this.userService = userService;
         this.noteDtoConverter = noteDtoConverter;
+        this.userDtoConverter = userDtoConverter;
     }
 
     @GetMapping(value = "/new")
@@ -42,12 +48,12 @@ public class NotesManageController {
     }
 
     @PostMapping(value = "/saveNote")
-    public String saveNote(NoteDto note) {
-        LOGGER.info("Saving a new note");
-        Optional<User> user = userService.get(1L);
+    public String saveNote(NoteDto note, Principal principal) {
+        Optional<User> user = userService.getByEmail(principal.getName());
         if (user.isPresent()) {
-            Note noteEntity = noteDtoConverter.convertToEntity(note);
+            Note noteEntity = noteDtoConverter.convertToEntitySkipNull(note);
             noteEntity.setUser(user.get());
+            noteEntity.setCreated(LocalDate.now());
             noteService.save(noteEntity);
             return "redirect:/notesGalleryView";
         }

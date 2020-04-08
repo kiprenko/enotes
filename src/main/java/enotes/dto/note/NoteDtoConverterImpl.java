@@ -33,4 +33,18 @@ public class NoteDtoConverterImpl implements NoteDtoConverter {
         entity.setUser(userDtoConverter.convertToEntity(dto.getUser()));
         return entity;
     }
+
+    @Override
+    public NoteDto convertToDtoSkipNull(Note entity) {
+        NoteDto dto = new NoteDto();
+        BeanUtils.copyProperties(entity, dto, getNullPropertyNames(entity));
+        return dto;
+    }
+
+    @Override
+    public Note convertToEntitySkipNull(NoteDto dto) {
+        Note entity = new Note();
+        BeanUtils.copyProperties(dto, entity, getNullPropertyNames(dto));
+        return entity;
+    }
 }

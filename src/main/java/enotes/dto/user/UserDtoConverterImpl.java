@@ -26,4 +26,20 @@ public class UserDtoConverterImpl implements UserDtoConverter {
         entity.setRole(new UserRole(dto.getRole().getRoleId(), dto.getRole().getRoleName()));
         return entity;
     }
+
+    @Override
+    public UserDto convertToDtoSkipNull(User entity) {
+        UserDto dto = new UserDto();
+        BeanUtils.copyProperties(entity, dto, getNullPropertyNames(entity));
+        dto.setRole(UserRoleEnum.getRoleByName(entity.getRole().getRole()));
+        return dto;
+    }
+
+    @Override
+    public User convertToEntitySkipNull(UserDto dto) {
+        User entity = new User();
+        BeanUtils.copyProperties(dto, entity, getNullPropertyNames(dto));
+        entity.setRole(new UserRole(dto.getRole().getRoleId(), dto.getRole().getRoleName()));
+        return entity;
+    }
 }

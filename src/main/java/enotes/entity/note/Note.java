@@ -62,7 +62,7 @@ public class Note implements Serializable {
     @PastOrPresent
     private LocalDate lastModified;
     @PastOrPresent
-    private LocalDate archived;
+    private LocalDate archivedAt;
 
     @NotNull
     @ManyToOne
