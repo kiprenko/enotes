@@ -5,6 +5,7 @@ import enotes.entity.user.User;
 import enotes.entity.user.service.UserService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,7 +38,7 @@ public class RegistrationController {
         }
 
         User userEntity = new User();
-        user.setPassword(user.getDecryptedPassword());
+        user.setPassword(PasswordEncoderFactories.createDelegatingPasswordEncoder().encode(user.getDecryptedPassword()));
         BeanUtils.copyProperties(user, userEntity, "id", "registration", "role", "version");
         userService.defaultSave(userEntity);
         return "redirect:/login";

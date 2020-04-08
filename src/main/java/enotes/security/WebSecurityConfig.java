@@ -7,7 +7,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 
 import javax.sql.DataSource;
 
@@ -42,7 +42,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.jdbcAuthentication()
                 .dataSource(dataSource)
-                .passwordEncoder(NoOpPasswordEncoder.getInstance())
+                .passwordEncoder(PasswordEncoderFactories.createDelegatingPasswordEncoder())
                 .usersByUsernameQuery("SELECT email, password, active FROM users WHERE email=?")
                 .authoritiesByUsernameQuery("SELECT u.email, ur.role FROM users u INNER JOIN user_roles ur ON u.role_id = ur.id WHERE u.email=?");
     }
