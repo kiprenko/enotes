@@ -1,4 +1,4 @@
-package enotes.entity.note.notestate;
+package enotes.data.note;
 
 public enum NoteState {
     HIGH("High"),

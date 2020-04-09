@@ -1,8 +1,8 @@
 package enotes.controller;
 
 import enotes.dto.user.UserDto;
-import enotes.entity.user.User;
-import enotes.entity.user.service.UserService;
+import enotes.data.user.User;
+import enotes.data.user.UserService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;

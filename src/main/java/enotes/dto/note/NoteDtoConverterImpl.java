@@ -1,7 +1,7 @@
 package enotes.dto.note;
 
 import enotes.dto.user.UserDtoConverter;
-import enotes.entity.note.Note;
+import enotes.data.note.Note;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

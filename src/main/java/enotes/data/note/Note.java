@@ -1,7 +1,6 @@
-package enotes.entity.note;
+package enotes.data.note;
 
-import enotes.entity.note.notestate.NoteState;
-import enotes.entity.user.User;
+import enotes.data.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;

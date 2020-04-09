@@ -1,6 +1,4 @@
-package enotes.entity.note.service;
-
-import enotes.entity.note.Note;
+package enotes.data.note;
 
 import java.util.List;
 import java.util.Optional;

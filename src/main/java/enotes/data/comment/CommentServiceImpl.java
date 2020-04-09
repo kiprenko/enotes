@@ -1,7 +1,5 @@
-package enotes.entity.comment.service;
+package enotes.data.comment;
 
-import enotes.entity.comment.Comment;
-import enotes.entity.comment.repository.CommentRepository;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

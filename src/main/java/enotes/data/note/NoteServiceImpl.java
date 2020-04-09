@@ -1,8 +1,6 @@
-package enotes.entity.note.service;
+package enotes.data.note;
 
 import enotes.annotation.cache.Cache;
-import enotes.entity.note.Note;
-import enotes.entity.note.repository.NoteRepository;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

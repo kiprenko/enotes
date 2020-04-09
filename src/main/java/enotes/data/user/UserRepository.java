@@ -1,6 +1,5 @@
-package enotes.entity.user.repository;
+package enotes.data.user;
 
-import enotes.entity.user.User;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

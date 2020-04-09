@@ -1,8 +1,8 @@
 package enotes.dto.user;
 
-import enotes.entity.user.User;
-import enotes.entity.userrole.UserRole;
-import enotes.entity.userrole.UserRoleEnum;
+import enotes.data.user.User;
+import enotes.data.userrole.UserRole;
+import enotes.data.userrole.UserRoleEnum;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 

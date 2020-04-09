@@ -1,8 +1,6 @@
-package enotes.entity.user.service;
+package enotes.data.user;
 
-import enotes.entity.user.User;
-import enotes.entity.user.repository.UserRepository;
-import enotes.entity.userrole.UserRole;
+import enotes.data.userrole.UserRole;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,6 +1,4 @@
-package enotes.entity.user.service;
-
-import enotes.entity.user.User;
+package enotes.data.user;
 
 import java.util.List;
 import java.util.Optional;

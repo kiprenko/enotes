@@ -1,4 +1,4 @@
-package enotes.entity.userrole;
+package enotes.data.userrole;
 
 
 import lombok.AllArgsConstructor;

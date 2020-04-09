@@ -1,6 +1,6 @@
-package enotes.entity.user;
+package enotes.data.user;
 
-import enotes.entity.userrole.UserRole;
+import enotes.data.userrole.UserRole;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;

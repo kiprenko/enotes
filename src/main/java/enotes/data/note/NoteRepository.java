@@ -1,6 +1,5 @@
-package enotes.entity.note.repository;
+package enotes.data.note;
 
-import enotes.entity.note.Note;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
