@@ -29,8 +29,12 @@
         <li class="list-group-item border-right-0 border-top-0 border-bottom-0"><a
                 th:href="@{/notesGalleryView(filterDone=false)}">Not
             done</a></li>
-        <li class="list-group-item border-right-0 border-top-0 border-bottom-0"><a href="#">Created
+        <li class="list-group-item border-right-0 border-top-0 border-bottom-0"><a
+                th:href="@{/notesGalleryView(filterToday=true)}">Created
             today</a></li>
+        <li class="list-group-item border-right-0 border-top-0 border-bottom-0"><a
+                th:href="@{/notesGalleryView(filterYesterday=true)}">Created
+            yesterday</a></li>
         <li class="list-group-item border-right-0 border-top-0 border-bottom-0"><a
                 th:href="@{/notesGalleryView}">Remove filters</a></li>
     </ul>
@@ -54,8 +58,7 @@
             </div>
         </th:block>
 
-        <p th:if="${#lists.isEmpty(notes)}">It seems you don't have any notes. <a
-                th:href="@{/note/new}">Let's create them!</a></p>
+        <p th:if="${#lists.isEmpty(notes)}">Nothing to show:)</p>
     </div>
 </div>
 </div>

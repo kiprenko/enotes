@@ -106,4 +106,12 @@ public class NoteServiceImpl implements NoteService {
         }
         return noteRepository.findAllByUserAndIsArchivedOrderByCreatedDesc(user, true);
     }
+
+    @Override
+    public List<Note> getAllUnarchivedByCreated(User user, LocalDate created) {
+        if (user == null) {
+            throw new IllegalArgumentException();
+        }
+        return noteRepository.findAllByUserAndIsArchivedAndCreated(user, false, created);
+    }
 }

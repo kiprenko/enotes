@@ -2,6 +2,7 @@ package enotes.data.note;
 
 import enotes.data.user.User;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,4 +25,6 @@ public interface NoteService {
     List<Note> getAllNotDoneUnarchivedNotes(User user);
 
     List<Note> getAllArchivedNotes(User user);
+
+    List<Note> getAllUnarchivedByCreated(User user, LocalDate created);
 }

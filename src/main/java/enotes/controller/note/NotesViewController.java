@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,7 +32,9 @@ public class NotesViewController {
 
     @GetMapping("/notesGalleryView")
     public String viewUnarchivedNotes(Model model, Principal principal,
-                                      @RequestParam(required = false, name = "filterDone") Boolean filterDone) {
+                                      @RequestParam(required = false, name = "filterDone") Boolean filterDone,
+                                      @RequestParam(required = false, name = "filterToday") Boolean filterToday,
+                                      @RequestParam(required = false, name = "filterYesterday") Boolean filterYesterday) {
         Optional<User> user = userService.getByEmail(principal.getName());
         if (!user.isPresent()) {
             throw new UsernameNotFoundException(String.format("Username '%s' not found in DB.", principal.getName()));
@@ -43,6 +46,10 @@ public class NotesViewController {
 
         } else if (filterDone != null) {
             notes = noteManager.getAllNotDoneUnarchived(user.get());
+        } else if (filterToday != null && filterToday) {
+            notes = noteManager.getAllUnarchivedByCreated(user.get(), LocalDate.now());
+        } else if (filterYesterday != null && filterYesterday) {
+            notes = noteManager.getAllUnarchivedByCreated(user.get(), LocalDate.now().minusDays(1));
         } else {
             notes = noteManager.getAllUnarchived(user.get());
         }

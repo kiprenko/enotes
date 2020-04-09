@@ -96,6 +96,12 @@ public class NoteManagerImpl implements NoteManager {
     }
 
     @Override
+    public List<NoteDto> getAllUnarchivedByCreated(User user, LocalDate created) {
+        List<Note> notes = noteService.getAllUnarchivedByCreated(user, created);
+        return notes.stream().map(noteDtoConverter::convertToDtoIgnoreNull).collect(Collectors.toList());
+    }
+
+    @Override
     public List<NoteDto> getAllNotDoneUnarchived(User user) {
         List<Note> notes = noteService.getAllNotDoneUnarchivedNotes(user);
         return notes.stream().map(noteDtoConverter::convertToDtoIgnoreNull).collect(Collectors.toList());
