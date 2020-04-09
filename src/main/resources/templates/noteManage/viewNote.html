@@ -22,21 +22,49 @@
             <input type="text" th:field="*{version}" th:value="*{version}">
         </div>
         <div class="form-group">
-            <textarea class="form-control rounded-2" id="note-header-ta" rows="1"
-                      th:field="*{header}" th:text="*{header}"></textarea>
+            <textarea class="form-control rounded-2 border-0" id="note-header-ta" rows="1"
+                      th:field="*{header}" th:text="*{header}" required
+                      placeholder="Type your header here..."></textarea>
         </div>
-        <div class="form-group">
-            <select name="state" id="noteStateSelect">
-                <option th:each="state : ${T(enotes.data.note.NoteState).values()}"
-                        th:value="${state}" th:text="${state.stateAsString}"
-                        th:selected="${state == note.state}"></option>
-            </select>
 
-            <p class="mt-2">Created at: <b th:text="${note.created}"></b></p>
+        <hr class="mt-1">
+
+        <div class="row my-3">
+
+            <div class="col-2">
+                <label for="noteStateSelect">Note priority:</label>
+                <select name="state" id="noteStateSelect" class="form-control rounded-2 border-0">
+                    <option th:each="state : ${T(enotes.data.note.NoteState).values()}"
+                            th:value="${state}" th:text="${state.stateAsString}"
+                            th:selected="${state == note.state}"></option>
+                </select>
+            </div>
+            <div class="col-2">
+                <label for="created">Created:</label>
+                <input id="created" class="form-control rounded-2 border-0 bg-transparent"
+                       type="text"
+                       th:field="*{created}" th:value="*{created}" readonly>
+            </div>
+            <div class="col-2" th:if="${note.lastModified != null}">
+                <label for="lastModified">Last modified:</label>
+                <input id="lastModified" class="form-control rounded-2 border-0 bg-transparent"
+                       type="text"
+                       th:field="*{lastModified}" th:value="*{lastModified}" readonly>
+            </div>
+            <div class="col-2" th:if="${note.archivedAt != null}">
+                <label for="archivedAt">Archived:</label>
+                <input id="archivedAt" class="form-control rounded-2 border-0 bg-transparent"
+                       type="text"
+                       th:field="*{archivedAt}" th:value="*{archivedAt}" readonly>
+            </div>
         </div>
+
+        <hr class="my-1">
+
         <div class="form-group">
-            <textarea class="form-control rounded-2" id="note-body-ta" rows="10"
-                      th:field="*{body}" th:text="*{body}"></textarea>
+            <textarea class="form-control rounded-2 border-0" id="note-body-ta" rows="5"
+                      th:field="*{body}" th:text="*{body}"
+                      placeholder="Type your text here..."></textarea>
         </div>
         <button type="submit" class="btn btn-success">Save editing</button>
         <a th:href="*{'/note/delete/' + id}">

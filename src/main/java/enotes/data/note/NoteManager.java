@@ -11,7 +11,7 @@ public interface NoteManager {
 
     List<NoteDto> getAll(User user);
 
-    void update(NoteDto noteDto);
+    void update(NoteDto noteDto, User user);
 
     Optional<NoteDto> getById(Long id);
 

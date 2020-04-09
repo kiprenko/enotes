@@ -38,8 +38,10 @@ public class NoteManagerImpl implements NoteManager {
     }
 
     @Override
-    public void update(NoteDto noteDto) {
-        noteService.update(noteDtoConverter.convertToEntityIgnoreNull(noteDto));
+    public void update(NoteDto noteDto, User user) {
+        Note note = noteDtoConverter.convertToEntityIgnoreNull(noteDto);
+        note.setUser(user);
+        noteService.update(note);
     }
 
     @Override

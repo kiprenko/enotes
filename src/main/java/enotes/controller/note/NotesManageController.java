@@ -48,9 +48,10 @@ public class NotesManageController {
     }
 
     @PostMapping(value = "/update")
-    public String updateNote(NoteDto note) {
+    public String updateNote(NoteDto note, Principal principal) {
         LOGGER.info("Updating a note with id = {}", note.getId());
-        noteManager.update(note);
+        Optional<User> user = userService.getByEmail(principal.getName());
+        user.ifPresent(value -> noteManager.update(note, value));
         return "redirect:/note/" + note.getId();
     }
 
