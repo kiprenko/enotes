@@ -1,4 +1,6 @@
-![enotes](https://github.com/evgeniykiprenko/enotes/blob/develop/src/main/resources/static/assets/img/raccoon.svg =96x96)
+![enotes](https://github.com/evgeniykiprenko/enotes/blob/develop/src/main/resources/static/assets/img/raccoon.svg)
+
+<img src="https://github.com/evgeniykiprenko/enotes/blob/develop/src/main/resources/static/assets/img/raccoon.svg" width="400" height="790">
 
 Icon made by [Smashicons](https://www.flaticon.com/authors/smashicons).
 
