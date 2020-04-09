@@ -1,3 +1,5 @@
+![enotes](https://github.com/evgeniykiprenko/enotes/blob/develop/src/main/resources/static/assets/img/raccoon.svg)
+
 # enotes :notebook_with_decorative_cover:
 **Enotes** is a web application for creating and managing personal notes. 
 
