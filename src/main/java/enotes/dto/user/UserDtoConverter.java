@@ -5,7 +5,7 @@ import enotes.data.user.User;
 
 public interface UserDtoConverter extends DtoConverter<UserDto, User> {
 
-    UserDto convertToDtoSkipNull(User entity);
+    UserDto convertToDtoIgnoreNull(User entity);
 
-    User convertToEntitySkipNull(UserDto dto);
+    User convertToEntityIgnoreNull(UserDto dto);
 }

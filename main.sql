@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS users
     first_name   VARCHAR(25)   NOT NULL,
     last_name    VARCHAR(25)   NOT NULL,
     password     VARCHAR(2000) NOT NULL,
-    email        VARCHAR(50)   NOT NULL,
+    email        VARCHAR(50)   NOT NULL UNIQUE,
     age          TINYINT       NOT NULL CHECK (age > 3 AND age < 100),
     registration DATE          NOT NULL,
     country      VARCHAR(25)   NOT NULL,
