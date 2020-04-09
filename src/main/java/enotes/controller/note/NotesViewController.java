@@ -3,14 +3,17 @@ package enotes.controller.note;
 import enotes.data.note.NoteManager;
 import enotes.data.user.User;
 import enotes.data.user.UserService;
+import enotes.dto.note.NoteDto;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
+import java.util.List;
 import java.util.Optional;
 
 @Log4j2
@@ -27,12 +30,24 @@ public class NotesViewController {
     }
 
     @GetMapping("/notesGalleryView")
-    public String viewNotesGallery(Model model, Principal principal) {
+    public String viewUnarchivedNotes(Model model, Principal principal,
+                                      @RequestParam(required = false, name = "filterDone") Boolean filterDone) {
         Optional<User> user = userService.getByEmail(principal.getName());
         if (!user.isPresent()) {
             throw new UsernameNotFoundException(String.format("Username '%s' not found in DB.", principal.getName()));
         }
-        model.addAttribute("notes", noteManager.getAllUnarchived(user.get()));
+
+        List<NoteDto> notes;
+        if (filterDone != null && filterDone) {
+            notes = noteManager.getAllDoneUnarchived(user.get());
+
+        } else if (filterDone != null) {
+            notes = noteManager.getAllNotDoneUnarchived(user.get());
+        } else {
+            notes = noteManager.getAllUnarchived(user.get());
+        }
+
+        model.addAttribute("notes", notes);
         return "notesGalleryView";
     }
 

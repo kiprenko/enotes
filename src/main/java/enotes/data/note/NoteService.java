@@ -19,5 +19,9 @@ public interface NoteService {
 
     List<Note> getAllUnarchivedNotes(User user);
 
+    List<Note> getAllDoneUnarchivedNotes(User user);
+
+    List<Note> getAllNotDoneUnarchivedNotes(User user);
+
     List<Note> getAllArchivedNotes(User user);
 }

@@ -11,4 +11,6 @@ public interface NoteRepository extends CrudRepository<Note, Long> {
     List<Note> findAllByUser(User user);
 
     List<Note> findAllByUserAndIsArchivedOrderByCreatedDesc(User user, boolean isArchived);
+
+    List<Note> findAllByUserAndIsArchivedAndIsDoneOrderByCreatedDesc(User user, boolean isArchived, boolean isDone);
 }

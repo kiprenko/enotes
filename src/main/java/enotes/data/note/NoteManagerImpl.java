@@ -88,4 +88,16 @@ public class NoteManagerImpl implements NoteManager {
             noteService.update(n);
         });
     }
+
+    @Override
+    public List<NoteDto> getAllDoneUnarchived(User user) {
+        List<Note> notes = noteService.getAllDoneUnarchivedNotes(user);
+        return notes.stream().map(noteDtoConverter::convertToDtoIgnoreNull).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<NoteDto> getAllNotDoneUnarchived(User user) {
+        List<Note> notes = noteService.getAllNotDoneUnarchivedNotes(user);
+        return notes.stream().map(noteDtoConverter::convertToDtoIgnoreNull).collect(Collectors.toList());
+    }
 }

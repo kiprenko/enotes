@@ -84,6 +84,22 @@ public class NoteServiceImpl implements NoteService {
     }
 
     @Override
+    public List<Note> getAllDoneUnarchivedNotes(User user) {
+        if (user == null) {
+            throw new IllegalArgumentException();
+        }
+        return noteRepository.findAllByUserAndIsArchivedAndIsDoneOrderByCreatedDesc(user, false, true);
+    }
+
+    @Override
+    public List<Note> getAllNotDoneUnarchivedNotes(User user) {
+        if (user == null) {
+            throw new IllegalArgumentException();
+        }
+        return noteRepository.findAllByUserAndIsArchivedAndIsDoneOrderByCreatedDesc(user, false, false);
+    }
+
+    @Override
     public List<Note> getAllArchivedNotes(User user) {
         if (user == null) {
             throw new IllegalArgumentException();

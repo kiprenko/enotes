@@ -11,6 +11,10 @@ public interface NoteManager {
 
     List<NoteDto> getAllUnarchived(User user);
 
+    List<NoteDto> getAllDoneUnarchived(User user);
+
+    List<NoteDto> getAllNotDoneUnarchived(User user);
+
     List<NoteDto> getAllArchived(User user);
 
     void update(NoteDto noteDto, User user);
