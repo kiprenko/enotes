@@ -1,6 +1,6 @@
-![enotes](https://github.com/evgeniykiprenko/enotes/blob/develop/src/main/resources/static/assets/img/raccoon.svg =96x)
+![enotes](https://github.com/evgeniykiprenko/enotes/blob/develop/src/main/resources/static/assets/img/raccoon.svg =96x96)
 
-Icons made by [Smashicons](https://www.flaticon.com/authors/smashicons).
+Icon made by [Smashicons](https://www.flaticon.com/authors/smashicons).
 
 
 # enotes :notebook_with_decorative_cover:
