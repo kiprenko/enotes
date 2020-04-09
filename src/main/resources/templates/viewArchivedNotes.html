@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+
+    <title>Your archived notes</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <link th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}"
+          rel="stylesheet" media="screen"/>
+
+    <script th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+
+    <link th:href="@{/assets/css/main.css}" rel="stylesheet" media="screen"/>
+</head>
+<body>
+<div th:insert="fragments/header :: header"></div>
+
+<div class="container">
+    <h3 class="font-weight-light text-center text-lg-left mt-4 mb-0">Your notes archive</h3>
+
+    <hr class="mt-2 mb-5">
+    <div class="row text-center text-lg-left" id="gallery">
+        <th:block th:if="${not #lists.isEmpty(notes)}" th:each="note : ${notes}">
+            <div class="border-left  col-lg-3 col-md-4 col-6 m-3">
+                <div class="panel-heading d-inline" th:text="${note.header}"></div>
+                <th:block th:switch="${note.state.stateAsString}">
+                    <div th:case="'High'" class="panel-heading d-inline text-danger "
+                         th:text="${note.state.stateAsString}"></div>
+                    <div th:case="'Middle'" class="panel-heading d-inline text-warning"
+                         th:text="${note.state.stateAsString}"></div>
+                    <div th:case="'Low'" class="panel-heading d-inline text-success"
+                         th:text="${note.state.stateAsString}"></div>
+                </th:block>
+                <div class="panel-body bg-light" th:text="${note.body}"></div>
+                <div class="panel-body bg-light">
+                    <a th:href="${'/note/' + note.id}">View</a>
+                </div>
+            </div>
+        </th:block>
+
+        <p th:if="${#lists.isEmpty(notes)}">Your archive is empty. <a
+                th:href="@{/notesGalleryView}">Back to all notes!</a></p>
+    </div>
+</div>
+
+<div th:insert="fragments/footer :: footer"></div>
+</body>
+</html>

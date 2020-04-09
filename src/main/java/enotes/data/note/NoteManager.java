@@ -9,7 +9,9 @@ import java.util.Optional;
 public interface NoteManager {
     void saveNew(NoteDto noteDto, User user);
 
-    List<NoteDto> getAll(User user);
+    List<NoteDto> getAllUnarchived(User user);
+
+    List<NoteDto> getAllArchived(User user);
 
     void update(NoteDto noteDto, User user);
 

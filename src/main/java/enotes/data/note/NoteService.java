@@ -17,5 +17,7 @@ public interface NoteService {
 
     void update(Note note);
 
-    List<Note> getAllNotes(User user);
+    List<Note> getAllUnarchivedNotes(User user);
+
+    List<Note> getAllArchivedNotes(User user);
 }

@@ -32,8 +32,14 @@ public class NoteManagerImpl implements NoteManager {
     }
 
     @Override
-    public List<NoteDto> getAll(User user) {
-        List<Note> notes = noteService.getAllNotes(user);
+    public List<NoteDto> getAllUnarchived(User user) {
+        List<Note> notes = noteService.getAllUnarchivedNotes(user);
+        return notes.stream().map(noteDtoConverter::convertToDtoIgnoreNull).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<NoteDto> getAllArchived(User user) {
+        List<Note> notes = noteService.getAllArchivedNotes(user);
         return notes.stream().map(noteDtoConverter::convertToDtoIgnoreNull).collect(Collectors.toList());
     }
 
@@ -65,6 +71,7 @@ public class NoteManagerImpl implements NoteManager {
         Optional<Note> note = noteService.get(id);
         note.ifPresent(n -> {
             n.setArchived(true);
+            n.setArchivedAt(LocalDate.now());
             noteService.update(n);
         });
     }
@@ -77,6 +84,7 @@ public class NoteManagerImpl implements NoteManager {
         Optional<Note> note = noteService.get(id);
         note.ifPresent(n -> {
             n.setArchived(false);
+            n.setArchivedAt(null);
             noteService.update(n);
         });
     }

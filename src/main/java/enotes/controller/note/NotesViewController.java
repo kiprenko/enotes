@@ -15,24 +15,34 @@ import java.util.Optional;
 
 @Log4j2
 @Controller
-public class NotesGalleryViewController {
+public class NotesViewController {
 
     private final NoteManager noteManager;
     private final UserService userService;
 
     @Autowired
-    public NotesGalleryViewController(NoteManager noteManager, UserService userService) {
+    public NotesViewController(NoteManager noteManager, UserService userService) {
         this.noteManager = noteManager;
         this.userService = userService;
     }
 
     @GetMapping("/notesGalleryView")
-    public String index(Model model, Principal principal) {
+    public String viewNotesGallery(Model model, Principal principal) {
         Optional<User> user = userService.getByEmail(principal.getName());
         if (!user.isPresent()) {
             throw new UsernameNotFoundException(String.format("Username '%s' not found in DB.", principal.getName()));
         }
-        model.addAttribute("notes", noteManager.getAll(user.get()));
+        model.addAttribute("notes", noteManager.getAllUnarchived(user.get()));
         return "notesGalleryView";
+    }
+
+    @GetMapping("/viewArchivedNotes")
+    public String viewArchivedNotes(Model model, Principal principal) {
+        Optional<User> user = userService.getByEmail(principal.getName());
+        if (!user.isPresent()) {
+            throw new UsernameNotFoundException(String.format("Username '%s' not found in DB.", principal.getName()));
+        }
+        model.addAttribute("notes", noteManager.getAllArchived(user.get()));
+        return "viewArchivedNotes";
     }
 }

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Welcome!</title>
@@ -15,8 +16,10 @@
 <div th:insert="fragments/header :: header"></div>
 
 <div class="container">
-    <p class="font-weight-light text-center text-lg-left mt-4 mb-0">Nice to meet you, stranger! <a
-            th:href="@{/login}">Click here to Sign In</a></p>
+    <div sec:authorize="isAnonymous()">
+        <p class="font-weight-light text-center text-lg-left mt-4 mb-0">Nice to meet you, stranger!
+            <a th:href="@{/login}">Click here to Sign In</a></p>
+    </div>
 </div>
 
 <div th:insert="fragments/footer :: footer"></div>
