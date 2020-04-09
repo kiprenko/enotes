@@ -1,11 +1,11 @@
-package enotes.entity.user.service;
+package enotes.data.user;
 
-import enotes.entity.user.User;
-import enotes.entity.user.repository.UserRepository;
+import enotes.data.userrole.UserRole;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -80,5 +80,30 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> getAllUsers() {
         return (List<User>) userRepository.findAll();
+    }
+
+    @Override
+    public void defaultSave(User user) {
+        if (user == null) {
+            throw new IllegalArgumentException();
+        }
+
+        UserRole userRole = new UserRole();
+        userRole.setId(1L);
+        userRole.setRole("User");
+
+        user.setRole(userRole);
+        user.setRegistration(LocalDate.now());
+
+        userRepository.save(user);
+    }
+
+    @Override
+    public Optional<User> getByEmail(String email) {
+        if (email == null) {
+            throw new IllegalArgumentException();
+        }
+
+        return userRepository.findByEmail(email);
     }
 }

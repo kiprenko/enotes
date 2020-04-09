@@ -1,4 +1,4 @@
-package enotes.entity.userrole;
+package enotes.data.userrole;
 
 public enum UserRoleEnum {
     USER("User", 1),

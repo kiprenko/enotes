@@ -1,6 +1,4 @@
-package enotes.entity.comment.service;
-
-import enotes.entity.comment.Comment;
+package enotes.data.comment;
 
 import java.util.List;
 import java.util.Optional;

@@ -1,6 +1,6 @@
 package enotes.dto.user;
 
-import enotes.entity.userrole.UserRoleEnum;
+import enotes.data.userrole.UserRoleEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -10,7 +10,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Getter @Setter
 @EqualsAndHashCode(exclude = {"password", "decryptedPassword"})
@@ -29,6 +29,7 @@ public class UserDto implements Serializable {
     private String decryptedPassword;
     private int age;
     private String country;
-    private Date registration;
+    private LocalDate registration;
+    private boolean active = true;
     private UserRoleEnum role;
 }

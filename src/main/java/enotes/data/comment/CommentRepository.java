@@ -1,6 +1,5 @@
-package enotes.entity.comment.repository;
+package enotes.data.comment;
 
-import enotes.entity.comment.Comment;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

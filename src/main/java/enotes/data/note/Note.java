@@ -1,6 +1,6 @@
-package enotes.entity.user;
+package enotes.data.note;
 
-import enotes.entity.userrole.UserRole;
+import enotes.data.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -10,33 +10,32 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import javax.persistence.Version;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
-@Table(name = "users")
+@Table(name = "notes")
 @Getter @Setter
-@EqualsAndHashCode(exclude = {"password", "decryptedPassword"})
+@EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(exclude = {"password", "decryptedPassword"})
+@ToString
 @Builder
-public class User implements Serializable {
+public class Note implements Serializable {
     @Id
     @Positive
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,38 +45,30 @@ public class User implements Serializable {
     private Integer version;
 
     @NotBlank
-    @Size(max = 25)
-    private String firstName;
+    @Size(max = 500)
+    private String header;
 
-    @NotBlank
-    @Size(max = 25)
-    private String lastName;
+    @Size(max = 5000)
+    private String body;
 
-    @NotBlank
-    @Size(max = 50)
-    private String email;
-
-    @NotBlank
-    @Size(max = 2000)
-    private String password;
-
-    @Transient
-    private String decryptedPassword;
-
-    @Min(3)
-    @Max(100)
-    private int age;
-
-    @NotBlank
-    @Size(max = 25)
-    private String country;
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private NoteState state;
 
     @PastOrPresent
     @NotNull
-    private Date registration;
+    private LocalDate created;
+    @PastOrPresent
+    private LocalDate lastModified;
+    @PastOrPresent
+    private LocalDate archivedAt;
 
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "role_id")
-    private UserRole role;
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    private boolean isDeleted;
+    private boolean isArchived;
+    private boolean isDone;
 }

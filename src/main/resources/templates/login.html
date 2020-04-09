@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Login</title>
+    <link rel="icon" type="image/ico" th:href="@{/assets/img/raccoon.svg}"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <link th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}"
+          rel="stylesheet" media="screen"/>
+
+    <script th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+
+    <link th:href="@{/assets/css/main.css}" rel="stylesheet" media="screen"/>
+</head>
+<body class="bg-light">
+<div class="container">
+    <div class="mt-5 text-center">
+        <img class="mt-3" th:src="@{/assets/img/raccoon.svg}" alt="enotes" th:height="96" th:width="96">
+        <h4 class="my-2">Sing In</h4>
+        <div class="text-danger" th:if="${param.error}">
+            Invalid username and password.
+        </div>
+        <div class="text-danger" th:if="${param.logout}">
+            You have been logged out.
+        </div>
+        <form th:action="@{/login}" method="post">
+            <div class="col-3 mx-auto">
+                <div class="form-row">
+                    <label for="email">Email:</label>
+                    <input type="email" name="email" id="email" class="form-control" required/>
+                </div>
+                <div class="form-row">
+                    <label for="password">Password:</label>
+                    <input type="password" name="password" id="password" class="form-control" required/>
+                </div>
+                <div class="form-row mt-3">
+                    <button type="submit" class="btn btn-success">Sign In</button>
+                    <a class="ml-5" th:href="@{/registration}">Registration</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

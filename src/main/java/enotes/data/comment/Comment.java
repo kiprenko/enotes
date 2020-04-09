@@ -1,7 +1,7 @@
-package enotes.entity.note;
+package enotes.data.comment;
 
-import enotes.entity.note.notestate.NoteState;
-import enotes.entity.user.User;
+import enotes.data.note.Note;
+import enotes.data.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -11,8 +11,6 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -27,14 +25,14 @@ import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "notes")
+@Table(name = "comments")
 @Getter @Setter
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
 @Builder
-public class Note implements Serializable {
+public class Comment implements Serializable {
     @Id
     @Positive
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,17 +42,16 @@ public class Note implements Serializable {
     private Integer version;
 
     @NotBlank
-    @Size(max = 500)
-    private String header;
-    @Size(max = 5000)
-    private String body;
-    @NotNull
-    @Enumerated(EnumType.STRING)
-    private NoteState state;
+    @Size(max = 200)
+    private String text;
 
     @NotNull
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-    private boolean isDeleted;
+
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name = "note_id")
+    private Note note;
 }
