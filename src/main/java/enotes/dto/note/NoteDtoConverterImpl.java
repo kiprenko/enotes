@@ -1,7 +1,7 @@
 package enotes.dto.note;
 
-import enotes.dto.user.UserDtoConverter;
 import enotes.data.note.Note;
+import enotes.dto.user.UserDtoConverter;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -35,14 +35,14 @@ public class NoteDtoConverterImpl implements NoteDtoConverter {
     }
 
     @Override
-    public NoteDto convertToDtoSkipNull(Note entity) {
+    public NoteDto convertToDtoIgnoreNull(Note entity) {
         NoteDto dto = new NoteDto();
         BeanUtils.copyProperties(entity, dto, getNullPropertyNames(entity));
         return dto;
     }
 
     @Override
-    public Note convertToEntitySkipNull(NoteDto dto) {
+    public Note convertToEntityIgnoreNull(NoteDto dto) {
         Note entity = new Note();
         BeanUtils.copyProperties(dto, entity, getNullPropertyNames(dto));
         return entity;

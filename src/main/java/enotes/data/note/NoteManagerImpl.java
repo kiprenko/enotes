@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
@@ -24,7 +25,7 @@ public class NoteManagerImpl implements NoteManager {
 
     @Override
     public void saveNew(NoteDto noteDto, User user) {
-        Note noteEntity = noteDtoConverter.convertToEntitySkipNull(noteDto);
+        Note noteEntity = noteDtoConverter.convertToEntityIgnoreNull(noteDto);
         noteEntity.setUser(user);
         noteEntity.setCreated(LocalDate.now());
         noteService.save(noteEntity);
@@ -33,6 +34,24 @@ public class NoteManagerImpl implements NoteManager {
     @Override
     public List<NoteDto> getAll(User user) {
         List<Note> notes = noteService.getAllNotes(user);
-        return notes.stream().map(noteDtoConverter::convertToDtoSkipNull).collect(Collectors.toList());
+        return notes.stream().map(noteDtoConverter::convertToDtoIgnoreNull).collect(Collectors.toList());
+    }
+
+    @Override
+    public void update(NoteDto noteDto) {
+        noteService.update(noteDtoConverter.convertToEntityIgnoreNull(noteDto));
+    }
+
+    @Override
+    public Optional<NoteDto> getById(Long id) {
+        return noteService.get(id).map(noteDtoConverter::convertToDtoIgnoreNull);
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        if (id == null || id < 0) {
+            throw new IllegalArgumentException();
+        }
+        noteService.delete(id);
     }
 }

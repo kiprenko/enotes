@@ -6,6 +6,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -70,7 +71,7 @@ public class NoteServiceImpl implements NoteService {
         if (noteId < 1) {
             throw new IllegalArgumentException(String.format("Can't update note with id less than 1. Id = %d", noteId));
         }
-
+        note.setLastModified(LocalDate.now());
         noteRepository.save(note);
     }
 

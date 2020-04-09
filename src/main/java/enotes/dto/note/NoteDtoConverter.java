@@ -1,10 +1,10 @@
 package enotes.dto.note;
 
-import enotes.dto.DtoConverter;
 import enotes.data.note.Note;
+import enotes.dto.DtoConverter;
 
 public interface NoteDtoConverter extends DtoConverter<NoteDto, Note> {
-    NoteDto convertToDtoSkipNull(Note entity);
+    NoteDto convertToDtoIgnoreNull(Note entity);
 
-    Note convertToEntitySkipNull(NoteDto dto);
+    Note convertToEntityIgnoreNull(NoteDto dto);
 }

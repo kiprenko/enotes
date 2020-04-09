@@ -1,11 +1,9 @@
 package enotes.controller.note;
 
 import enotes.data.note.NoteManager;
-import enotes.data.note.NoteService;
 import enotes.data.user.User;
 import enotes.data.user.UserService;
 import enotes.dto.note.NoteDto;
-import enotes.dto.note.NoteDtoConverter;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,18 +21,12 @@ import java.util.Optional;
 @Controller
 public class NotesManageController {
 
-    private final NoteService noteService;
     private final UserService userService;
-    private final NoteDtoConverter noteDtoConverter;
     private final NoteManager noteManager;
 
     @Autowired
-    public NotesManageController(NoteService noteService,
-                                 UserService userService,
-                                 NoteDtoConverter noteDtoConverter, NoteManager noteManager) {
-        this.noteService = noteService;
+    public NotesManageController(UserService userService, NoteManager noteManager) {
         this.userService = userService;
-        this.noteDtoConverter = noteDtoConverter;
         this.noteManager = noteManager;
     }
 
@@ -58,23 +50,21 @@ public class NotesManageController {
     @PostMapping(value = "/update")
     public String updateNote(NoteDto note) {
         LOGGER.info("Updating a note with id = {}", note.getId());
-        noteService.update(noteDtoConverter.convertToEntity(note));
+        noteManager.update(note);
         return "redirect:/note/" + note.getId();
     }
 
     @GetMapping(value = "/delete/{id}")
     public String deleteNote(@PathVariable Long id) {
         LOGGER.info("Deleting note with id = {}", id);
-        if (noteService.delete(id) == -1) {
-            LOGGER.error("Note with id = {} wasn't deleted", id);
-        }
+        noteManager.deleteById(id);
         return "redirect:/notesGalleryView";
     }
 
 
     @GetMapping("/{id}")
     public String viewNote(@PathVariable Long id, Model model) {
-        noteService.get(id).ifPresent(n -> model.addAttribute("note", noteDtoConverter.convertToDto(n)));
+        noteManager.getById(id).ifPresent(n -> model.addAttribute("note", n));
         return "noteManage/viewNote";
     }
 }
