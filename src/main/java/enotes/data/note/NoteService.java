@@ -1,5 +1,7 @@
 package enotes.data.note;
 
+import enotes.data.user.User;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -15,5 +17,5 @@ public interface NoteService {
 
     void update(Note note);
 
-    List<Note> getAllNotes();
+    List<Note> getAllNotes(User user);
 }

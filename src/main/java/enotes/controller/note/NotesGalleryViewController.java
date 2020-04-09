@@ -1,37 +1,38 @@
 package enotes.controller.note;
 
-import enotes.dto.note.NoteDto;
-import enotes.dto.note.NoteDtoConverter;
-import enotes.data.note.NoteService;
+import enotes.data.note.NoteManager;
+import enotes.data.user.User;
+import enotes.data.user.UserService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import java.security.Principal;
+import java.util.Optional;
 
 @Log4j2
 @Controller
 public class NotesGalleryViewController {
 
-    private final NoteService noteService;
-    private final NoteDtoConverter noteDtoConverter;
+    private final NoteManager noteManager;
+    private final UserService userService;
 
     @Autowired
-    public NotesGalleryViewController(NoteService noteService, NoteDtoConverter noteDtoConverter) {
-        this.noteService = noteService;
-        this.noteDtoConverter = noteDtoConverter;
+    public NotesGalleryViewController(NoteManager noteManager, UserService userService) {
+        this.noteManager = noteManager;
+        this.userService = userService;
     }
 
     @GetMapping("/notesGalleryView")
-    public String index(Model model) {
-        List<NoteDto> notes = noteService.getAllNotes().stream()
-                                                       .map(noteDtoConverter::convertToDto)
-                                                       .collect(Collectors.toList());
-        model.addAttribute("notes", notes);
-        LOGGER.info("Showing all list of notes. List size is " + notes.size());
+    public String index(Model model, Principal principal) {
+        Optional<User> user = userService.getByEmail(principal.getName());
+        if (!user.isPresent()) {
+            throw new UsernameNotFoundException(String.format("Username '%s' not found in DB.", principal.getName()));
+        }
+        model.addAttribute("notes", noteManager.getAll(user.get()));
         return "notesGalleryView";
     }
 }

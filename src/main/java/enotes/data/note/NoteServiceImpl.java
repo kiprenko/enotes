@@ -1,6 +1,7 @@
 package enotes.data.note;
 
 import enotes.annotation.cache.Cache;
+import enotes.data.user.User;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -73,9 +74,11 @@ public class NoteServiceImpl implements NoteService {
         noteRepository.save(note);
     }
 
-    @Cache
     @Override
-    public List<Note> getAllNotes() {
-        return (List<Note>) noteRepository.findAll();
+    public List<Note> getAllNotes(User user) {
+        if (user == null) {
+            throw new IllegalArgumentException();
+        }
+        return noteRepository.findAllByUser(user);
     }
 }
