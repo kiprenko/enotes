@@ -68,4 +68,16 @@ public class NotesManageController {
         noteManager.getById(id).ifPresent(n -> model.addAttribute("note", n));
         return "noteManage/viewNote";
     }
+
+    @GetMapping(value = "/archive/{id}")
+    public String archiveNote(@PathVariable Long id) {
+        noteManager.archive(id);
+        return "redirect:/note/" + id;
+    }
+
+    @GetMapping(value = "/unarchive/{id}")
+    public String unarchiveNote(@PathVariable Long id) {
+        noteManager.unarchive(id);
+        return "redirect:/note/" + id;
+    }
 }

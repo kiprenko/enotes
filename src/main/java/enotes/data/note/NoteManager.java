@@ -16,4 +16,8 @@ public interface NoteManager {
     Optional<NoteDto> getById(Long id);
 
     void deleteById(Long id);
+
+    void archive(Long id);
+
+    void unarchive(Long id);
 }

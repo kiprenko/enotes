@@ -66,10 +66,22 @@
                       th:field="*{body}" th:text="*{body}"
                       placeholder="Type your text here..."></textarea>
         </div>
-        <button type="submit" class="btn btn-success">Save editing</button>
-        <a th:href="*{'/note/delete/' + id}">
-            <button type="button" class="btn btn-danger">Delete</button>
-        </a>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <button type="submit" class="btn btn-success">Save editing</button>
+                <a th:href="*{'/note/archive/' + id}" th:if="${!note.isArchived()}">
+                    <button type="button" class="btn btn-warning ml-2">Archive</button>
+                </a>
+                <a th:href="*{'/note/unarchive/' + id}" th:if="${note.isArchived()}">
+                    <button type="button" class="btn btn-info ml-2">Unarchive</button>
+                </a>
+
+                <a th:href="*{'/note/delete/' + id}">
+                    <button type="button" class="btn btn-danger float-right">Delete</button>
+                </a>
+            </div>
+        </div>
     </form>
 </div>
 <div class="container" th:if="${note == null}">

@@ -56,4 +56,28 @@ public class NoteManagerImpl implements NoteManager {
         }
         noteService.delete(id);
     }
+
+    @Override
+    public void archive(Long id) {
+        if (id == null || id < 0) {
+            throw new IllegalArgumentException();
+        }
+        Optional<Note> note = noteService.get(id);
+        note.ifPresent(n -> {
+            n.setArchived(true);
+            noteService.update(n);
+        });
+    }
+
+    @Override
+    public void unarchive(Long id) {
+        if (id == null || id < 0) {
+            throw new IllegalArgumentException();
+        }
+        Optional<Note> note = noteService.get(id);
+        note.ifPresent(n -> {
+            n.setArchived(false);
+            noteService.update(n);
+        });
+    }
 }
