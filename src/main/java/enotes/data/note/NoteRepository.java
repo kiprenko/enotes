@@ -10,6 +10,5 @@ import java.util.List;
 public interface NoteRepository extends CrudRepository<Note, Long> {
     List<Note> findAllByUser(User user);
 
-    List<Note> findAllByUserAndIsArchived(User user, boolean isArchived);
-
+    List<Note> findAllByUserAndIsArchivedOrderByCreatedDesc(User user, boolean isArchived);
 }

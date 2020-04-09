@@ -80,7 +80,7 @@ public class NoteServiceImpl implements NoteService {
         if (user == null) {
             throw new IllegalArgumentException();
         }
-        return noteRepository.findAllByUserAndIsArchived(user, false);
+        return noteRepository.findAllByUserAndIsArchivedOrderByCreatedDesc(user, false);
     }
 
     @Override
@@ -88,6 +88,6 @@ public class NoteServiceImpl implements NoteService {
         if (user == null) {
             throw new IllegalArgumentException();
         }
-        return noteRepository.findAllByUserAndIsArchived(user, true);
+        return noteRepository.findAllByUserAndIsArchivedOrderByCreatedDesc(user, true);
     }
 }

@@ -3,6 +3,7 @@
 <head lang="en">
 
     <title>Your notes</title>
+    <link rel="icon" type="image/ico" th:href="@{/assets/img/raccoon.svg}"/>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
     <link th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}"
@@ -19,9 +20,20 @@
     <h3 class="font-weight-light text-center text-lg-left mt-4 mb-0">Your notes</h3>
 
     <hr class="mt-2 mb-5">
+
+    <h6 class="font-weight-light text-center text-lg-left mb-2">Filters</h6>
+    <ul class="list-group list-group-horizontal">
+        <li class="list-group-item border-right-0 border-top-0 border-bottom-0"><a href="#">Done
+            notes</a></li>
+        <li class="list-group-item border-right-0 border-top-0 border-bottom-0"><a href="#">Not done
+            notes</a></li>
+        <li class="list-group-item border-right-0 border-top-0 border-bottom-0"><a href="#">Todays
+            notes</a></li>
+    </ul>
     <div class="row text-center text-lg-left" id="gallery">
         <th:block th:if="${not #lists.isEmpty(notes)}" th:each="note : ${notes}">
-            <div class="border-left  col-lg-3 col-md-4 col-6 m-3">
+            <div class="border-left  col-lg-3 col-md-4 col-6 m-3"
+                 th:classappend="${note.isDone()} ? 'border-success border-3' : ''">
                 <div class="panel-heading d-inline" th:text="${note.header}"></div>
                 <th:block th:switch="${note.state.stateAsString}">
                     <div th:case="'High'" class="panel-heading d-inline text-danger "
@@ -38,7 +50,9 @@
             </div>
         </th:block>
 
-        <p th:if="${#lists.isEmpty(notes)}">It seems you don't have any notes. <a th:href="@{/note/new}">Let's create them!</a></p>
+        <p th:if="${#lists.isEmpty(notes)}">It seems you don't have any notes. <a
+                th:href="@{/note/new}">Let's create them!</a></p>
+    </div>
     </div>
 </div>
 

@@ -13,3 +13,7 @@
     padding-top: 23px;
     padding-left: 10px;
 }
+
+.border-3 {
+    border-width: 3px !important;
+}
