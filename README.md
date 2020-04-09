@@ -1,4 +1,7 @@
-![enotes](https://github.com/evgeniykiprenko/enotes/blob/develop/src/main/resources/static/assets/img/raccoon.svg)
+![enotes](https://github.com/evgeniykiprenko/enotes/blob/develop/src/main/resources/static/assets/img/raccoon.svg =96x)
+
+Icons made by [Smashicons](https://www.flaticon.com/authors/smashicons).
+
 
 # enotes :notebook_with_decorative_cover:
 **Enotes** is a web application for creating and managing personal notes. 
