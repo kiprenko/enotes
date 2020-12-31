@@ -24,9 +24,11 @@ application will provide high notes management system. Notes have headers and bo
 - The project uses MySQL Database as main, and H2 for testing. The main DB script [main.sql](main.sql);
 - The project uses Apache Tomcat;
 
-## Author :person_with_blond_hair:
-name: Yevgeniy Kiprenko 
-email: zhenyakiprenko@gmail.com
-telegram: https://t.me/Jus7XV
+## Author :panda_face:
+
+- Name: Evgeniy Kiprenko
+- Email: zhenyakiprenko@gmail.com
+- [LinkedIn](https://www.linkedin.com/in/evgeniy-kiprenko/)
+- [Telegram](https://t.me/Jus7XV)
 
 **Note:** this README file will be updated regularly, to include more project information. I have a plan to add **diagrams** here.
