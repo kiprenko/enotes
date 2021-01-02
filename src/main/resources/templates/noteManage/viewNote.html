@@ -3,6 +3,7 @@
 <head lang="en">
 
     <title>View note</title>
+    <link rel="icon" type="image/ico" th:href="@{/assets/img/raccoon.svg}"/>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
     <link th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}"
@@ -19,30 +20,80 @@
     <form th:object="${note}" method="post" th:action="@{/note/update}">
         <div class="hidden">
             <input type="text" th:field="*{id}" th:value="*{id}">
+            <input type="text" th:field="*{version}" th:value="*{version}">
         </div>
+        <div class="custom-control custom-checkbox checkbox-xl mt-2 mb-4">
+            <input type="checkbox" class="custom-control-input" id="isDone" checked=""
+                   th:field="*{done}"
+                   th:checked="*{done}">
+            <label class="custom-control-label" for="isDone">Done</label>
+        </div>
+
         <div class="form-group">
-            <textarea class="form-control rounded-2" id="note-header-ta" rows="1"
-                      th:field="*{header}" th:text="*{header}"></textarea>
+            <textarea class="form-control rounded-2 border-0" id="note-header-ta" rows="1"
+                      th:field="*{header}" th:text="*{header}" required
+                      placeholder="Type your header here..."></textarea>
         </div>
+
+        <hr class="mt-1">
+        <div class="row my-3">
+            <div class="col-2">
+                <label for="noteStateSelect">Note priority:</label>
+                <select name="state" id="noteStateSelect" class="form-control rounded-2 border-0">
+                    <option th:each="state : ${T(enotes.data.note.NoteState).values()}"
+                            th:value="${state}" th:text="${state.stateAsString}"
+                            th:selected="${state == note.state}"></option>
+                </select>
+            </div>
+            <div class="col-2">
+                <label for="created">Created:</label>
+                <input id="created" class="form-control rounded-2 border-0 bg-transparent"
+                       type="text"
+                       th:field="*{created}" th:value="*{created}" readonly>
+            </div>
+            <div class="col-2" th:if="${note.lastModified != null}">
+                <label for="lastModified">Last modified:</label>
+                <input id="lastModified" class="form-control rounded-2 border-0 bg-transparent"
+                       type="text"
+                       th:field="*{lastModified}" th:value="*{lastModified}" readonly>
+            </div>
+            <div class="col-2" th:if="${note.archivedAt != null}">
+                <label for="archivedAt">Archived:</label>
+                <input id="archivedAt" class="form-control rounded-2 border-0 bg-transparent"
+                       type="text"
+                       th:field="*{archivedAt}" th:value="*{archivedAt}" readonly>
+            </div>
+        </div>
+
+        <hr class="my-1">
+
         <div class="form-group">
-            <select name="state" id="noteStateSelect">
-                <option th:each="state : ${T(enotes.note.NoteState).values()}"
-                        th:value="${state}" th:text="${state.stateAsString}"
-                        th:selected="${state == note.state}"></option>
-            </select>
+            <textarea class="form-control rounded-2 border-0" id="note-body-ta" rows="5"
+                      th:field="*{body}" th:text="*{body}"
+                      placeholder="Type your text here..."></textarea>
         </div>
-        <div class="form-group">
-            <textarea class="form-control rounded-2" id="note-body-ta" rows="10"
-                      th:field="*{body}" th:text="*{body}"></textarea>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <button type="submit" class="btn btn-success">Save editing</button>
+                <a th:href="*{'/note/archive/' + id}" th:if="${!note.isArchived()}">
+                    <button type="button" class="btn btn-warning ml-2">Archive</button>
+                </a>
+                <a th:href="*{'/note/unarchive/' + id}" th:if="${note.isArchived()}">
+                    <button type="button" class="btn btn-info ml-2">Unarchive</button>
+                </a>
+
+                <a th:href="*{'/note/delete/' + id}">
+                    <button type="button" class="btn btn-danger float-right">Delete</button>
+                </a>
+            </div>
         </div>
-        <button type="submit" class="btn btn-success">Save editing</button>
-        <a th:href="*{'/note/delete/' + id}">
-            <button type="button" class="btn btn-danger">Delete</button>
-        </a>
     </form>
 </div>
 <div class="container" th:if="${note == null}">
     <h3>Oops, it seems we have a problem with your note:(</h3>
 </div>
+
+<div th:insert="fragments/footer :: footer"></div>
 </body>
 </html>

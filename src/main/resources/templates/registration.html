@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Registration</title>
+    <link rel="icon" type="image/ico" th:href="@{/assets/img/raccoon.svg}"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <link th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}"
+          rel="stylesheet" media="screen"/>
+
+    <script th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+
+    <link th:href="@{/assets/css/main.css}" rel="stylesheet" media="screen"/>
+</head>
+<body class="bg-light">
+<div class="container">
+    <div class="mt-5 text-center">
+        <form th:object="${user}" th:action="@{/registration}" method="post">
+            <div class="col-5 mx-auto">
+                <img class="mt-3" th:src="@{/assets/img/raccoon.svg}" alt="enotes" th:height="96" th:width="96">
+                <h4 class="my-2">Fill the registration form</h4>
+                <div class="form-row">
+                    <label for="email">Email:</label>
+                    <input th:field="*{email}" type="email" name="email" id="email" class="form-control" required/>
+                </div>
+                <div class="form-row">
+                    <label for="password">Password:</label>
+                    <input th:field="*{decryptedPassword}" type="password" name="password" id="password" class="form-control" required/>
+                </div>
+                <div class="form-row">
+                    <label for="firstName">First name:</label>
+                    <input th:field="*{firstName}" type="text" name="firstName" id="firstName" class="form-control" required/>
+                </div>
+                <div class="form-row">
+                    <label for="lastName">Last name:</label>
+                    <input th:field="*{lastName}" type="text" name="lastName" id="lastName" class="form-control" required/>
+                </div>
+                <div class="form-row">
+                    <label for="country">Country:</label>
+                    <input th:field="*{country}" type="text" name="country" id="country" class="form-control" required/>
+                </div>
+                <div class="form-row">
+                    <label for="age">Age:</label>
+                    <input th:field="*{age}" type="text" name="age" id="age" class="form-control" required/>
+                </div>
+                <div class="form-row mt-3">
+                    <button type="submit" class="btn btn-info">Sign Up</button>
+                    <p class="ml-5">Already have account?<a th:href="@{/login}"> Sign In</a></p>
+                </div>
+                <div class="text-danger" th:if="${isExisting}">
+                    User with such email already exists.
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>
