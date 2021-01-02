@@ -37,21 +37,21 @@ addition, they have priority marks, which can be Low, Middle or High.
   script [main.sql](main.sql);
 - The project uses Apache Tomcat;
 
-### Build and deploy
+### Build and package
 
 **Prerequisites**<br>
-To build and deploy the application you need Java 8, Maven and MySQL installed.<br>
+To build and package the application you need Java 8, Maven and MySQL installed.<br>
 After you installed MySQL server, run the [main.sql](main.sql) to create the schema and required
 tables.
 
-**Build and deploy**<br>
+**Build and package**<br>
 
 1. Pull the project sources to your machine using Git;
 2. Go to the root of the project and run `mvn package` in your console (terminal);
-3. After the packaging finish, run the command to deploy the
-   application `java -jar target/enotes-1.0-SNAPSHOT.jar`;
-4. The application will be deployed (by default the port is 8080);
-5. Open your browser and type `localhost:8080` to open the application.
+
+After the packaging finish, run the command to start the
+application `java -jar target/enotes-1.0-SNAPSHOT.jar`. The application will be started (by default
+the port is 8080). Open your browser and type `localhost:8080` to open the application.
 
 ### Use case
 
