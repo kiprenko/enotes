@@ -39,6 +39,12 @@ addition, they have priority marks, which can be Low, Middle or High.
 
 ### Build and deploy
 
+**Prerequisites**
+To Build and deploy the application you need Java 8, Maven and MySQL installed. After you installed
+MySQL server, run the [main.sql](main.sql) to create the schema and required tables.
+
+**Build and deploy**
+
 1. Pull the project sources to your machine using Git;
 2. Go to the root of the project and run `mvn package` in your console (terminal);
 3. After the packaging finish, run the command to deploy the
