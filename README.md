@@ -17,8 +17,8 @@ addition, they have priority marks, which can be Low, Middle or High.
 - **User** - a customer of Enotes. To become a user you need to create an account using the
   registration form or using Rest API. Users can create and manage their notes, combine them into
   notebooks, etc;
-- **Note** - a simple note, which includes header, body and priority mark (high, middle, low). It
-  can be created, modified and deleted by a user. Also can be combined into a notebook;
+- **Note** - a simple note, which includes a header, a body, and a priority mark (high, middle, low)
+  . It can be created, modified and deleted by a user. Also, can be combined into a notebook;
 - **Comment** - a comment for a note. Users can comment notes. Comments can be edited and deleted.
   -**NotesGalleryView** - the main page for every user, this page shows all user's notes. Using this
   page users can view, edit and delete notes.
@@ -39,11 +39,12 @@ addition, they have priority marks, which can be Low, Middle or High.
 
 ### Build and deploy
 
-**Prerequisites**
-To Build and deploy the application you need Java 8, Maven and MySQL installed. After you installed
-MySQL server, run the [main.sql](main.sql) to create the schema and required tables.
+**Prerequisites**<br>
+To build and deploy the application you need Java 8, Maven and MySQL installed.<br>
+After you installed MySQL server, run the [main.sql](main.sql) to create the schema and required
+tables.
 
-**Build and deploy**
+**Build and deploy**<br>
 
 1. Pull the project sources to your machine using Git;
 2. Go to the root of the project and run `mvn package` in your console (terminal);
