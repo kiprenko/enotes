@@ -19,7 +19,7 @@
         <spring-boot.version>2.2.2.RELEASE</spring-boot.version>
         <lombok.version>1.18.10</lombok.version>
         <aspectjrt.version>1.8.9</aspectjrt.version>
-        <mysql-connector.version>8.0.18</mysql-connector.version>
+        <mysql-connector.version>8.0.28</mysql-connector.version>
         <bootstrap.version>4.3.1</bootstrap.version>
         <jquery.version>3.4.1</jquery.version>
         <log4j.version>2.13.1</log4j.version>
